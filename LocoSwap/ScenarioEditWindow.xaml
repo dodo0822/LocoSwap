@@ -1,0 +1,100 @@
+﻿<Window x:Class="LocoSwap.ScenarioEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocoSwap"
+        xmlns:converters="clr-namespace:LocoSwap.Converters" xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:lang="clr-namespace:LocoSwap.Language;assembly=LocoSwap.Language"
+        mc:Ignorable="d"
+        Title="{Binding Scenario.Name, Mode=OneWay, StringFormat={x:Static lang:Resources.edit_scenario_title}}" Height="881.5" Width="1204.959" Closed="Window_Closed">
+    <Window.Resources>
+        <converters:StatusToImageConverter x:Key="StatusToImageConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:VehicleImageSourceConverter x:Key="VehicleImageSourceConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+
+        <CollectionViewSource Source="{Binding AvailableVehicles}" x:Key="AvailableVehiclesSource">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="DisplayName"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </Window.Resources>
+    <Grid Margin="0,0,-5,0.5">
+        <Label Content="{x:Static lang:Resources.route}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="{x:Static lang:Resources.scenario}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Scenario.Name, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="73,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" IsReadOnly="True" Focusable="False"/>
+        <TextBox Text="{Binding Route.Name, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="73,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" IsReadOnly="True" Focusable="False"/>
+        <Label Content="{x:Static lang:Resources.consists_in_scenario}" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="ConsistListBox" ItemsSource="{Binding Consists}" HorizontalAlignment="Left" Margin="10,104,0,10" Width="279" SelectionChanged="ConsistListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding IsComplete, Converter={StaticResource StatusToImageConverter}}" Width="8" Height="8" />
+                        <TextBlock Text="{Binding Name}" Margin="10,0,0,0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Label Content="{x:Static lang:Resources.vehicles_in_selected_consist}" HorizontalAlignment="Left" Margin="294,73,0,0" VerticalAlignment="Top"/>
+        <ListBox ItemsSource="{Binding Vehicles}" x:Name="VehicleListBox" HorizontalAlignment="Left" Margin="294,104,0,10" Width="294" SelectionMode="Extended">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Exists, Converter={StaticResource StatusToImageConverter}}" Width="8" Height="8" />
+                        <TextBlock Text="{Binding DisplayName}" Margin="10,0,0,0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Visibility="{Binding LoadingGridVisibility}" x:Name="LoadingGrid" HorizontalAlignment="Left" Height="68" Margin="454,0,0,0" VerticalAlignment="Top" Width="200">
+            <ProgressBar Value="{Binding LoadingProgress}" x:Name="LoadingProgressBar" HorizontalAlignment="Left" Height="22" Margin="10,36,0,0" VerticalAlignment="Top" Width="176"/>
+            <Label Content="{Binding LoadingInformation}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <GroupBox Header="{x:Static lang:Resources.vehicle_to_be_replaced}" HorizontalAlignment="Left" Height="351" Margin="593,73,0,0" VerticalAlignment="Top" Width="300">
+            <Grid HorizontalAlignment="Left" Margin="10,0,-2,0" Width="280">
+                <Label Content="{x:Static lang:Resources.name}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,6,0,0"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="66,7,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayName, Mode=OneWay, ElementName=VehicleListBox}" VerticalAlignment="Top" Width="204" IsReadOnly="True"/>
+                <Label Content="{x:Static lang:Resources.number}" HorizontalAlignment="Left" Margin="0,39,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="66,41,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.Number, ElementName=VehicleListBox, Mode=OneWay}" VerticalAlignment="Top" Width="204" IsReadOnly="True"/>
+                <Label Content="{x:Static lang:Resources.path}" HorizontalAlignment="Left" Margin="0,70,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="63" Margin="0,101,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.XmlPath, Mode=OneWay, ElementName=VehicleListBox, StringFormat='\\Assets\\\{0\}'}" VerticalAlignment="Top" Width="270" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+                <Image Source="{Binding SelectedItem.XmlPath, Mode=OneWay, ElementName=VehicleListBox, Converter={StaticResource VehicleImageSourceConverter}}" HorizontalAlignment="Left" Height="116" Margin="0,171,0,0" VerticalAlignment="Top" Width="270"/>
+                <Button x:Name="ChangeNumberButton" Content="{x:Static lang:Resources.change_number}" HorizontalAlignment="Left" Margin="0,0,0,10" Width="125" Click="ChangeNumberButton_Click" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="26"/>
+            </Grid>
+        </GroupBox>
+        <TreeView x:Name="DirectoryTree" Height="329" Margin="898,99,20,0" VerticalAlignment="Top" ItemsSource="{Binding Directories}" TreeViewItem.Expanded="TreeView_Expanded">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding SubDirectories}">
+                    <TextBlock Text="{Binding Name}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <Label Content="{x:Static lang:Resources.replace_with}" HorizontalAlignment="Left" Margin="898,73,0,0" VerticalAlignment="Top"/>
+        <GroupBox Header="{x:Static lang:Resources.new_vehicle_selected}" HorizontalAlignment="Left" Height="352" Margin="593,492,0,0" VerticalAlignment="Top" Width="300">
+            <Grid HorizontalAlignment="Left" Height="341" Margin="10,0,-2,-13" VerticalAlignment="Top" Width="280">
+                <Label Content="{x:Static lang:Resources.name}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="0,26,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayName, Mode=OneWay, ElementName=AvailableVehicleListBox}" VerticalAlignment="Top" Width="270" IsReadOnly="True"/>
+                <Label Content="{x:Static lang:Resources.path}" HorizontalAlignment="Left" Margin="0,49,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="63" Margin="0,75,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.XmlPath, Mode=OneWay, ElementName=AvailableVehicleListBox, StringFormat='\\Assets\\\{0\}'}" VerticalAlignment="Top" Width="270" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+                <Image Source="{Binding SelectedItem.XmlPath, Mode=OneWay, ElementName=AvailableVehicleListBox, Converter={StaticResource VehicleImageSourceConverter}}" HorizontalAlignment="Left" Height="116" Margin="0,148,0,0" VerticalAlignment="Top" Width="270"/>
+                <Button x:Name="AvailableVehicleNumberListButton" Content="{x:Static lang:Resources.numbering_list}" HorizontalAlignment="Left" Margin="0,269,0,0" VerticalAlignment="Top" Width="125" Height="26" Click="AvailableVehicleNumberListButton_Click"/>
+            </Grid>
+        </GroupBox>
+        <ListBox x:Name="AvailableVehicleListBox" ItemsSource="{Binding Source={StaticResource AvailableVehiclesSource}}" Margin="898,464,20,9.5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DisplayName}" Margin="0,0,0,0" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="ScanButton" IsEnabled="{Binding VehicleScanInProgress, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static lang:Resources.look_up_vehicles}" Margin="898,433,0,0" VerticalAlignment="Top" Click="ScanButton_Click" Height="26" HorizontalAlignment="Left" Width="155"/>
+        <Button Visibility="{Binding VehicleScanInProgress, Converter={StaticResource BoolToVis}}" x:Name="CancelScanningButton" Content="{x:Static lang:Resources.cancel}" Margin="0,433,20,0" VerticalAlignment="Top" Height="26" Click="CancelScanningButton_Click" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="AddToRulesButton" Content="{x:Static lang:Resources.add_to_rules}" HorizontalAlignment="Left" Margin="760,458,0,0" VerticalAlignment="Top" Width="133" Height="26" Click="AddToRulesButton_Click"/>
+        <Button x:Name="ReplaceIdenticalButton" Content="{x:Static lang:Resources.replace_identical}" HorizontalAlignment="Left" Margin="593,458,0,0" VerticalAlignment="Top" Width="162" Height="26" Click="ReplaceIdenticalButton_Click"/>
+        <Button x:Name="SaveButton" Content="{x:Static lang:Resources.save}" Margin="0,13,20,0" VerticalAlignment="Top" Click="SaveButton_Click" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="ReplaceButton" Content="{x:Static lang:Resources.replace}" HorizontalAlignment="Left" Margin="593,429,0,0" VerticalAlignment="Top" Width="300" Height="26" Click="ReplaceButton_Click"/>
+        <Button x:Name="PresetButton" Content="{x:Static lang:Resources.replacement_rules}" Margin="0,13,100,0" VerticalAlignment="Top" Click="PresetButton_Click" HorizontalAlignment="Right" Width="119"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="add_to_rules" xml:space="preserve">
+    <value>Zu Regeln hinzufügen</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="browse" xml:space="preserve">
+    <value>Wählen</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="change_number" xml:space="preserve">
+    <value>Nummer ändern</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="consists_in_scenario" xml:space="preserve">
+    <value>Züge</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="edit_scenario" xml:space="preserve">
+    <value>Szenario bearbeiten</value>
+  </data>
+  <data name="edit_scenario_title" xml:space="preserve">
+    <value>Szenario bearbeiten: {0}</value>
+  </data>
+  <data name="enter_number_manually" xml:space="preserve">
+    <value>Oder hier Fahrzeugnummer manuell eingeben:</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="look_up_vehicles" xml:space="preserve">
+    <value>Fahrzeugdatei absuchen</value>
+  </data>
+  <data name="msg_cannot_load_vehicle" xml:space="preserve">
+    <value>Fahrzeug "{0}" kann nicht geladen werden!</value>
+  </data>
+  <data name="msg_error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="msg_first_time" xml:space="preserve">
+    <value>Erster Lauf: bitte Train Simulator-Verzeichnis auswählen</value>
+  </data>
+  <data name="msg_message" xml:space="preserve">
+    <value>Meldung</value>
+  </data>
+  <data name="msg_no_directory_selected" xml:space="preserve">
+    <value>Bitte erst ein Verzeichnis auswählen.</value>
+  </data>
+  <data name="msg_no_vehicle_selected" xml:space="preserve">
+    <value>Bitte erst Fahrzeugen auswählen.</value>
+  </data>
+  <data name="msg_scenario_saved" xml:space="preserve">
+    <value>Szenariodatei ist erfolgreich gespeichert.</value>
+  </data>
+  <data name="msg_swap_completed" xml:space="preserve">
+    <value>Der Austausch ist erfolgreich abgeschlossen.</value>
+  </data>
+  <data name="msg_ts_path_invalid" xml:space="preserve">
+    <value>Der eingegebene TS-Pfad ist ungültig! (bitte prüfen, dass RailWorks.exe steht dort)</value>
+  </data>
+  <data name="msg_ts_path_required" xml:space="preserve">
+    <value>Ein gültige Train Simulator-Pfad ist erforderlich, um diese App auszuführen. Die App wird nun beendet.</value>
+  </data>
+  <data name="msg_vehicles_added_to_rules" xml:space="preserve">
+    <value>Fahrzeug ist zu Tausch-Regeln hinzugefügt.</value>
+  </data>
+  <data name="msg_vehicle_already_in_rules" xml:space="preserve">
+    <value>Fahrzeug "{0}" ist bereits in Tausch-Regeln! Möchten Sie diese Regel aktualisieren?</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="new_vehicle_selected" xml:space="preserve">
+    <value>Gewünschte Fahrzeug (rechte Seite):</value>
+  </data>
+  <data name="number" xml:space="preserve">
+    <value>Nummer</value>
+  </data>
+  <data name="numbering_list" xml:space="preserve">
+    <value>Nummerierungliste</value>
+  </data>
+  <data name="numbering_list_not_found" xml:space="preserve">
+    <value>Nummerungsliste ist nicht gefunden; bitte Nummer manuell eingeben</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="open_scenario_directory" xml:space="preserve">
+    <value>Szenario-Verzeichnis öffnen</value>
+  </data>
+  <data name="path" xml:space="preserve">
+    <value>Pfad</value>
+  </data>
+  <data name="reading_scenario_files" xml:space="preserve">
+    <value>Szenariodatei wird geladen...</value>
+  </data>
+  <data name="replace" xml:space="preserve">
+    <value>Tauschen</value>
+  </data>
+  <data name="replacement_rules" xml:space="preserve">
+    <value>Tausch-Regeln</value>
+  </data>
+  <data name="replace_identical" xml:space="preserve">
+    <value>Alle gleiche tauschen</value>
+  </data>
+  <data name="replace_with" xml:space="preserve">
+    <value>Gegen ... tauschen:</value>
+  </data>
+  <data name="route" xml:space="preserve">
+    <value>Strecke</value>
+  </data>
+  <data name="rule_find" xml:space="preserve">
+    <value>Search for...</value>
+  </data>
+  <data name="rule_replace" xml:space="preserve">
+    <value>Replace with...</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="saving_scenario" xml:space="preserve">
+    <value>Szenariodatei wird gespeichert.</value>
+  </data>
+  <data name="scanning_ap_files" xml:space="preserve">
+    <value>.ap-Pakete durchsuchen...</value>
+  </data>
+  <data name="scanning_bin_files" xml:space="preserve">
+    <value>Nach .bin-Dateien durchsuchen...</value>
+  </data>
+  <data name="scenario" xml:space="preserve">
+    <value>Szenario</value>
+  </data>
+  <data name="select_ts_path" xml:space="preserve">
+    <value>Train Simulator-Pfad auswählen</value>
+  </data>
+  <data name="settings" xml:space="preserve">
+    <value>Einstellung</value>
+  </data>
+  <data name="ts_directory" xml:space="preserve">
+    <value>Train Simulator-Pfad</value>
+  </data>
+  <data name="use_system_language" xml:space="preserve">
+    <value>Systemsprache verwenden</value>
+  </data>
+  <data name="vehicles_in_selected_consist" xml:space="preserve">
+    <value>Fahrzeuge im ausgewählten Zug</value>
+  </data>
+  <data name="vehicle_to_be_replaced" xml:space="preserve">
+    <value>Diese Fahrzeug wird getauscht (linke Seite):</value>
+  </data>
+</root>
