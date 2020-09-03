@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,11 +25,13 @@ namespace LocoSwap
     {
         public ObservableCollection<Route> Routes { get; } = new ObservableCollection<Route>();
         public ObservableCollection<Scenario> Scenarios { get; } = new ObservableCollection<Scenario>();
+        public string WindowTitle { get; set; } = "LocoSwap";
         public MainWindow()
         {
             InitializeComponent();
 
             this.DataContext = this;
+            this.WindowTitle = "LocoSwap " + Assembly.GetEntryAssembly().GetName().Version.ToString();
 
             var routeIds = Route.ListAllRoutes();
 
