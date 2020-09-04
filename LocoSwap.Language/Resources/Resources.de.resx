@@ -199,7 +199,7 @@
     <value>Name</value>
   </data>
   <data name="new_vehicle_selected" xml:space="preserve">
-    <value>Gewünschte Fahrzeug (rechte Seite):</value>
+    <value>Gewünschtes Fahrzeug (rechte Seite):</value>
   </data>
   <data name="number" xml:space="preserve">
     <value>Nummer</value>
@@ -274,6 +274,6 @@
     <value>Fahrzeuge im ausgewählten Zug</value>
   </data>
   <data name="vehicle_to_be_replaced" xml:space="preserve">
-    <value>Diese Fahrzeug wird getauscht (linke Seite):</value>
+    <value>Dieses Fahrzeug wird getauscht (linke Seite):</value>
   </data>
 </root>
