@@ -295,6 +295,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied while trying to write to scenario files. Please check that Scenario.bin and ScenarioProperties.xml are not write protected..
+        /// </summary>
+        public static string msg_write_access_denied {
+            get {
+                return ResourceManager.GetString("msg_write_access_denied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string name {

@@ -195,6 +195,9 @@
   <data name="msg_vehicle_already_in_rules" xml:space="preserve">
     <value>Fahrzeug "{0}" ist bereits in Tausch-Regeln! Möchten Sie diese Regel aktualisieren?</value>
   </data>
+  <data name="msg_write_access_denied" xml:space="preserve">
+    <value>Zugriff der Szenariodateien ist verweigert. Bitte prüfen, dass "Scenario.bin" und "ScenarioProperties.xml" nicht schreibgeschützt sind.</value>
+  </data>
   <data name="name" xml:space="preserve">
     <value>Name</value>
   </data>

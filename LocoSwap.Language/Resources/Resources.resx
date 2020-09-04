@@ -195,6 +195,9 @@
   <data name="msg_vehicle_already_in_rules" xml:space="preserve">
     <value>Vehicle "{0}" is already in replacement rules! Update this rule?</value>
   </data>
+  <data name="msg_write_access_denied" xml:space="preserve">
+    <value>Access denied while trying to write to scenario files. Please check that Scenario.bin and ScenarioProperties.xml are not write protected.</value>
+  </data>
   <data name="name" xml:space="preserve">
     <value>Name</value>
   </data>

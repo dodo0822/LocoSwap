@@ -298,14 +298,32 @@ namespace LocoSwap
             ViewModel.LoadingProgress = 20;
             var task = Task.Run(() =>
             {
-                ViewModel.Scenario.Save();
+                try
+                {
+                    ViewModel.Scenario.Save();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
             });
-            await task;
+            var result = await task;
             ViewModel.LoadingProgress = 100;
-            MessageBox.Show(
-                LocoSwap.Language.Resources.msg_scenario_saved,
-                LocoSwap.Language.Resources.msg_message,
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            if (result)
+            {
+                MessageBox.Show(
+                    LocoSwap.Language.Resources.msg_scenario_saved,
+                    LocoSwap.Language.Resources.msg_message,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show(
+                    LocoSwap.Language.Resources.msg_write_access_denied,
+                    LocoSwap.Language.Resources.msg_error,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             return;
         }
 
