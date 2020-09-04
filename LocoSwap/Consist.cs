@@ -12,6 +12,7 @@ namespace LocoSwap
         private string _name;
         private VehicleExistance _isComplete;
         private List<ScenarioVehicle> _vehicles;
+        private bool _isPlayerConsist;
         public int Idx
         {
             get => _idx;
@@ -32,6 +33,11 @@ namespace LocoSwap
             get => _vehicles;
             set => SetProperty(ref _vehicles, value);
         }
+        public bool IsPlayerConsist
+        {
+            get => _isPlayerConsist;
+            set => SetProperty(ref _isPlayerConsist, value);
+        }
 
         public Consist()
         {
@@ -39,6 +45,7 @@ namespace LocoSwap
             Name = "";
             IsComplete = VehicleExistance.Found;
             Vehicles = new List<ScenarioVehicle>();
+            IsPlayerConsist = false;
         }
 
         public Consist(int idx, string name)
@@ -47,6 +54,7 @@ namespace LocoSwap
             Name = name;
             IsComplete = VehicleExistance.Found;
             Vehicles = new List<ScenarioVehicle>();
+            IsPlayerConsist = false;
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace LocoSwap
 {
@@ -58,6 +59,23 @@ namespace LocoSwap
             }
             return true;
         }
+
+        public static void CopyUserLocalisedString(XElement dest, XElement orig)
+        {
+            if (dest == null || orig == null) return;
+            var names = new string[]{ "English", "French", "Italian", "German", "Spanish", "Dutch", "Polish", "Russian", "Key" };
+            foreach (var name in names)
+            {
+                XElement destName = dest.Element(name);
+                XElement origName = orig.Element(name);
+                if (destName != null && origName != null)
+                {
+                    destName.Value = origName.Value;
+                }
+            }
+            dest.Element("Other").Elements().Remove();
+        }
+
         public static class StaticRandom
         {
             private static int seed;

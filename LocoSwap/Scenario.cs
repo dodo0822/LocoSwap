@@ -120,6 +120,11 @@ namespace LocoSwap
                         name = nameElement.Value;
                         break;
                     }
+                    XElement playerDriver = driver.Element("PlayerDriver");
+                    if (playerDriver.Value == "1")
+                    {
+                        consistObj.IsPlayerConsist = true;
+                    }
                 }
 
                 IEnumerable<XElement> vehicles = consist.Element("RailVehicles").Descendants("cOwnedEntity");
@@ -219,6 +224,7 @@ namespace LocoSwap
                 throw new Exception("Vehicle not found");
             }
             XElement blueprintID = vehicle.Element("BlueprintID").Element("iBlueprintLibrary-cAbsoluteBlueprintID");
+            var origBlueprintID = blueprintID.Element("BlueprintID").Value;
             blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").SetValue(newVehicle.Provider);
             blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").SetValue(newVehicle.Product);
             blueprintID.Element("BlueprintID").SetValue(newVehicle.BlueprintId);
@@ -319,6 +325,42 @@ namespace LocoSwap
             {
                 Debug.Print("Need to remove entities {0} -> {1}", entityCount, newVehicle.EntityCount);
                 cEntityContainer.Elements().Take(entityCount - newVehicle.EntityCount).Remove();
+            }
+
+            if(consist.Element("Driver") != null)
+            {
+                XElement cDriver = consist.Element("Driver").Element("cDriver");
+                if(cDriver.Element("PlayerDriver") != null)
+                {
+                    if(cDriver.Element("PlayerDriver").Value == "1")
+                    {
+                        Debug.Print("Train is driven by player; checking whether the loco is swapped");
+                        var key = cDriver.Element("ServiceName").Descendants("Key").First().Value;
+                        XElement sDriverFrontEndDetails = ScenarioProperties.Root.Element("FrontEndDriverList")
+                            .Elements("sDriverFrontEndDetails").Where(element => element.Element("ServiceName").Element("Localisation-cUserLocalisedString").Element("Key").Value == key).FirstOrDefault();
+                        if(sDriverFrontEndDetails == null)
+                        {
+                            Debug.Print("Could not find sDriverFrontEndDetails with key {0}!", key);
+                        }
+                        else
+                        {
+                            var consistLocoBlueprintId = sDriverFrontEndDetails.Element("LocoBP").Descendants("BlueprintID").First().Value;
+                            if (consistLocoBlueprintId == origBlueprintID)
+                            {
+                                Debug.Print("Update new sDriverFrontEndDetails to Blueprint ID {0}", newVehicle.BlueprintId);
+                                XElement destLocalisedString = sDriverFrontEndDetails.Element("LocoName").Element("Localisation-cUserLocalisedString");
+                                XElement origLocalisedString = newVehicle.NameLocalisedString;
+                                Utilities.CopyUserLocalisedString(destLocalisedString, origLocalisedString);
+                                sDriverFrontEndDetails.Element("LocoBP").Descendants("Provider").First().Value = newVehicle.Provider;
+                                sDriverFrontEndDetails.Element("LocoBP").Descendants("Product").First().Value = newVehicle.Product;
+                                sDriverFrontEndDetails.Element("LocoBP").Descendants("BlueprintID").First().Value = newVehicle.BlueprintId;
+                                sDriverFrontEndDetails.Element("LocoAuthor").Value = newVehicle.Provider;
+                                string newVehicleXmlPath = newVehicle.XmlPath;
+                                sDriverFrontEndDetails.Element("FilePath").Value = newVehicleXmlPath.Substring(0, newVehicleXmlPath.LastIndexOf('\\'));
+                            }
+                        }
+                    }
+                }
             }
 
             CreateBlueprintSetPreLoad(newVehicle.Provider, newVehicle.Product);

@@ -15,6 +15,7 @@ namespace LocoSwap
         private int _cargoCount;
         private int _entityCount;
         private List<string> _numberingList;
+        private XElement _nameLocalisedString;
         public int CargoCount
         {
             get => _cargoCount;
@@ -29,6 +30,11 @@ namespace LocoSwap
         {
             get => _numberingList;
             set => SetProperty(ref _numberingList, value);
+        }
+        public XElement NameLocalisedString
+        {
+            get => _nameLocalisedString;
+            set => SetProperty(ref _nameLocalisedString, value);
         }
 
         public AvailableVehicle(string binPath)
@@ -81,6 +87,7 @@ namespace LocoSwap
 
             DisplayName = Name;
             IEnumerable<XElement> displayNameNodes = document.Root.Descendants("DisplayName").Elements("Localisation-cUserLocalisedString").Descendants();
+            _nameLocalisedString = document.Root.Descendants("DisplayName").Elements("Localisation-cUserLocalisedString").First();
             foreach (XElement element in displayNameNodes)
             {
                 if (element.Name == "Other" || element.Name == "Key") continue;
