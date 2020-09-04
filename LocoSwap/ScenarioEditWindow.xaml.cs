@@ -46,12 +46,17 @@ namespace LocoSwap
                 set {
                     SetProperty(ref _loadingProgress, value);
                     OnPropertyChanged(new PropertyChangedEventArgs("LoadingGridVisibility"));
+                    OnPropertyChanged(new PropertyChangedEventArgs("SaveButtonEnabled"));
                 }
             }
             private bool _vehicleScanInProgress = false;
             public Visibility LoadingGridVisibility
             {
                 get => LoadingProgress < 100 ? Visibility.Visible : Visibility.Hidden;
+            }
+            public bool SaveButtonEnabled
+            {
+                get => LoadingProgress >= 100;
             }
             public bool VehicleScanInProgress
             {

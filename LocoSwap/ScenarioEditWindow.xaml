@@ -92,7 +92,7 @@
         <Button Visibility="{Binding VehicleScanInProgress, Converter={StaticResource BoolToVis}}" x:Name="CancelScanningButton" Content="{x:Static lang:Resources.cancel}" Margin="0,433,20,0" VerticalAlignment="Top" Height="26" Click="CancelScanningButton_Click" HorizontalAlignment="Right" Width="75"/>
         <Button x:Name="AddToRulesButton" Content="{x:Static lang:Resources.add_to_rules}" HorizontalAlignment="Left" Margin="760,458,0,0" VerticalAlignment="Top" Width="133" Height="26" Click="AddToRulesButton_Click"/>
         <Button x:Name="ReplaceIdenticalButton" Content="{x:Static lang:Resources.replace_identical}" HorizontalAlignment="Left" Margin="593,458,0,0" VerticalAlignment="Top" Width="162" Height="26" Click="ReplaceIdenticalButton_Click"/>
-        <Button x:Name="SaveButton" Content="{x:Static lang:Resources.save}" Margin="0,13,20,0" VerticalAlignment="Top" Click="SaveButton_Click" HorizontalAlignment="Right" Width="75"/>
+        <Button IsEnabled="{Binding SaveButtonEnabled}" x:Name="SaveButton" Content="{x:Static lang:Resources.save}" Margin="0,13,20,0" VerticalAlignment="Top" Click="SaveButton_Click" HorizontalAlignment="Right" Width="75"/>
         <Button x:Name="ReplaceButton" Content="{x:Static lang:Resources.replace}" HorizontalAlignment="Left" Margin="593,429,0,0" VerticalAlignment="Top" Width="300" Height="26" Click="ReplaceButton_Click"/>
         <Button x:Name="PresetButton" Content="{x:Static lang:Resources.replacement_rules}" Margin="0,13,100,0" VerticalAlignment="Top" Click="PresetButton_Click" HorizontalAlignment="Right" Width="119"/>
 
