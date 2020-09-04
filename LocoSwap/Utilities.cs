@@ -76,6 +76,45 @@ namespace LocoSwap
             dest.Element("Other").Elements().Remove();
         }
 
+        public static string DetermineDisplayName(XElement localisedString)
+        {
+            var lang = Settings.Default.Language;
+            if (lang == "") lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+            var langConversionTable = new Dictionary<string, string>()
+            {
+                { "en", "English" },
+                { "fr", "French" },
+                { "it", "Italian" },
+                { "de", "German" },
+                { "es", "Spanish" },
+                { "nl", "Dutch" },
+                { "pl", "Polish" },
+                { "ru", "Russian" }
+            };
+            var convertedLang = "en";
+            if (langConversionTable.ContainsKey(lang))
+            {
+                convertedLang = langConversionTable[lang];
+            }
+            XElement preferredElement = localisedString.Element(convertedLang);
+            if (preferredElement != null || preferredElement.Value == "")
+            {
+                if (preferredElement.Value != "") return preferredElement.Value;
+            }
+
+            var result = "";
+            foreach (XElement localisedName in localisedString.Elements())
+            {
+                if (localisedName.Name == "Other" || localisedName.Name == "Key") continue;
+                if (localisedName.Value != "")
+                {
+                    result = localisedName.Value;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public static class StaticRandom
         {
             private static int seed;

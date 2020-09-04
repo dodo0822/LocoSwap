@@ -65,15 +65,7 @@ namespace LocoSwap
             RouteProperties = XDocument.Load(xmlPath);
 
             XElement displayName = RouteProperties.XPathSelectElement("/cRouteProperties/DisplayName/Localisation-cUserLocalisedString");
-            foreach (XElement localisedName in displayName.Elements())
-            {
-                if (localisedName.Name == "Other" || localisedName.Name == "Key") continue;
-                if (localisedName.Value != "")
-                {
-                    Name = localisedName.Value;
-                    break;
-                }
-            }
+            Name = Utilities.DetermineDisplayName(displayName);
         }
 
         public static string GetRoutesDirectory()

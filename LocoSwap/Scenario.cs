@@ -49,15 +49,7 @@ namespace LocoSwap
             ScenarioProperties = XDocument.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
 
             XElement displayName = ScenarioProperties.XPathSelectElement("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString");
-            foreach (XElement localisedName in displayName.Elements())
-            {
-                if (localisedName.Name == "Other" || localisedName.Name == "Key") continue;
-                if (localisedName.Value != "")
-                {
-                    Name = localisedName.Value;
-                    break;
-                }
-            }
+            Name = Utilities.DetermineDisplayName(displayName);
         }
 
         public static string GetScenarioDirectory(string routeId, string id)

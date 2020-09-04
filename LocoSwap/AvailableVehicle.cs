@@ -86,17 +86,10 @@ namespace LocoSwap
             Name = blueprint.Element("Name").Value;
 
             DisplayName = Name;
-            IEnumerable<XElement> displayNameNodes = document.Root.Descendants("DisplayName").Elements("Localisation-cUserLocalisedString").Descendants();
+            XElement displayNameNode = document.Root.Descendants("DisplayName").Elements("Localisation-cUserLocalisedString").First();
             _nameLocalisedString = document.Root.Descendants("DisplayName").Elements("Localisation-cUserLocalisedString").First();
-            foreach (XElement element in displayNameNodes)
-            {
-                if (element.Name == "Other" || element.Name == "Key") continue;
-                if (element.Value != "")
-                {
-                    DisplayName = element.Value;
-                    break;
-                }
-            }
+            var preferredDisplayName = Utilities.DetermineDisplayName(displayNameNode);
+            if (preferredDisplayName != "") DisplayName = preferredDisplayName;
 
             if (blueprint.Name == "cEngineBlueprint")
                 Type = VehicleType.Engine;
