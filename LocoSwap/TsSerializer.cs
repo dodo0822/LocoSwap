@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using Serilog;
 
 namespace LocoSwap
 {
@@ -82,7 +83,7 @@ namespace LocoSwap
             serz.WaitForExit();
 
             string serzOutput = serz.StandardOutput.ReadToEnd();
-            Debug.Write(String.Format("Serz output: {0}", serzOutput));
+            Log.Debug(string.Format("Serz output: {0}", serzOutput));
 
             return;
         }

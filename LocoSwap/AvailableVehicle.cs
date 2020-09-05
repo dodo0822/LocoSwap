@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Serilog;
 
 namespace LocoSwap
 {
@@ -70,7 +71,7 @@ namespace LocoSwap
                     fileStream.Flush();
                     fileStream.Close();
                 }
-                Debug.Print("Extract to {0}", actualBinPath);
+                Log.Debug("Extract to {0}", actualBinPath);
             }
 
             XDocument document;

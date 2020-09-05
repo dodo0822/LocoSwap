@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Serilog;
 
 namespace LocoSwap
 {
@@ -230,7 +231,7 @@ namespace LocoSwap
 
             if (cElement.Name == "cEngine" && newVehicle.Type == VehicleType.Wagon)
             {
-                Debug.Print("Removing additional nodes for replacement {0}", newVehicle.DisplayName);
+                Log.Debug("Removing additional nodes for replacement {0}", newVehicle.DisplayName);
                 cElement.Name = "cWagon";
                 // We should remove additional nodes for engines
                 cElement.Elements()
@@ -242,7 +243,7 @@ namespace LocoSwap
             {
                 // We should create additional nodes for engines
                 cElement.Name = "cEngine";
-                Debug.Print("Creating additional nodes for replacement {0}", newVehicle.DisplayName);
+                Log.Debug("Creating additional nodes for replacement {0}", newVehicle.DisplayName);
                 XElement disabledEngine = new XElement("DisabledEngine");
                 disabledEngine.SetAttributeValue(Namespace + "type", "bool");
                 disabledEngine.SetValue("0");
@@ -281,7 +282,7 @@ namespace LocoSwap
             int cargoCount = cCargoComponent.Elements().Count();
             if(newVehicle.CargoCount > cargoCount)
             {
-                Debug.Print("Need to create cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
+                Log.Debug("Need to create cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
                 for (int i = cargoCount; i < newVehicle.CargoCount; ++i)
                 {
                     XElement newNode = new XElement("e");
@@ -294,7 +295,7 @@ namespace LocoSwap
             }
             else if(newVehicle.CargoCount < cargoCount)
             {
-                Debug.Print("Need to remove cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
+                Log.Debug("Need to remove cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
                 cCargoComponent.Elements().Take(cargoCount - newVehicle.CargoCount).Remove();
             }
 
@@ -302,7 +303,7 @@ namespace LocoSwap
             int entityCount = cEntityContainer.Elements().Count();
             if (newVehicle.EntityCount > entityCount)
             {
-                Debug.Print("Need to add entities {0} -> {1}", entityCount, newVehicle.EntityCount);
+                Log.Debug("Need to add entities {0} -> {1}", entityCount, newVehicle.EntityCount);
                 for (int i = entityCount; i < newVehicle.EntityCount; ++i)
                 {
                     XElement newNode = new XElement("e");
@@ -315,7 +316,7 @@ namespace LocoSwap
             }
             else if (newVehicle.EntityCount < entityCount)
             {
-                Debug.Print("Need to remove entities {0} -> {1}", entityCount, newVehicle.EntityCount);
+                Log.Debug("Need to remove entities {0} -> {1}", entityCount, newVehicle.EntityCount);
                 cEntityContainer.Elements().Take(entityCount - newVehicle.EntityCount).Remove();
             }
 
@@ -326,20 +327,20 @@ namespace LocoSwap
                 {
                     if(cDriver.Element("PlayerDriver").Value == "1")
                     {
-                        Debug.Print("Train is driven by player; checking whether the loco is swapped");
+                        Log.Debug("Train is driven by player; checking whether the loco is swapped");
                         var key = cDriver.Element("ServiceName").Descendants("Key").First().Value;
                         XElement sDriverFrontEndDetails = ScenarioProperties.Root.Element("FrontEndDriverList")
                             .Elements("sDriverFrontEndDetails").Where(element => element.Element("ServiceName").Element("Localisation-cUserLocalisedString").Element("Key").Value == key).FirstOrDefault();
                         if(sDriverFrontEndDetails == null)
                         {
-                            Debug.Print("Could not find sDriverFrontEndDetails with key {0}!", key);
+                            Log.Debug("Could not find sDriverFrontEndDetails with key {0}!", key);
                         }
                         else
                         {
                             var consistLocoBlueprintId = sDriverFrontEndDetails.Element("LocoBP").Descendants("BlueprintID").First().Value;
                             if (consistLocoBlueprintId == origBlueprintID)
                             {
-                                Debug.Print("Update new sDriverFrontEndDetails to Blueprint ID {0}", newVehicle.BlueprintId);
+                                Log.Debug("Update new sDriverFrontEndDetails to Blueprint ID {0}", newVehicle.BlueprintId);
                                 XElement destLocalisedString = sDriverFrontEndDetails.Element("LocoName").Element("Localisation-cUserLocalisedString");
                                 XElement origLocalisedString = newVehicle.NameLocalisedString;
                                 Utilities.CopyUserLocalisedString(destLocalisedString, origLocalisedString);

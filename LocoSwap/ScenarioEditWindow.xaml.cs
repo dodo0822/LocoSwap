@@ -11,6 +11,7 @@ using System.Diagnostics;
 using Ionic.Zip;
 using System.Threading;
 using LocoSwap.Properties;
+using Serilog;
 
 namespace LocoSwap
 {
@@ -182,17 +183,17 @@ namespace LocoSwap
                     var index = item.i;
                     try
                     {
-                        Debug.Print("Try: {0}", binPath);
+                        Log.Debug("Try: {0}", binPath);
                         var vehicle = new AvailableVehicle(binPath);
                         Application.Current.Dispatcher.Invoke(delegate
                         {
                             ViewModel.AvailableVehicles.Add(vehicle);
                         });
-                        Debug.Print("Found: {0}", vehicle.Name);
+                        Log.Debug("Found: {0}", vehicle.Name);
                     }
                     catch (Exception e)
                     {
-                        Debug.Print("{0}: {1}", e.Message, binPath);
+                        Log.Debug("{0}: {1}", e.Message, binPath);
                     }
 
                     progress.Report((int)Math.Ceiling((float)index / files.Count() * 100));
@@ -203,11 +204,11 @@ namespace LocoSwap
             {
                 await binTask;
                 var endDateTime = DateTime.Now;
-                Debug.Print(".bin scan took {0} seconds", (endDateTime - startDateTime).TotalSeconds);
+                Log.Debug(".bin scan took {0} seconds", (endDateTime - startDateTime).TotalSeconds);
             }
             catch (Exception)
             {
-                Debug.WriteLine("operation cancelled");
+                Log.Debug("Operation cancelled");
                 ViewModel.LoadingProgress = 100;
                 ViewModel.VehicleScanInProgress = false;
 
@@ -221,21 +222,21 @@ namespace LocoSwap
             {
                 foreach (var item in apFiles.Select((value, i) => (value, i)))
                 {
-                    Debug.Print("Trying ap file {0}", item.value);
+                    Log.Debug("Trying ap file {0}", item.value);
                     var zipFile = ZipFile.Read(item.value);
                     var binEntries = zipFile.Where(entry => entry.FileName.EndsWith(".bin")).ToList();
 
                     var baseProgress = (int)Math.Ceiling((float)item.i / apFiles.Count() * 100);
                     var basePath = Path.GetDirectoryName(item.value).Replace(Settings.Default.TsPath + "\\Assets\\", "");
                     var binCount = binEntries.Count();
-                    Debug.Print("There are {0} bin entries", binCount);
+                    Log.Debug("There are {0} bin entries", binCount);
                     Parallel.ForEach(binEntries.Select((value, i) => (value, i)), (binItem) =>
                     {
                         var binEntry = binItem.value;
                         var binPath = Path.Combine(basePath, binEntry.FileName.Replace('/', '\\'));
                         try
                         {
-                            Debug.Print("Try {0}", binPath);
+                            Log.Debug("Try {0}", binPath);
                             var vehicle = new AvailableVehicle(binPath);
                             App.Current.Dispatcher.Invoke((Action)delegate
                             {
@@ -258,7 +259,7 @@ namespace LocoSwap
             {
                 await apTask;
                 var endDateTime = DateTime.Now;
-                Debug.Print(".ap scan took {0} seconds", (endDateTime - startDateTime).TotalSeconds);
+                Log.Debug(".ap scan took {0} seconds", (endDateTime - startDateTime).TotalSeconds);
             }
             catch (Exception)
             {

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
+using Serilog;
 
 namespace LocoSwap
 {
@@ -51,7 +52,7 @@ namespace LocoSwap
 
         private void LanguageComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Debug.Print("Change language to {0}", Settings.Default.Language);
+            Log.Debug("Change language to {0}", Settings.Default.Language);
             var app = (App)Application.Current;
             app.SetLanguageDictionary();
         }

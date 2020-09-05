@@ -6,6 +6,8 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 
+using Serilog;
+
 namespace LocoSwap
 {
     /// <summary>
@@ -23,15 +25,24 @@ namespace LocoSwap
                 {
                     File.Delete("debug.log");
                 }
-                Debug.Listeners.Add(new TextWriterTraceListener("debug.log"));
-                Debug.AutoFlush = true;
             }
-            catch(Exception ex)
+            catch (Exception)
             {
-                Debug.Print("Exception caught during logfile set up: {0}", ex.Message);
+                Debug.Print("Can not delete existing log file");
             }
 
-            Debug.Print("LocoSwap version {0} starting up..", Assembly.GetEntryAssembly().GetName().Version.ToString());
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("debug.log",
+                    rollingInterval: RollingInterval.Infinite,
+                    rollOnFileSizeLimit: false)
+                .CreateLogger();
+
+            Log.Debug("LocoSwap version {0} starting up..", Assembly.GetEntryAssembly().GetName().Version.ToString());
+
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
 
             SetLanguageDictionary();
 
@@ -61,16 +72,30 @@ namespace LocoSwap
                 }
             }
 
-            Debug.Print("SwapPreset has {0} items", Settings.Default.Preset.List.Count);
+            Log.Debug("SwapPreset has {0} items", Settings.Default.Preset.List.Count);
 
             new MainWindow().Show();
+        }
+
+        private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            Log.Warning("Uncaught exception: {0} - {1}\n{2}", e.Exception.GetType().ToString(), e.Exception.Message, e.Exception.StackTrace.ToString());
+            Current.Shutdown();
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception exception = (Exception)e.ExceptionObject;
+            Log.Warning("Uncaught exception: {0}", exception.Message);
+            Current.Shutdown();
         }
 
         public void SetLanguageDictionary()
         {
             var lang = Settings.Default.Language;
             if (lang == "") lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
-            Debug.Print("Set language to {0}", lang);
+            Log.Debug("Set language to {0}", lang);
             switch (lang)
             {
                 case "de":
