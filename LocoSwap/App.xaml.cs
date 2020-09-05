@@ -1,6 +1,8 @@
 ﻿using LocoSwap.Properties;
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 
@@ -14,6 +16,22 @@ namespace LocoSwap
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            try
+            {
+                if (File.Exists("debug.log"))
+                {
+                    File.Delete("debug.log");
+                }
+                Debug.Listeners.Add(new TextWriterTraceListener("debug.log"));
+                Debug.AutoFlush = true;
+            }
+            catch(Exception ex)
+            {
+                Debug.Print("Exception caught during logfile set up: {0}", ex.Message);
+            }
+
+            Debug.Print("LocoSwap version {0} starting up..", Assembly.GetEntryAssembly().GetName().Version.ToString());
 
             SetLanguageDictionary();
 
