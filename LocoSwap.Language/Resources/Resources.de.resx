@@ -211,7 +211,7 @@
     <value>Nummerierungliste</value>
   </data>
   <data name="numbering_list_not_found" xml:space="preserve">
-    <value>Nummerungsliste ist nicht gefunden; bitte Nummer manuell eingeben</value>
+    <value>Nummerierungliste ist nicht gefunden; bitte Nummer manuell eingeben</value>
   </data>
   <data name="ok" xml:space="preserve">
     <value>OK</value>
