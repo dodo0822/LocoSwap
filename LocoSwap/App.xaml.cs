@@ -45,11 +45,7 @@ namespace LocoSwap
 
             Debug.Print("SwapPreset has {0} items", Settings.Default.Preset.List.Count);
 
-            //ScenarioEditWindow scenarioEditWindow = new ScenarioEditWindow("00000035-0000-0000-0000-000000002012", "a198cf63-bcd3-473b-8b31-731e6515a023");
-            //scenarioEditWindow.Show();
             new MainWindow().Show();
-            //new SwapPresetWindow().Show();
-            //new SettingsWindow().Show();
         }
 
         public void SetLanguageDictionary()
