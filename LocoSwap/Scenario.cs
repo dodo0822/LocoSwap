@@ -141,7 +141,13 @@ namespace LocoSwap
                     {
                         number = uniqueNumber.Value;
                     }
-                    ScenarioVehicle v = new ScenarioVehicle(vehicleIdx, provider, product, path, vehicleName, number);
+                    bool flipped = false;
+                    XElement flippedElement = vehicle.Descendants("Flipped").FirstOrDefault();
+                    if (flippedElement != null)
+                    {
+                        flipped = flippedElement.Value == "1";
+                    }
+                    ScenarioVehicle v = new ScenarioVehicle(vehicleIdx, provider, product, path, vehicleName, number, flipped);
                     v.Type = type;
                     consistObj.Vehicles.Add(v);
                 }
@@ -415,6 +421,28 @@ namespace LocoSwap
             }
 
             uniqueNumber.SetValue(newNumber);
+        }
+
+        public void ChangeVehicleFlipped(int consistIdx, int vehicleIdx, bool flipped)
+        {
+            XElement consist = ScenarioXml.Root.Descendants("cConsist").Skip(consistIdx).FirstOrDefault();
+            if (consist == null)
+            {
+                throw new Exception("Consist not found");
+            }
+            XElement vehicle = consist.Element("RailVehicles").Descendants("cOwnedEntity").Skip(vehicleIdx).FirstOrDefault();
+            if (vehicle == null)
+            {
+                throw new Exception("Vehicle not found");
+            }
+            XElement flippedElement = vehicle.Descendants("Flipped").FirstOrDefault();
+            if (flippedElement == null)
+            {
+                Log.Debug("Consist {0}, Vehicle {1} does not have Flipped property!", consistIdx, vehicleIdx);
+                return;
+            }
+            flippedElement.Value = flipped ? "1" : "0";
+            return;
         }
 
         public void Save()

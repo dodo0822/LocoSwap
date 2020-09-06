@@ -106,7 +106,11 @@ namespace LocoSwap
                 {
                     ViewModel.Consists.Clear();
                     foreach (Consist consist in ret)
+                    {
+                        foreach (ScenarioVehicle vehicle in consist.Vehicles)
+                            vehicle.PropertyChanged += Vehicle_PropertyChanged;
                         ViewModel.Consists.Add(consist);
+                    }
                 });
             });
             var populateDirectoryTask = Task.Run(() =>
@@ -129,6 +133,24 @@ namespace LocoSwap
 
             await Task.WhenAll(readConsistsTask, populateDirectoryTask);
             progress.Report(100);
+        }
+
+        private void Vehicle_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Flipped")
+            {
+                var selectedVehicles = VehicleListBox.SelectedItems;
+                if (selectedVehicles.Count > 1)
+                {
+                    MessageBox.Show(LocoSwap.Language.Resources.msg_flip_only_one,
+                        LocoSwap.Language.Resources.msg_message,
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                Consist consist = (Consist)ConsistListBox.SelectedItem;
+                ScenarioVehicle vehicle = sender as ScenarioVehicle;
+                Log.Debug("consist {0}, vehicle {1}, flipped = {2}", consist.Idx, vehicle.Idx, vehicle.Flipped);
+                ViewModel.Scenario.ChangeVehicleFlipped(consist.Idx, vehicle.Idx, vehicle.Flipped);
+            }
         }
 
         private void ConsistListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -261,9 +283,9 @@ namespace LocoSwap
                 var endDateTime = DateTime.Now;
                 Log.Debug(".ap scan took {0} seconds", (endDateTime - startDateTime).TotalSeconds);
             }
-            catch (Exception)
+            catch (Exception apException)
             {
-
+                Log.Warning("Exception caught during .ap scan: {0} - {1}\n{2}", apException.GetType().ToString(), apException.Message, apException.StackTrace.ToString());
             }
 
             ViewModel.LoadingProgress = 100;

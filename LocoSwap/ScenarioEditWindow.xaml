@@ -62,6 +62,7 @@
                 <TextBox HorizontalAlignment="Left" Height="63" Margin="0,101,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.XmlPath, Mode=OneWay, ElementName=VehicleListBox, StringFormat='\\Assets\\\{0\}'}" VerticalAlignment="Top" Width="270" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
                 <Image Source="{Binding SelectedItem.XmlPath, Mode=OneWay, ElementName=VehicleListBox, Converter={StaticResource VehicleImageSourceConverter}}" HorizontalAlignment="Left" Height="116" Margin="0,171,0,0" VerticalAlignment="Top" Width="270"/>
                 <Button x:Name="ChangeNumberButton" Content="{x:Static lang:Resources.change_number}" HorizontalAlignment="Left" Margin="0,0,0,10" Width="125" Click="ChangeNumberButton_Click" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="26"/>
+                <CheckBox Content="{x:Static lang:Resources.flipped}" Margin="0,76,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" IsChecked="{Binding SelectedItem.Flipped, ElementName=VehicleListBox}" />
             </Grid>
         </GroupBox>
         <TreeView x:Name="DirectoryTree" Height="329" Margin="898,99,20,0" VerticalAlignment="Top" ItemsSource="{Binding Directories}" TreeViewItem.Expanded="TreeView_Expanded">

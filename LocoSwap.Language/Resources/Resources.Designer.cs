@@ -160,6 +160,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flipped.
+        /// </summary>
+        public static string flipped {
+            get {
+                return ResourceManager.GetString("flipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string id {
@@ -210,6 +219,15 @@ namespace LocoSwap.Language {
         public static string msg_first_time {
             get {
                 return ResourceManager.GetString("msg_first_time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: only the first selected vehicle will be flipped.
+        /// </summary>
+        public static string msg_flip_only_one {
+            get {
+                return ResourceManager.GetString("msg_flip_only_one", resourceCulture);
             }
         }
         

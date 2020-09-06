@@ -10,6 +10,7 @@ namespace LocoSwap
     {
         private int _idx;
         private string _number;
+        private bool _flipped;
         public int Idx
         {
             get => _idx;
@@ -20,17 +21,25 @@ namespace LocoSwap
             get => _number;
             set => SetProperty(ref _number, value);
         }
+        public bool Flipped
+        {
+            get => _flipped;
+            set => SetProperty(ref _flipped, value);
+        }
 
         public ScenarioVehicle() : base()
         {
             Idx = -1;
+            Number = "";
+            Flipped = false;
         }
 
-        public ScenarioVehicle(int idx, string provider, string product, string blueprintId, string name, string number)
+        public ScenarioVehicle(int idx, string provider, string product, string blueprintId, string name, string number, bool flipped)
             : base(provider, product, blueprintId, name)
         {
             Idx = idx;
             Number = number;
+            Flipped = flipped;
         }
         public void CopyFrom(AvailableVehicle from)
         {
