@@ -247,10 +247,10 @@
     <value>Strecke</value>
   </data>
   <data name="rule_find" xml:space="preserve">
-    <value>Search for...</value>
+    <value>Nach ... suchen</value>
   </data>
   <data name="rule_replace" xml:space="preserve">
-    <value>Replace with...</value>
+    <value>Durch ... ersetzen</value>
   </data>
   <data name="save" xml:space="preserve">
     <value>Speichern</value>
