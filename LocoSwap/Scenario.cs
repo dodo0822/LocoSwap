@@ -206,6 +206,7 @@ namespace LocoSwap
 
         public void ReplaceVehicle(int consistIdx, int vehicleIdx, AvailableVehicle newVehicle)
         {
+            // Locate the consist and vehicle
             XElement consist = ScenarioXml.Root.Descendants("cConsist").Skip(consistIdx).FirstOrDefault();
             if (consist == null)
             {
@@ -216,6 +217,8 @@ namespace LocoSwap
             {
                 throw new Exception("Vehicle not found");
             }
+
+            // Update blueprint ID in Scenario.bin
             XElement blueprintID = vehicle.Element("BlueprintID").Element("iBlueprintLibrary-cAbsoluteBlueprintID");
             var origBlueprintID = blueprintID.Element("BlueprintID").Value;
             blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").SetValue(newVehicle.Provider);
@@ -223,6 +226,7 @@ namespace LocoSwap
             blueprintID.Element("BlueprintID").SetValue(newVehicle.BlueprintId);
             vehicle.Element("Name").SetValue(newVehicle.Name);
 
+            // Update engine and wagon dependent parameters
             XElement cElement = vehicle.Descendants().Where(element => element.Name == "cWagon" || element.Name == "cEngine").FirstOrDefault();
             if (cElement == null)
             {
@@ -278,6 +282,7 @@ namespace LocoSwap
                 vehicle.Element("Component").Add(cEngineSimContainer);
             }
 
+            // Cargo component count matching
             XElement cCargoComponent = vehicle.Element("Component").Element("cCargoComponent").Element("InitialLevel");
             int cargoCount = cCargoComponent.Elements().Count();
             if(newVehicle.CargoCount > cargoCount)
@@ -299,6 +304,7 @@ namespace LocoSwap
                 cCargoComponent.Elements().Take(cargoCount - newVehicle.CargoCount).Remove();
             }
 
+            // Entity container count matching
             XElement cEntityContainer = vehicle.Element("Component").Element("cEntityContainer").Element("StaticChildrenMatrix");
             int entityCount = cEntityContainer.Elements().Count();
             if (newVehicle.EntityCount > entityCount)
@@ -320,6 +326,7 @@ namespace LocoSwap
                 cEntityContainer.Elements().Take(entityCount - newVehicle.EntityCount).Remove();
             }
 
+            // If the consist is driven by the player, loco name in ScenarioProperties.xml should be updated
             if(consist.Element("Driver").Element("cDriver") != null)
             {
                 XElement cDriver = consist.Element("Driver").Element("cDriver");
@@ -372,6 +379,41 @@ namespace LocoSwap
                 throw new Exception("Vehicle not found");
             }
             XElement uniqueNumber = vehicle.Descendants("UniqueNumber").FirstOrDefault();
+
+            string originalNumber = uniqueNumber.Value;
+            Log.Debug("Changing vehicle number {0} to {1}", originalNumber, newNumber);
+
+            // Check InitialRV lists
+            var cDriver = consist.Element("Driver").Element("cDriver");
+            if (cDriver != null)
+            {
+                var initialRV = cDriver.Element("InitialRV");
+                var row = initialRV.Elements("e").Skip(vehicleIdx).FirstOrDefault();
+                if (row != null)
+                {
+                    if (row.Value == originalNumber)
+                    {
+                        Log.Debug("InitialRV number matched, going to update");
+                        row.Value = newNumber;
+                    }
+                    else
+                    {
+                        Log.Debug("InitialRV number did not match, vehicle is {0}, initialRV is {1}, skipping update.", originalNumber, row.Value);
+                    }
+                }
+            }
+
+            // Check number in instructions
+            var cConsistOperations = ScenarioXml.Root.Descendants("cConsistOperations");
+            var operationTargetNumbers = from item in cConsistOperations.Elements("DeltaTarget").Elements("cDriverInstructionTarget").Elements("RailVehicleNumber").Elements("e")
+                                         where item.Value == originalNumber
+                                         select item;
+            Log.Debug("{0} matching instructions found", operationTargetNumbers.Count());
+            foreach (XElement e in operationTargetNumbers)
+            {
+                e.Value = newNumber;
+            }
+
             uniqueNumber.SetValue(newNumber);
         }
 
