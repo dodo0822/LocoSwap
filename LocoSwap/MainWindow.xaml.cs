@@ -86,5 +86,18 @@ namespace LocoSwap
         {
             new SettingsWindow().ShowDialog();
         }
+
+        private void ScenarioList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var dataContext = ((FrameworkElement) e.OriginalSource).DataContext;
+            if (dataContext is Scenario)
+            {
+                if (RouteList.SelectedItem == null) return;
+                var routeId = ((Route)RouteList.SelectedItem).Id;
+                var scenarioId = ((Scenario)dataContext).Id;
+                var editWindow = new ScenarioEditWindow(routeId, scenarioId);
+                editWindow.Show();
+            }
+        }
     }
 }

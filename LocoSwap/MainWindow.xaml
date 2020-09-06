@@ -34,7 +34,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="ScenarioList" Margin="10,236,10,35" ItemsSource="{Binding Source={StaticResource ScenariosSource}}">
+        <ListView x:Name="ScenarioList" Margin="10,236,10,35" ItemsSource="{Binding Source={StaticResource ScenariosSource}}" MouseDoubleClick="ScenarioList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{x:Static lang:Resources.name}" Width="400" DisplayMemberBinding="{Binding Name}" />
