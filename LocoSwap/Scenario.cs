@@ -320,7 +320,7 @@ namespace LocoSwap
                 cEntityContainer.Elements().Take(entityCount - newVehicle.EntityCount).Remove();
             }
 
-            if(consist.Element("Driver") != null)
+            if(consist.Element("Driver").Element("cDriver") != null)
             {
                 XElement cDriver = consist.Element("Driver").Element("cDriver");
                 if(cDriver.Element("PlayerDriver") != null)
