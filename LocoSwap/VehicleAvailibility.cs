@@ -33,9 +33,17 @@ namespace LocoSwap
         public static string GetVehicleDisplayName(Vehicle vehicle)
         {
             if (_vehicleDisplayNameTable.ContainsKey(vehicle.XmlPath)) return _vehicleDisplayNameTable[vehicle.XmlPath];
+            Log.Debug("GetVehicleDisplayName: {0} is not in table, looking up..", vehicle.XmlPath);
             var binPath = Path.ChangeExtension(vehicle.XmlPath, "bin");
-            AvailableVehicle actualVehicle = new AvailableVehicle(binPath);
-            _vehicleDisplayNameTable[vehicle.XmlPath] = string.Copy(actualVehicle.DisplayName);
+            try
+            {
+                AvailableVehicle actualVehicle = new AvailableVehicle(binPath);
+                _vehicleDisplayNameTable[vehicle.XmlPath] = actualVehicle.DisplayName;
+            }
+            catch (Exception)
+            {
+                _vehicleDisplayNameTable[vehicle.XmlPath] = vehicle.Name;
+            }
             return _vehicleDisplayNameTable[vehicle.XmlPath];
         }
 

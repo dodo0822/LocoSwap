@@ -75,7 +75,15 @@ namespace LocoSwap
             }
 
             XDocument document;
-            document = TsSerializer.Load(actualBinPath);
+            try
+            {
+                document = TsSerializer.Load(actualBinPath);
+            }
+            catch(Exception e)
+            {
+                Log.Debug("Failed to load vehicle blueprint: {0}", e);
+                throw new Exception("Failed to load vehicle blueprint");
+            }
             IEnumerable<XElement> blueprints = from item in document.Root.Descendants()
                                                where item.Name == "cEngineBlueprint" || item.Name == "cWagonBlueprint" || item.Name == "cReskinBlueprint"
                                                select item;
