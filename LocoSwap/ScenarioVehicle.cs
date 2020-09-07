@@ -43,13 +43,28 @@ namespace LocoSwap
         }
         public void CopyFrom(AvailableVehicle from)
         {
-            this.Provider = string.Copy(from.Provider);
-            this.Product = string.Copy(from.Product);
-            this.BlueprintId = string.Copy(from.BlueprintId);
-            this.Name = string.Copy(from.Name);
+            this.Provider = from.Provider;
+            this.Product = from.Product;
+            this.BlueprintId = from.BlueprintId;
+            this.Name = from.Name;
             this.Exists = VehicleExistance.Replaced;
             this.Type = from.Type;
-            this.DisplayName = string.Copy(from.DisplayName);
+            this.DisplayName = from.DisplayName;
+
+            if (from.IsReskin)
+            {
+                this.IsReskin = true;
+                this.ReskinBlueprintId = from.ReskinBlueprintId;
+                this.ReskinProvider = from.ReskinProvider;
+                this.ReskinProduct = from.ReskinProduct;
+            }
+            else
+            {
+                this.IsReskin = false;
+                this.ReskinBlueprintId = "";
+                this.ReskinProvider = "";
+                this.ReskinProduct = "";
+            }
 
             if (from.NumberingList.Count > 0)
             {

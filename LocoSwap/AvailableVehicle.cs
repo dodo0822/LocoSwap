@@ -38,7 +38,7 @@ namespace LocoSwap
             set => SetProperty(ref _nameLocalisedString, value);
         }
 
-        public AvailableVehicle(string binPath)
+        public AvailableVehicle(string binPath, bool acceptReskin = true)
         {
             string[] binPathComponents = binPath.Split('\\');
             Provider = binPathComponents[0];
@@ -77,12 +77,12 @@ namespace LocoSwap
             XDocument document;
             document = TsSerializer.Load(actualBinPath);
             IEnumerable<XElement> blueprints = from item in document.Root.Descendants()
-                                               where item.Name == "cEngineBlueprint" || item.Name == "cWagonBlueprint"
+                                               where item.Name == "cEngineBlueprint" || item.Name == "cWagonBlueprint" || item.Name == "cReskinBlueprint"
                                                select item;
             XElement blueprint = blueprints.FirstOrDefault();
             if (blueprint == null)
             {
-                throw new Exception("The blueprint is not an engine or a wagon");
+                throw new Exception("The blueprint is not an engine, wagen or reskin");
             }
             Name = blueprint.Element("Name").Value;
 
@@ -94,8 +94,52 @@ namespace LocoSwap
 
             if (blueprint.Name == "cEngineBlueprint")
                 Type = VehicleType.Engine;
-            else
+            else if(blueprint.Name == "cWagonBlueprint")
                 Type = VehicleType.Wagon;
+            else
+            {
+                if(!acceptReskin)
+                {
+                    throw new Exception("Reskin found but not accepted!");
+                }
+                Log.Debug("{name} is a reskin! Trying to fill out rest of the info from the vehicle itself.", DisplayName);
+                IsReskin = true;
+                ReskinProvider = Provider;
+                ReskinProduct = Product;
+                ReskinBlueprintId = BlueprintId;
+
+                try
+                {
+                    XElement reskinAssetBpId = blueprint.Element("ReskinAssetBpId");
+                    Provider = reskinAssetBpId.Descendants("Provider").First().Value;
+                    Product = reskinAssetBpId.Descendants("Product").First().Value;
+                    BlueprintId = reskinAssetBpId.Descendants("BlueprintID").First().Value;
+                }
+                catch(Exception)
+                {
+                    Log.Debug("Cannot get main vehicle information!");
+                    throw new Exception("Cannot get vehicle information from reskin blueprint.");
+                }
+
+                string mainVehicleBinPath = Path.ChangeExtension(XmlPath, "bin");
+                try
+                {
+                    AvailableVehicle mainVehicle = new AvailableVehicle(mainVehicleBinPath, false);
+                    Type = mainVehicle.Type;
+                    EntityCount = mainVehicle.EntityCount;
+                    CargoCount = mainVehicle.CargoCount;
+                    NumberingList = mainVehicle.NumberingList;
+                }
+                catch (Exception e)
+                {
+                    Log.Debug("Exception caught loading main vehicle: {0}", e.Message);
+                    throw e;
+                }
+
+                Log.Debug("After loading main vehicle: Type={0}, EntityCount={1}, CargoCount={2}", Type, EntityCount, CargoCount);
+
+                return;
+            }
 
             EntityCount = document.Root.Descendants("cEntityContainerBlueprint-sChild").Count();
 

@@ -27,6 +27,12 @@ namespace LocoSwap
         private string _provider;
         private string _product;
         private string _blueprintId;
+
+        private bool _isReskin;
+        private string _reskinProvider;
+        private string _reskinProduct;
+        private string _reskinBlueprintId;
+
         private string _name;
         private string _displayName;
         private VehicleType _type;
@@ -45,6 +51,26 @@ namespace LocoSwap
         {
             get => _blueprintId;
             set => SetProperty(ref _blueprintId, value);
+        }
+        public bool IsReskin
+        {
+            get => _isReskin;
+            set => SetProperty(ref _isReskin, value);
+        }
+        public string ReskinProvider
+        {
+            get => _reskinProvider;
+            set => SetProperty(ref _reskinProvider, value);
+        }
+        public string ReskinProduct
+        {
+            get => _reskinProduct;
+            set => SetProperty(ref _reskinProduct, value);
+        }
+        public string ReskinBlueprintId
+        {
+            get => _reskinBlueprintId;
+            set => SetProperty(ref _reskinBlueprintId, value);
         }
         public string Name
         {
@@ -77,6 +103,20 @@ namespace LocoSwap
             get
             {
                 return Path.Combine(Properties.Settings.Default.TsPath, "Assets", XmlPath);
+            }
+        }
+        public string ReskinXmlPath
+        {
+            get
+            {
+                return String.Format("{0}\\{1}\\{2}", ReskinProvider, ReskinProduct, ReskinBlueprintId);
+            }
+        }
+        public string ReskinFullXmlPath
+        {
+            get
+            {
+                return Path.Combine(Properties.Settings.Default.TsPath, "Assets", ReskinXmlPath);
             }
         }
 

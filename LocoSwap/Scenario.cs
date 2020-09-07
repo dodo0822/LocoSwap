@@ -124,6 +124,8 @@ namespace LocoSwap
                 foreach (var vehicleRow in vehicles.Select((value, i) => (value, i)))
                 {
                     int vehicleIdx = vehicleRow.i;
+
+                    // Fill in basic info
                     XElement vehicle = vehicleRow.value;
                     XElement blueprintID = vehicle.Element("BlueprintID").Element("iBlueprintLibrary-cAbsoluteBlueprintID");
                     string provider = (string)blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").Value;
@@ -147,8 +149,31 @@ namespace LocoSwap
                     {
                         flipped = flippedElement.Value == "1";
                     }
+
                     ScenarioVehicle v = new ScenarioVehicle(vehicleIdx, provider, product, path, vehicleName, number, flipped);
                     v.Type = type;
+
+                    // Determine if it is a reskin
+                    XElement reskinBlueprintIdElement = vehicle.Element("ReskinBlueprintID");
+                    try
+                    {
+                        var reskinProvider = reskinBlueprintIdElement.Descendants("Provider").First().Value;
+                        if (reskinProvider != "")
+                        {
+                            var reskinProduct = reskinBlueprintIdElement.Descendants("Product").First().Value;
+                            var reskinBlueprintId = reskinBlueprintIdElement.Descendants("BlueprintID").First().Value;
+                            v.IsReskin = true;
+                            v.ReskinProvider = reskinProvider;
+                            v.ReskinProduct = reskinProduct;
+                            v.ReskinBlueprintId = reskinBlueprintId;
+                            Log.Debug("{0} is a reskin at {1}\\{2}\\{3}", v.Name, reskinProvider, reskinProduct, reskinBlueprintId);
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        Log.Debug("Exception caught when determining whether a ScenarioVehicle is reskin\n{0}", e);
+                    }
+
                     consistObj.Vehicles.Add(v);
                 }
                 consistObj.Idx = consistIdx;

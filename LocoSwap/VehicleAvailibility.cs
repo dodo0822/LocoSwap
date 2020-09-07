@@ -1,4 +1,5 @@
 ﻿using Ionic.Zip;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -87,10 +88,6 @@ namespace LocoSwap
 
         public static VehicleAvailibilityResult IsVehicleAvailable(Vehicle vehicle)
         {
-            if(_vehicleTable.ContainsKey(vehicle.XmlPath))
-            {
-                return _vehicleTable[vehicle.XmlPath];
-            }
             VehicleAvailibilityResult ret = new VehicleAvailibilityResult
             {
                 Available = false,
@@ -98,6 +95,21 @@ namespace LocoSwap
                 ApPath = null,
                 PathWithinAp = null
             };
+            if (vehicle.IsReskin)
+            {
+                // We should determine if the reskin itself exists first
+                Vehicle reskinAsVehicle = new Vehicle(vehicle.ReskinProvider, vehicle.ReskinProduct, vehicle.ReskinBlueprintId, "Reskin");
+                Log.Debug("IsVehicleAvailable: check for reskin {0}", reskinAsVehicle.XmlPath);
+                VehicleAvailibilityResult reskinAvailability = IsVehicleAvailable(reskinAsVehicle);
+                if (!reskinAvailability.Available)
+                {
+                    return ret;
+                }
+            }
+            if (_vehicleTable.ContainsKey(vehicle.XmlPath))
+            {
+                return _vehicleTable[vehicle.XmlPath];
+            }
             var xmlPath = vehicle.FullXmlPath;
             var binPath = Path.ChangeExtension(xmlPath, "bin");
             if (File.Exists(binPath))
