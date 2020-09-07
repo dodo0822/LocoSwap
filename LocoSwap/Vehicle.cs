@@ -119,6 +119,13 @@ namespace LocoSwap
                 return Path.Combine(Properties.Settings.Default.TsPath, "Assets", ReskinXmlPath);
             }
         }
+        public string DisplayXmlPath
+        {
+            get
+            {
+                return IsReskin ? ReskinXmlPath : XmlPath;
+            }
+        }
 
         public Vehicle()
         {
