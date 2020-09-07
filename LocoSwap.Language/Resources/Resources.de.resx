@@ -150,8 +150,11 @@
   <data name="enter_number_manually" xml:space="preserve">
     <value>Oder hier Fahrzeugnummer manuell eingeben:</value>
   </data>
+  <data name="flip" xml:space="preserve">
+    <value>Umdrehen</value>
+  </data>
   <data name="flipped" xml:space="preserve">
-    <value>Umgedreht</value>
+    <value>Umgedreht?</value>
   </data>
   <data name="id" xml:space="preserve">
     <value>ID</value>
@@ -171,8 +174,8 @@
   <data name="msg_first_time" xml:space="preserve">
     <value>Erster Lauf: bitte Train Simulator-Verzeichnis auswählen</value>
   </data>
-  <data name="msg_flip_only_one" xml:space="preserve">
-    <value>Hinweis: nur das erste gewählte Fahrzeug wird umgedreht.</value>
+  <data name="msg_flip_completed" xml:space="preserve">
+    <value>Die Umdrehung ist erfolgreich abgeschlossen.</value>
   </data>
   <data name="msg_message" xml:space="preserve">
     <value>Meldung</value>

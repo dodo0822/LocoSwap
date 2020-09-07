@@ -107,8 +107,6 @@ namespace LocoSwap
                     ViewModel.Consists.Clear();
                     foreach (Consist consist in ret)
                     {
-                        foreach (ScenarioVehicle vehicle in consist.Vehicles)
-                            vehicle.PropertyChanged += Vehicle_PropertyChanged;
                         ViewModel.Consists.Add(consist);
                     }
                 });
@@ -133,24 +131,6 @@ namespace LocoSwap
 
             await Task.WhenAll(readConsistsTask, populateDirectoryTask);
             progress.Report(100);
-        }
-
-        private void Vehicle_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Flipped")
-            {
-                var selectedVehicles = VehicleListBox.SelectedItems;
-                if (selectedVehicles.Count > 1)
-                {
-                    MessageBox.Show(LocoSwap.Language.Resources.msg_flip_only_one,
-                        LocoSwap.Language.Resources.msg_message,
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                Consist consist = (Consist)ConsistListBox.SelectedItem;
-                ScenarioVehicle vehicle = sender as ScenarioVehicle;
-                Log.Debug("consist {0}, vehicle {1}, flipped = {2}", consist.Idx, vehicle.Idx, vehicle.Flipped);
-                ViewModel.Scenario.ChangeVehicleFlipped(consist.Idx, vehicle.Idx, vehicle.Flipped);
-            }
         }
 
         private void ConsistListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -571,6 +551,21 @@ namespace LocoSwap
         private void Window_Closed(object sender, EventArgs e)
         {
             if (PresetWindow != null) PresetWindow.Close();
+        }
+
+        private void FlipButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedVehicles = VehicleListBox.SelectedItems;
+            Consist consist = (Consist)ConsistListBox.SelectedItem;
+            foreach (ScenarioVehicle vehicle in selectedVehicles)
+            {
+                vehicle.Flipped = !vehicle.Flipped;
+                Log.Debug("consist {0}, vehicle {1}, flipped = {2}", consist.Idx, vehicle.Idx, vehicle.Flipped);
+                ViewModel.Scenario.ChangeVehicleFlipped(consist.Idx, vehicle.Idx, vehicle.Flipped);
+            }
+            MessageBox.Show(LocoSwap.Language.Resources.msg_flip_completed,
+                LocoSwap.Language.Resources.msg_message,
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 

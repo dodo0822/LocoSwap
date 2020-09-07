@@ -150,8 +150,11 @@
   <data name="enter_number_manually" xml:space="preserve">
     <value>Or enter vehicle number manually:</value>
   </data>
+  <data name="flip" xml:space="preserve">
+    <value>Flip vehicle</value>
+  </data>
   <data name="flipped" xml:space="preserve">
-    <value>Flipped</value>
+    <value>Flipped?</value>
   </data>
   <data name="id" xml:space="preserve">
     <value>ID</value>
@@ -171,8 +174,8 @@
   <data name="msg_first_time" xml:space="preserve">
     <value>First time run: Please select Train Simulator directory.</value>
   </data>
-  <data name="msg_flip_only_one" xml:space="preserve">
-    <value>Note: only the first selected vehicle will be flipped</value>
+  <data name="msg_flip_completed" xml:space="preserve">
+    <value>The selected vehicle(s) are successfully flipped.</value>
   </data>
   <data name="msg_message" xml:space="preserve">
     <value>Message</value>
