@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -40,12 +41,35 @@ namespace LocoSwap
             {
                 try
                 {
-                    Routes.Add(new Route(id));
+                    Route route = new Route(id);
+                    route.PropertyChanged += Route_PropertyChanged;
+                    Routes.Add(route);
                 }
                 catch(Exception)
                 {
 
                 }
+            }
+        }
+
+        private void Route_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsFavorite")
+            {
+                Route route = sender as Route;
+                StringCollection favorite = Properties.Settings.Default.FavoriteRoutes ?? new StringCollection();
+                if (Properties.Settings.Default.FavoriteRoutes == null) Properties.Settings.Default.FavoriteRoutes = favorite;
+                if (route.IsFavorite)
+                {
+                    Log.Debug("Adding {0} to favorite..", route.Name);
+                    favorite.Add(route.Id);
+                }
+                else
+                {
+                    Log.Debug("Removing {0} from favorite..", route.Name);
+                    favorite.Remove(route.Id);
+                }
+                Properties.Settings.Default.Save();
             }
         }
 

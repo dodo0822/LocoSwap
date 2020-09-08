@@ -57,5 +57,16 @@ namespace LocoSwap.Properties {
                 this["Language"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection FavoriteRoutes {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["FavoriteRoutes"]));
+            }
+            set {
+                this["FavoriteRoutes"] = value;
+            }
+        }
     }
 }

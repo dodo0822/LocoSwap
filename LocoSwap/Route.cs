@@ -1,4 +1,5 @@
 ﻿using Ionic.Zip;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,11 +11,27 @@ using System.Xml.XPath;
 
 namespace LocoSwap
 {
-    public class Route
+    public class Route : ModelBase
     {
         private XDocument RouteProperties;
-        public string Id { get; set; }
-        public string Name { get; set; } = "Name not available";
+        private string _id;
+        private string _name;
+        private bool _isFavorite;
+        public string Id
+        {
+            get => _id;
+            set => SetProperty(ref _id, value);
+        }
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+        public bool IsFavorite
+        {
+            get => _isFavorite;
+            set => SetProperty(ref _isFavorite, value);
+        }
         public string RouteDirectory
         {
             get
@@ -26,7 +43,7 @@ namespace LocoSwap
         public Route()
         {
             Id = "";
-            Name = "";
+            Name = "Name not available";
         }
 
         public Route(string id)
@@ -66,6 +83,8 @@ namespace LocoSwap
 
             XElement displayName = RouteProperties.XPathSelectElement("/cRouteProperties/DisplayName/Localisation-cUserLocalisedString");
             Name = Utilities.DetermineDisplayName(displayName);
+
+            IsFavorite = Properties.Settings.Default.FavoriteRoutes?.IndexOf(Id) >= 0;
         }
 
         public static string GetRoutesDirectory()

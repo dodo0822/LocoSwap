@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocoSwap"
         xmlns:lang="clr-namespace:LocoSwap.Language;assembly=LocoSwap.Language"
+        xmlns:converters="clr-namespace:LocoSwap.Converters"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" Height="574.286" Width="800">
     <Window.Resources>
-        <CollectionViewSource Source="{Binding Routes}" x:Key="RoutesSource">
+        <CollectionViewSource Source="{Binding Routes}" x:Key="RoutesSource" IsLiveSortingRequested="True">
             <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="IsFavorite" Direction="Descending" />
                 <scm:SortDescription PropertyName="Name"/>
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
@@ -29,6 +31,39 @@
             SelectionChanged="RouteList_SelectionChanged">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <ToggleButton IsChecked="{Binding IsFavorite}">
+                                        <ToggleButton.Style>
+                                            <Style TargetType="ToggleButton">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ToggleButton">
+                                                            <Image
+                                                                Width="16"
+                                                                Height="16"
+                                                                x:Name="ToggleButtonImage"
+                                                                />
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsChecked" Value="true">
+                                                                    <Setter TargetName="ToggleButtonImage" Property="Source" Value="/LocoSwap;component/Resources/StarActive.png"/>
+                                                                </Trigger>
+                                                                <Trigger Property="IsChecked" Value="false">
+                                                                    <Setter TargetName="ToggleButtonImage" Property="Source" Value="/LocoSwap;component/Resources/Star.png"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ToggleButton.Style>
+                                    </ToggleButton>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="{x:Static lang:Resources.name}" Width="400" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="{x:Static lang:Resources.id}" Width="300" DisplayMemberBinding="{Binding Id}" />
                 </GridView>
