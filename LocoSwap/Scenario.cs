@@ -257,6 +257,24 @@ namespace LocoSwap
             blueprintID.Element("BlueprintID").SetValue(newVehicle.BlueprintId);
             vehicle.Element("Name").SetValue(newVehicle.Name);
 
+            // Update reskin info
+            XElement reskinBlueprintID = vehicle.Element("ReskinBlueprintID").Element("iBlueprintLibrary-cAbsoluteBlueprintID");
+            if (newVehicle.IsReskin)
+            {
+                Log.Debug("ReplaceVehicle: Reskin set to {0}", newVehicle.ReskinXmlPath);
+                reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").SetValue(newVehicle.ReskinProvider);
+                reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").SetValue(newVehicle.ReskinProduct);
+                reskinBlueprintID.Element("BlueprintID").SetValue(newVehicle.ReskinBlueprintId);
+            }
+            else
+            {
+                // Remove reskin info
+                Log.Debug("ReplaceVehicle: Remove reskin info");
+                reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").SetValue("");
+                reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").SetValue("");
+                reskinBlueprintID.Element("BlueprintID").SetValue("");
+            }
+
             // Update engine and wagon dependent parameters
             XElement cElement = vehicle.Descendants().Where(element => element.Name == "cWagon" || element.Name == "cEngine").FirstOrDefault();
             if (cElement == null)
@@ -395,6 +413,10 @@ namespace LocoSwap
             }
 
             CreateBlueprintSetPreLoad(newVehicle.Provider, newVehicle.Product);
+            if (newVehicle.IsReskin)
+            {
+                CreateBlueprintSetPreLoad(newVehicle.ReskinProvider, newVehicle.ReskinProduct);
+            }
         }
 
         public void ChangeVehicleNumber(int consistIdx, int vehicleIdx, string newNumber)
