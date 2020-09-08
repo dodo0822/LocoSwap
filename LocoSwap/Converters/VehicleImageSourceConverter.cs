@@ -14,7 +14,7 @@ namespace LocoSwap.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return string.Empty;
+            if (value == null) return "/LocoSwap;component/Resources/PreviewNotAvailable.png";
             Vehicle vehicle = (Vehicle)value;
             var xmlPath = vehicle.IsReskin ? vehicle.ReskinXmlPath : vehicle.XmlPath;
             var vehicleDirectory = new FileInfo(Path.Combine(Properties.Settings.Default.TsPath, "Assets", xmlPath)).Directory.FullName;
