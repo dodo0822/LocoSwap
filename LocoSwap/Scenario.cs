@@ -47,10 +47,18 @@ namespace LocoSwap
         {
             RouteId = routeId;
             Id = id;
-            ScenarioProperties = XDocument.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
 
-            XElement displayName = ScenarioProperties.XPathSelectElement("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString");
-            Name = Utilities.DetermineDisplayName(displayName);
+            try
+            {
+                ScenarioProperties = XmlDocumentLoader.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
+                XElement displayName = ScenarioProperties.XPathSelectElement("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString");
+                Name = Utilities.DetermineDisplayName(displayName);
+            }
+            catch (Exception e)
+            {
+                Log.Warning("Exception caught when trying to load ScenarioProperties.xml: {0}", e);
+                throw new Exception("Malformed ScenarioProperties.xml file!");
+            }
         }
 
         public static string GetScenarioDirectory(string routeId, string id)

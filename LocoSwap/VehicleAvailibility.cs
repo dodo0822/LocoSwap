@@ -83,7 +83,7 @@ namespace LocoSwap
                 if (!found) throw new Exception("Numbering list not found");
             }
             List<string> list = new List<string>();
-            XDocument dcsv = XDocument.Load(dcsvPath);
+            XDocument dcsv = XmlDocumentLoader.Load(dcsvPath);
             IEnumerable<XElement> cCSVItems = dcsv.Descendants("cCSVItem");
             foreach (XElement cCSVItem in cCSVItems)
             {

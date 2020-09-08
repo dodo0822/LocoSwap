@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -59,9 +60,9 @@ namespace LocoSwap
                 {
                     Scenarios.Add(new Scenario(routeId, id));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    Log.Debug("Exception caught when trying to list scenario {0}\\{1}: {2}", routeId, id, ex.Message);
                 }
             }
         }

@@ -62,7 +62,7 @@ namespace LocoSwap
                 }
                 if (!found) throw new Exception("RouteProperties.xml not found for this route ID");
             }
-            RouteProperties = XDocument.Load(xmlPath);
+            RouteProperties = XmlDocumentLoader.Load(xmlPath);
 
             XElement displayName = RouteProperties.XPathSelectElement("/cRouteProperties/DisplayName/Localisation-cUserLocalisedString");
             Name = Utilities.DetermineDisplayName(displayName);

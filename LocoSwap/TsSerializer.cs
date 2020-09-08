@@ -57,7 +57,7 @@ namespace LocoSwap
             Process serz = InvokeSerz(tempBinPath);
             serz.WaitForExit();
 
-            return XDocument.Load(tempXmlPath);
+            return XmlDocumentLoader.Load(tempXmlPath);
         }
 
         public static void Save(XDocument document, string path)
