@@ -1,6 +1,7 @@
 ﻿using Ionic.Zip;
 using Serilog;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,14 +20,14 @@ namespace LocoSwap
     }
     static class VehicleAvailibility
     {
-        private static Dictionary<string, VehicleAvailibilityResult> _vehicleTable;
-        private static Dictionary<string, string> _vehicleDisplayNameTable;
+        private static ConcurrentDictionary<string, VehicleAvailibilityResult> _vehicleTable;
+        private static ConcurrentDictionary<string, string> _vehicleDisplayNameTable;
         private static Dictionary<string, List<string>> _numberingListCache;
 
         static VehicleAvailibility()
         {
-            _vehicleTable = new Dictionary<string, VehicleAvailibilityResult>();
-            _vehicleDisplayNameTable = new Dictionary<string, string>();
+            _vehicleTable = new ConcurrentDictionary<string, VehicleAvailibilityResult>();
+            _vehicleDisplayNameTable = new ConcurrentDictionary<string, string>();
             _numberingListCache = new Dictionary<string, List<string>>();
         }
 
