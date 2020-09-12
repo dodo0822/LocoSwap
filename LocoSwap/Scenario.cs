@@ -284,23 +284,34 @@ namespace LocoSwap
             }
 
             // Update engine and wagon dependent parameters
-            XElement cElement = vehicle.Descendants().Where(element => element.Name == "cWagon" || element.Name == "cEngine").FirstOrDefault();
+            XElement cElement = vehicle.Descendants().Where(element => element.Name == "cWagon" || element.Name == "cEngine" || element.Name == "cTender").FirstOrDefault();
             if (cElement == null)
             {
                 throw new Exception("Cannot find cWagon or cEngine element!");
             }
 
-            if (cElement.Name == "cEngine" && newVehicle.Type == VehicleType.Wagon)
+            if (cElement.Name == "cEngine" && newVehicle.Type != VehicleType.Engine)
             {
-                Log.Debug("Removing additional nodes for replacement {0}", newVehicle.DisplayName);
-                cElement.Name = "cWagon";
                 // We should remove additional nodes for engines
                 cElement.Elements()
                     .Where(element => element.Name == "DisabledEngine" || element.Name == "AWSTimer" || element.Name == "AWSExpired" || element.Name == "TPWSDistance")
                     .Remove();
+
                 vehicle.Element("Component").Element("cEngineSimContainer").Remove();
             }
-            else if (cElement.Name == "cWagon" && newVehicle.Type == VehicleType.Engine)
+            if (cElement.Name == "cTender" && newVehicle.Type != VehicleType.Tender)
+            {
+                // We should remove additional nodes for tenders
+                cElement.Elements()
+                    .Where(element => element.Name == "CoalLevel" || element.Name == "WaterLevel")
+                    .Remove();
+            }
+
+            if (newVehicle.Type == VehicleType.Wagon)
+            {
+                cElement.Name = "cWagon";
+            }
+            else if (newVehicle.Type == VehicleType.Engine && cElement.Name != "cEngine")
             {
                 // We should create additional nodes for engines
                 cElement.Name = "cEngine";
@@ -337,6 +348,24 @@ namespace LocoSwap
                 XElement cEngineSimContainer = new XElement("cEngineSimContainer");
                 cEngineSimContainer.SetAttributeValue(Namespace + "id", id.ToString());
                 vehicle.Element("Component").Add(cEngineSimContainer);
+            } else if (newVehicle.Type == VehicleType.Tender && cElement.Name != "cTender")
+            {
+                cElement.Name = "cTender";
+                Log.Debug("Creating additional tender nodes for replacement {0}", newVehicle.DisplayName);
+
+                XElement coalLevel = new XElement("CoalLevel");
+                coalLevel.SetAttributeValue(Namespace + "type", "sFloat32");
+                coalLevel.SetAttributeValue(Namespace + "alt_encoding", "0000000000000000");
+                coalLevel.SetAttributeValue(Namespace + "precision", "string");
+                coalLevel.SetValue("0");
+
+                XElement waterLevel = new XElement("WaterLevel");
+                waterLevel.SetAttributeValue(Namespace + "type", "sFloat32");
+                waterLevel.SetAttributeValue(Namespace + "alt_encoding", "0000000000000000");
+                waterLevel.SetAttributeValue(Namespace + "precision", "string");
+                waterLevel.SetValue("0");
+
+                cElement.Add(coalLevel, waterLevel);
             }
 
             // Cargo component count matching

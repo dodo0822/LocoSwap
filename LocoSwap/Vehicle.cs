@@ -14,7 +14,8 @@ namespace LocoSwap
     {
         Unknown,
         Engine,
-        Wagon
+        Wagon,
+        Tender
     }
     public enum VehicleExistance
     {

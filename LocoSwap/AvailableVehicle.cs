@@ -85,7 +85,7 @@ namespace LocoSwap
                 throw new Exception("Failed to load vehicle blueprint");
             }
             IEnumerable<XElement> blueprints = from item in document.Root.Descendants()
-                                               where item.Name == "cEngineBlueprint" || item.Name == "cWagonBlueprint" || item.Name == "cReskinBlueprint"
+                                               where item.Name == "cEngineBlueprint" || item.Name == "cWagonBlueprint" || item.Name == "cReskinBlueprint" || item.Name == "cTenderBlueprint"
                                                select item;
             XElement blueprint = blueprints.FirstOrDefault();
             if (blueprint == null)
@@ -102,11 +102,13 @@ namespace LocoSwap
 
             if (blueprint.Name == "cEngineBlueprint")
                 Type = VehicleType.Engine;
-            else if(blueprint.Name == "cWagonBlueprint")
+            else if (blueprint.Name == "cWagonBlueprint")
                 Type = VehicleType.Wagon;
+            else if (blueprint.Name == "cTenderBlueprint")
+                Type = VehicleType.Tender;
             else
             {
-                if(!acceptReskin)
+                if (!acceptReskin)
                 {
                     throw new Exception("Reskin found but not accepted!");
                 }
@@ -123,7 +125,7 @@ namespace LocoSwap
                     Product = reskinAssetBpId.Descendants("Product").First().Value;
                     BlueprintId = reskinAssetBpId.Descendants("BlueprintID").First().Value;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     Log.Debug("Cannot get main vehicle information!");
                     throw new Exception("Cannot get vehicle information from reskin blueprint.");
