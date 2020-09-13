@@ -38,6 +38,11 @@ namespace LocoSwap
                 Name = "English",
                 Value = "en"
             });
+            LanguageList.Add(new LanguageListItem
+            {
+                Name = "Русский",
+                Value = "ru"
+            });
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

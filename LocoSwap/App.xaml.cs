@@ -101,6 +101,9 @@ namespace LocoSwap
                 case "de":
                     Language.Resources.Culture = new System.Globalization.CultureInfo("de-DE");
                     break;
+                case "ru":
+                    Language.Resources.Culture = new System.Globalization.CultureInfo("ru-RU");
+                    break;
                 case "en":
                 default:
                     Language.Resources.Culture = new System.Globalization.CultureInfo("en-US");

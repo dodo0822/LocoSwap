@@ -35,6 +35,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Resources.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>LocoSwap.Language</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resources.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.de.Designer.cs</LastGenOutput>
@@ -47,6 +52,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\Resources.ru.Designer.cs">
+      <DependentUpon>Resources.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Resources.de.Designer.cs">
       <DependentUpon>Resources.de.resx</DependentUpon>
       <AutoGen>True</AutoGen>
