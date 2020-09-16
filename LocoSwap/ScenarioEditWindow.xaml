@@ -48,7 +48,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Visibility="{Binding LoadingGridVisibility}" x:Name="LoadingGrid" HorizontalAlignment="Left" Height="68" Margin="454,0,0,0" VerticalAlignment="Top" Width="200">
+        <Grid Visibility="{Binding LoadingGridVisibility}" x:Name="LoadingGrid" HorizontalAlignment="Left" Height="68" Margin="454,0,0,0" VerticalAlignment="Top" Width="300">
             <ProgressBar Value="{Binding LoadingProgress}" x:Name="LoadingProgressBar" HorizontalAlignment="Left" Height="22" Margin="10,36,0,0" VerticalAlignment="Top" Width="176"/>
             <Label Content="{Binding LoadingInformation}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         </Grid>

@@ -77,8 +77,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="{x:Static lang:Resources.edit_scenario}" HorizontalAlignment="Left" Margin="10,491,0,10" Width="125" Click="Button_Click" VerticalAlignment="Bottom"/>
-        <Button Content="{x:Static lang:Resources.open_scenario_directory}" HorizontalAlignment="Left" Margin="140,0,0,10"  Width="172"  Click="Button_Click_1" VerticalAlignment="Bottom"/>
+        <Button Content="{x:Static lang:Resources.edit_scenario}" HorizontalAlignment="Left" Margin="10,0,0,10.111" Width="145" Click="Button_Click" VerticalAlignment="Bottom"/>
+        <Button Content="{x:Static lang:Resources.open_scenario_directory}" HorizontalAlignment="Left" Margin="160,0,0,10.111"  Width="172"  Click="Button_Click_1" VerticalAlignment="Bottom"/>
         <Button x:Name="SettingsButton" Content="{x:Static lang:Resources.settings}" Margin="658,0,10,10" VerticalAlignment="Bottom" Click="SettingsButton_Click"/>
 
     </Grid>
