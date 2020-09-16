@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,174 +118,174 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_to_rules" xml:space="preserve">
-    <value>Add to rules</value>
+    <value>Добавить в правила</value>
   </data>
   <data name="apply" xml:space="preserve">
-    <value>Apply</value>
+    <value>Применить</value>
   </data>
   <data name="browse" xml:space="preserve">
-    <value>Browse ...</value>
+    <value>Указать...</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Отмена</value>
   </data>
   <data name="change_number" xml:space="preserve">
-    <value>Change number</value>
+    <value>Изменить номер</value>
   </data>
   <data name="close" xml:space="preserve">
-    <value>Close</value>
+    <value>Закрыть</value>
   </data>
   <data name="consists_in_scenario" xml:space="preserve">
-    <value>Consists in scenario</value>
+    <value>Подвижной состав в сценарии</value>
   </data>
   <data name="delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Удалить</value>
   </data>
   <data name="edit_scenario" xml:space="preserve">
-    <value>Edit scenario</value>
+    <value>Редактировать сценарий</value>
   </data>
   <data name="edit_scenario_title" xml:space="preserve">
-    <value>Edit scenario: {0}</value>
+    <value>Редактировать сценарий: {0}</value>
   </data>
   <data name="enter_number_manually" xml:space="preserve">
-    <value>Or enter vehicle number manually:</value>
+    <value>или введите номер вручную:</value>
   </data>
   <data name="flip" xml:space="preserve">
-    <value>Flip vehicle</value>
+    <value>Развернуть объект</value>
   </data>
   <data name="flipped" xml:space="preserve">
-    <value>Flipped?</value>
+    <value>Развёрнут?</value>
   </data>
   <data name="id" xml:space="preserve">
     <value>ID</value>
   </data>
   <data name="language" xml:space="preserve">
-    <value>Language</value>
+    <value>Язык</value>
   </data>
   <data name="look_up_vehicles" xml:space="preserve">
-    <value>Look up vehicles</value>
+    <value>Поиск подвижного состава</value>
   </data>
   <data name="msg_cannot_load_vehicle" xml:space="preserve">
-    <value>Could not load vehicle "{0}"!</value>
+    <value>Невозможно загрузить объект "{0}"!</value>
   </data>
   <data name="msg_error" xml:space="preserve">
-    <value>Error</value>
+    <value>Ошибка</value>
   </data>
   <data name="msg_first_time" xml:space="preserve">
-    <value>First time run: Please select Train Simulator directory.</value>
+    <value>Первый запуск: укажите папку Train Simulator.</value>
   </data>
   <data name="msg_flip_completed" xml:space="preserve">
-    <value>The selected vehicle(s) are successfully flipped.</value>
+    <value>Выбранные объекты были успешно развернуты</value>
   </data>
   <data name="msg_message" xml:space="preserve">
-    <value>Message</value>
+    <value>Сообщение</value>
   </data>
   <data name="msg_no_directory_selected" xml:space="preserve">
-    <value>Please select a directory first.</value>
+    <value>Сначала выберите папку.</value>
   </data>
   <data name="msg_no_vehicle_selected" xml:space="preserve">
-    <value>Please select vehicles first.</value>
+    <value>Сначала выберите подвижной состав.</value>
   </data>
   <data name="msg_scenario_saved" xml:space="preserve">
-    <value>Scenario files successfully saved.</value>
+    <value>Сценарий успешно сохранен.</value>
   </data>
   <data name="msg_swap_completed" xml:space="preserve">
-    <value>Swap successfully completed.</value>
+    <value>Замена прошла успешно.</value>
   </data>
   <data name="msg_ts_path_invalid" xml:space="preserve">
-    <value>Selected path is invalid! (Check if it contains RailWorks.exe)</value>
+    <value>Выбранный путь неверен! (проверьте наличие RailWorks.exe в папке)</value>
   </data>
   <data name="msg_ts_path_required" xml:space="preserve">
-    <value>A valid TS path is required to run this application. The application will now exit.</value>
+    <value>Для запуска программы требуется правильный путь установки TS. Программа будет закрыта.</value>
   </data>
   <data name="msg_vehicles_added_to_rules" xml:space="preserve">
-    <value>Vehicles successfully added to replacement rules.</value>
+    <value>Состав успешно добавлен в список правил для замены.</value>
   </data>
   <data name="msg_vehicle_already_in_rules" xml:space="preserve">
-    <value>Vehicle "{0}" is already in replacement rules! Update this rule?</value>
+    <value>Состав "{0}" уже в списке правил замены! Заменить существующее правило?</value>
   </data>
   <data name="msg_write_access_denied" xml:space="preserve">
-    <value>Access denied while trying to write to scenario files. Please check that Scenario.bin and ScenarioProperties.xml are not write protected.</value>
+    <value>Доступ для сохранения сценария запрещен. Пожалуйста, проверьте, что файлы Scenario.bin и ScenarioProperties.xml не защищены от перезаписи.</value>
   </data>
   <data name="name" xml:space="preserve">
-    <value>Name</value>
+    <value>Имя</value>
   </data>
   <data name="new_vehicle_selected" xml:space="preserve">
-    <value>New vehicle selected</value>
+    <value>Новый подвижной состав</value>
   </data>
   <data name="number" xml:space="preserve">
-    <value>Number</value>
+    <value>Номер</value>
   </data>
   <data name="numbering_list" xml:space="preserve">
-    <value>Numbering list</value>
+    <value>Список номеров</value>
   </data>
   <data name="numbering_list_not_found" xml:space="preserve">
-    <value>Numbering list not found; please enter number manually.</value>
+    <value>Список номеров не найден; пожалуйста, укажите номера вручную.</value>
   </data>
   <data name="ok" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="open_scenario_directory" xml:space="preserve">
-    <value>Open scenario directory</value>
+    <value>Открыть папку сценария</value>
   </data>
   <data name="path" xml:space="preserve">
-    <value>Path</value>
+    <value>Путь</value>
   </data>
   <data name="reading_scenario_files" xml:space="preserve">
-    <value>Reading scenario files...</value>
+    <value>Чтение файлов сценария...</value>
   </data>
   <data name="replace" xml:space="preserve">
-    <value>Replace</value>
+    <value>Заменить</value>
   </data>
   <data name="replacement_rules" xml:space="preserve">
-    <value>Replacement rules</value>
+    <value>Правила замены</value>
   </data>
   <data name="replace_identical" xml:space="preserve">
-    <value>Replace identical</value>
+    <value>Заменить идентичные</value>
   </data>
   <data name="replace_with" xml:space="preserve">
-    <value>Replace with</value>
+    <value>Чем заменить</value>
   </data>
   <data name="route" xml:space="preserve">
-    <value>Route</value>
+    <value>Маршрут</value>
   </data>
   <data name="rule_find" xml:space="preserve">
-    <value>Search for...</value>
+    <value>Искать...</value>
   </data>
   <data name="rule_replace" xml:space="preserve">
-    <value>Replace with...</value>
+    <value>Чем заменить...</value>
   </data>
   <data name="save" xml:space="preserve">
-    <value>Save</value>
+    <value>Сохранить</value>
   </data>
   <data name="saving_scenario" xml:space="preserve">
-    <value>Saving scenario files...</value>
+    <value>Сохранение файлов сценария...</value>
   </data>
   <data name="scanning_ap_files" xml:space="preserve">
-    <value>Scanning in .ap files...</value>
+    <value>Сканирование в .ap файлах...</value>
   </data>
   <data name="scanning_bin_files" xml:space="preserve">
-    <value>Scanning for vehicle .bin files...</value>
+    <value>Сканирование объектов в .bin файлах...</value>
   </data>
   <data name="scenario" xml:space="preserve">
-    <value>Scenario</value>
+    <value>Сценарий</value>
   </data>
   <data name="select_ts_path" xml:space="preserve">
-    <value>Select Train Simulator Path</value>
+    <value>Укажите путь к Train Simulator</value>
   </data>
   <data name="settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Настройки</value>
   </data>
   <data name="ts_directory" xml:space="preserve">
-    <value>Train Simulator directory</value>
+    <value>Папка Train Simulator</value>
   </data>
   <data name="use_system_language" xml:space="preserve">
-    <value>Use system language</value>
+    <value>Использовать системный язык</value>
   </data>
   <data name="vehicles_in_selected_consist" xml:space="preserve">
-    <value>Vehicles in selected consist</value>
+    <value>Объекты в выбранном составе</value>
   </data>
   <data name="vehicle_to_be_replaced" xml:space="preserve">
-    <value>Vehicle to be replaced</value>
+    <value>Заменяемый подвижной состав</value>
   </data>
 </root>
