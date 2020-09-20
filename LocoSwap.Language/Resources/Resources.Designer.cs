@@ -70,6 +70,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List All Vehicles.
+        /// </summary>
+        public static string all_vehicles {
+            get {
+                return ResourceManager.GetString("all_vehicles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         public static string apply {
@@ -552,6 +561,15 @@ namespace LocoSwap.Language {
         public static string use_system_language {
             get {
                 return ResourceManager.GetString("use_system_language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected vehicle.
+        /// </summary>
+        public static string vehicle_selected {
+            get {
+                return ResourceManager.GetString("vehicle_selected", resourceCulture);
             }
         }
         

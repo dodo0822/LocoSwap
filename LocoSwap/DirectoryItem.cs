@@ -9,11 +9,32 @@ using System.Threading.Tasks;
 
 namespace LocoSwap
 {
-    public class DirectoryItem
+    public class DirectoryItem : ModelBase
     {
-        public string Name { get; set; }
-        public string Path { get; set; }
-        public bool Populated { get; set; }
+        private string _name;
+        private string _path;
+        private bool _populated;
+        private bool _isSelected;
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+        public string Path
+        {
+            get => _path;
+            set => SetProperty(ref _path, value);
+        }
+        public bool Populated
+        {
+            get => _populated;
+            set => SetProperty(ref _populated, value);
+        }
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetProperty(ref _isSelected, value);
+        }
         public ObservableCollection<DirectoryItem> SubDirectories { get; set; }
 
         public DirectoryItem()

@@ -7,7 +7,7 @@
         xmlns:converters="clr-namespace:LocoSwap.Converters" xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:lang="clr-namespace:LocoSwap.Language;assembly=LocoSwap.Language"
         mc:Ignorable="d"
-        Title="{Binding Scenario.Name, Mode=OneWay, StringFormat={x:Static lang:Resources.edit_scenario_title}}" Height="881.5" Width="1204.959" Closed="Window_Closed">
+        Title="{Binding Scenario.Name, Mode=OneWay, StringFormat={x:Static lang:Resources.edit_scenario_title}}" Height="881.5" Width="1204.959" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.Resources>
         <converters:StatusToImageConverter x:Key="StatusToImageConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
@@ -72,6 +72,11 @@
                     <TextBlock Text="{Binding Name}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
+            <TreeView.Resources>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected}"/>
+                </Style>
+            </TreeView.Resources>
         </TreeView>
         <Label Content="{x:Static lang:Resources.replace_with}" HorizontalAlignment="Left" Margin="898,73,0,0" VerticalAlignment="Top"/>
         <GroupBox Header="{x:Static lang:Resources.new_vehicle_selected}" HorizontalAlignment="Left" Height="352" Margin="593,492,0,0" VerticalAlignment="Top" Width="300">
@@ -98,6 +103,7 @@
         <Button IsEnabled="{Binding SaveButtonEnabled}" x:Name="SaveButton" Content="{x:Static lang:Resources.save}" Margin="0,13,20,0" VerticalAlignment="Top" Click="SaveButton_Click" HorizontalAlignment="Right" Width="75"/>
         <Button x:Name="ReplaceButton" Content="{x:Static lang:Resources.replace}" HorizontalAlignment="Left" Margin="593,429,0,0" VerticalAlignment="Top" Width="300" Height="26" Click="ReplaceButton_Click"/>
         <Button x:Name="PresetButton" Content="{x:Static lang:Resources.replacement_rules}" Margin="0,13,100,0" VerticalAlignment="Top" Click="PresetButton_Click" HorizontalAlignment="Right" Width="119"/>
+        <Button IsEnabled="{Binding SaveButtonEnabled}" x:Name="AllVehiclesListButton" Content="{x:Static lang:Resources.all_vehicles}" Margin="0,38,20.444,0" VerticalAlignment="Top" Click="AllVehiclesListButton_Click" HorizontalAlignment="Right" Width="199"/>
 
     </Grid>
 </Window>

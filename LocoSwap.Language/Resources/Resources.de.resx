@@ -120,6 +120,9 @@
   <data name="add_to_rules" xml:space="preserve">
     <value>Zu Regeln hinzufügen</value>
   </data>
+  <data name="all_vehicles" xml:space="preserve">
+    <value>Alle Fahrzeuge listen</value>
+  </data>
   <data name="apply" xml:space="preserve">
     <value>Apply</value>
   </data>
@@ -284,6 +287,9 @@
   </data>
   <data name="vehicles_in_selected_consist" xml:space="preserve">
     <value>Fahrzeuge im ausgewählten Zug</value>
+  </data>
+  <data name="vehicle_selected" xml:space="preserve">
+    <value>Ausgewältes Fahrzeug</value>
   </data>
   <data name="vehicle_to_be_replaced" xml:space="preserve">
     <value>Dieses Fahrzeug wird getauscht (linke Seite):</value>

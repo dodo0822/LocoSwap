@@ -12,6 +12,7 @@ using Ionic.Zip;
 using System.Threading;
 using LocoSwap.Properties;
 using Serilog;
+using System.Windows.Input;
 
 namespace LocoSwap
 {
@@ -144,8 +145,11 @@ namespace LocoSwap
 
         private void TreeView_Expanded(object sender, RoutedEventArgs e)
         {
-            DirectoryItem selected = ((TreeViewItem)e.OriginalSource).Header as DirectoryItem;
+            TreeViewItem tvi = (TreeViewItem)e.OriginalSource;
+            DirectoryItem selected = tvi.Header as DirectoryItem;
             selected.PopulateSubDirectories();
+
+            tvi.BringIntoView();
         }
 
         private void ScanButton_Click(object sender, RoutedEventArgs e)
@@ -566,6 +570,57 @@ namespace LocoSwap
             MessageBox.Show(LocoSwap.Language.Resources.msg_flip_completed,
                 LocoSwap.Language.Resources.msg_message,
                 MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void AllVehiclesListButton_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, ScenarioVehicle> dict = new Dictionary<string, ScenarioVehicle>();
+            foreach (Consist consist in ViewModel.Consists)
+            {
+                foreach (ScenarioVehicle vehicle in consist.Vehicles)
+                {
+                    string identifier;
+                    if (vehicle.IsReskin)
+                    {
+                        identifier = vehicle.ReskinXmlPath;
+                    } else
+                    {
+                        identifier = vehicle.XmlPath;
+                    }
+                    if (!dict.ContainsKey(identifier))
+                    {
+                        dict.Add(identifier, vehicle);
+                    }
+                }
+            }
+            List<ScenarioVehicle> list = new List<ScenarioVehicle>();
+            foreach (KeyValuePair<string, ScenarioVehicle> kvpair in dict)
+            {
+                list.Add(kvpair.Value);
+            }
+            AllVehiclesWindow window = new AllVehiclesWindow(list);
+            window.ShowDialog();
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key >= Key.A && e.Key <= Key.Z)
+            {
+                int index = e.Key - Key.A;
+                char ch = 'a';
+                ch += (char)index;
+                
+                foreach (DirectoryItem dir in DirectoryTree.Items)
+                {
+                    if (dir.Name.ToLower()[0] == ch)
+                    {
+                        dir.IsSelected = true;
+                        TreeViewItem tvi = DirectoryTree.ItemContainerGenerator.ContainerFromItem(dir) as TreeViewItem;
+                        tvi.BringIntoView();
+                        break;
+                    }
+                }
+            }
         }
     }
 

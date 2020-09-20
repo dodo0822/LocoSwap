@@ -1,0 +1,41 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocoSwap"
+        xmlns:Converters="clr-namespace:LocoSwap.Converters" xmlns:Language="clr-namespace:LocoSwap.Language;assembly=LocoSwap.Language" x:Class="LocoSwap.AllVehiclesWindow"
+        mc:Ignorable="d"
+        Title="AllVehiclesWindow" Height="450" Width="586.778">
+    <Window.Resources>
+        <Converters:StatusToImageConverter x:Key="StatusToImageConverter" />
+        <Converters:VehicleImageSourceConverter x:Key="VehicleImageSourceConverter" />
+    </Window.Resources>
+    <Grid>
+
+        <ListBox x:Name="VehicleListBox" SelectionMode="Extended" Margin="10,10,315.222,22.667" ItemsSource="{Binding Vehicles}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="8" Source="{Binding Exists, Converter={StaticResource StatusToImageConverter}}" Width="8"/>
+                        <TextBlock Margin="10,0,0,0" Text="{Binding DisplayName}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <GroupBox Header="{x:Static Language:Resources.vehicle_selected}" Height="322" Margin="0,10,10.222,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300">
+            <Grid HorizontalAlignment="Left" Margin="10,0,-2,0" Width="280">
+                <Label Content="{x:Static Language:Resources.name}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,6,0,0"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="66,7,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayName, ElementName=VehicleListBox, Mode=OneWay}" VerticalAlignment="Top" Width="204" IsReadOnly="True"/>
+                <Label Content="{x:Static Language:Resources.number}" HorizontalAlignment="Left" Margin="0,39,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="66,41,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.Number, ElementName=VehicleListBox, Mode=OneWay}" VerticalAlignment="Top" Width="204" IsReadOnly="True"/>
+                <Label Content="{x:Static Language:Resources.path}" HorizontalAlignment="Left" Margin="0,70,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="63" Margin="0,101,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayXmlPath, ElementName=VehicleListBox, Mode=OneWay, StringFormat=\\Assets\\\{0\}}" VerticalAlignment="Top" Width="270" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+                <Image Source="{Binding SelectedItem, Converter={StaticResource VehicleImageSourceConverter}, ElementName=VehicleListBox, Mode=OneWay}" HorizontalAlignment="Left" Height="116" Margin="0,171,0,0" VerticalAlignment="Top" Width="270"/>
+                <CheckBox Content="{x:Static Language:Resources.flipped}" Margin="0,76,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" IsChecked="{Binding SelectedItem.Flipped, ElementName=VehicleListBox, Mode=OneWay}" IsEnabled="False" />
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>

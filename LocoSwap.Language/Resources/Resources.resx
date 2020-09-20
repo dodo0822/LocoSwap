@@ -120,6 +120,9 @@
   <data name="add_to_rules" xml:space="preserve">
     <value>Add to rules</value>
   </data>
+  <data name="all_vehicles" xml:space="preserve">
+    <value>List All Vehicles</value>
+  </data>
   <data name="apply" xml:space="preserve">
     <value>Apply</value>
   </data>
@@ -284,6 +287,9 @@
   </data>
   <data name="vehicles_in_selected_consist" xml:space="preserve">
     <value>Vehicles in selected consist</value>
+  </data>
+  <data name="vehicle_selected" xml:space="preserve">
+    <value>Selected vehicle</value>
   </data>
   <data name="vehicle_to_be_replaced" xml:space="preserve">
     <value>Vehicle to be replaced</value>
