@@ -296,7 +296,7 @@ namespace LocoSwap
                 ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, newVehicle);
                 ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, vehicle.Number);
             }
-            consist.IsComplete = VehicleExistance.Replaced;
+            consist.DetermineCompletenessAfterReplace();
 
             MessageBox.Show(
                 LocoSwap.Language.Resources.msg_swap_completed,
@@ -408,7 +408,7 @@ namespace LocoSwap
                         vehicle.CopyFrom(newVehicle);
                         ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, newVehicle);
                         ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, vehicle.Number);
-                        consist.IsComplete = VehicleExistance.Replaced;
+                        consist.DetermineCompletenessAfterReplace();
                     }
                 }
             }
@@ -537,7 +537,7 @@ namespace LocoSwap
                     vehicle.CopyFrom(availableVehicles[rule.NewXmlPath]);
                     ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, availableVehicles[rule.NewXmlPath]);
                     ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, vehicle.Number);
-                    consist.IsComplete = VehicleExistance.Replaced;
+                    consist.DetermineCompletenessAfterReplace();
                 }
             }
 

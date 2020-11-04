@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="AllVehiclesWindow" Height="450" Width="586.778">
     <Window.Resources>
-        <Converters:StatusToImageConverter x:Key="StatusToImageConverter" />
+        <Converters:VehicleStatusToImageConverter x:Key="VehicleStatusToImageConverter" />
         <Converters:VehicleImageSourceConverter x:Key="VehicleImageSourceConverter" />
     </Window.Resources>
     <Grid>
@@ -17,7 +17,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Height="8" Source="{Binding Exists, Converter={StaticResource StatusToImageConverter}}" Width="8"/>
+                        <Image Height="8" Source="{Binding Exists, Converter={StaticResource VehicleStatusToImageConverter}}" Width="8"/>
                         <TextBlock Margin="10,0,0,0" Text="{Binding DisplayName}"/>
                     </StackPanel>
                 </DataTemplate>

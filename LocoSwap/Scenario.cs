@@ -203,7 +203,7 @@ namespace LocoSwap
                         continue;
                     }
                     vehicle.Exists = VehicleExistance.Missing;
-                    consist.IsComplete = VehicleExistance.Missing;
+                    consist.IsComplete = ConsistVehicleExistance.Missing;
                 }
                 progress?.Report((int)Math.Ceiling((float)row.i / ret.Count * 100));
             }

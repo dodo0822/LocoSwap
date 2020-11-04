@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace LocoSwap
 {
+    public enum ConsistVehicleExistance
+    {
+        Found,
+        Missing,
+        PartiallyReplaced,
+        FullyReplaced
+    }
     public class Consist : ModelBase
     {
         private int _idx;
         private string _name;
-        private VehicleExistance _isComplete;
+        private ConsistVehicleExistance _isComplete;
         private List<ScenarioVehicle> _vehicles;
         private bool _isPlayerConsist;
         public int Idx
@@ -23,7 +30,7 @@ namespace LocoSwap
             get => _name;
             set => SetProperty(ref _name, value);
         }
-        public VehicleExistance IsComplete
+        public ConsistVehicleExistance IsComplete
         {
             get => _isComplete;
             set => SetProperty(ref _isComplete, value);
@@ -43,7 +50,7 @@ namespace LocoSwap
         {
             Idx = -1;
             Name = "";
-            IsComplete = VehicleExistance.Found;
+            IsComplete = ConsistVehicleExistance.Found;
             Vehicles = new List<ScenarioVehicle>();
             IsPlayerConsist = false;
         }
@@ -52,9 +59,22 @@ namespace LocoSwap
         {
             Idx = idx;
             Name = name;
-            IsComplete = VehicleExistance.Found;
+            IsComplete = ConsistVehicleExistance.Found;
             Vehicles = new List<ScenarioVehicle>();
             IsPlayerConsist = false;
+        }
+
+        public void DetermineCompletenessAfterReplace()
+        {
+            foreach(var vehicle in Vehicles)
+            {
+                if(vehicle.Exists == VehicleExistance.Missing)
+                {
+                    IsComplete = ConsistVehicleExistance.PartiallyReplaced;
+                    return;
+                }
+            }
+            IsComplete = ConsistVehicleExistance.FullyReplaced;
         }
     }
 }

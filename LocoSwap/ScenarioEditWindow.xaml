@@ -9,7 +9,8 @@
         mc:Ignorable="d"
         Title="{Binding Scenario.Name, Mode=OneWay, StringFormat={x:Static lang:Resources.edit_scenario_title}}" Height="881.5" Width="1204.959" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.Resources>
-        <converters:StatusToImageConverter x:Key="StatusToImageConverter" />
+        <converters:VehicleStatusToImageConverter x:Key="VehicleStatusToImageConverter" />
+        <converters:ConsistStatusToImageConverter x:Key="ConsistStatusToImageConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <converters:VehicleImageSourceConverter x:Key="VehicleImageSourceConverter" />
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -30,7 +31,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding IsComplete, Converter={StaticResource StatusToImageConverter}}" Width="8" Height="8" />
+                        <Image Source="{Binding IsComplete, Converter={StaticResource ConsistStatusToImageConverter}}" Width="8" Height="8" />
                         <TextBlock Text="{Binding Name}" Margin="10,0,0,0" />
                         <Image Visibility="{Binding IsPlayerConsist, Converter={StaticResource BoolToVis}}" Source="/LocoSwap;component/Resources/Player.png" Margin="5,1,0,0" Width="8" Height="8" />
                     </StackPanel>
@@ -42,7 +43,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding Exists, Converter={StaticResource StatusToImageConverter}}" Width="8" Height="8" />
+                        <Image Source="{Binding Exists, Converter={StaticResource VehicleStatusToImageConverter}}" Width="8" Height="8" />
                         <TextBlock Text="{Binding DisplayName}" Margin="10,0,0,0" />
                     </StackPanel>
                 </DataTemplate>

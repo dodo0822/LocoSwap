@@ -9,7 +9,7 @@ using System.Windows.Data;
 namespace LocoSwap.Converters
 {
     [ValueConversion(typeof(VehicleExistance), typeof(string))]
-    public class StatusToImageConverter : IValueConverter
+    public class VehicleStatusToImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -25,6 +25,41 @@ namespace LocoSwap.Converters
                     image = "Replaced.png";
                     break;
                 case VehicleExistance.Missing:
+                default:
+                    image = "BulletRed.png";
+                    break;
+            }
+            string uri = String.Format("/LocoSwap;component/Resources/{0}", image);
+            return uri;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+
+    [ValueConversion(typeof(ConsistVehicleExistance), typeof(string))]
+    public class ConsistStatusToImageConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null) return string.Empty;
+            var status = (ConsistVehicleExistance)value;
+            string image;
+            switch (status)
+            {
+                case ConsistVehicleExistance.Found:
+                    image = "BulletGreen.png";
+                    break;
+                case ConsistVehicleExistance.FullyReplaced:
+                    image = "ReplacedGreen.png";
+                    break;
+                case ConsistVehicleExistance.PartiallyReplaced:
+                    image = "ReplacedRed.png";
+                    break;
+                case ConsistVehicleExistance.Missing:
                 default:
                     image = "BulletRed.png";
                     break;
