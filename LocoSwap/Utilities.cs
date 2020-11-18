@@ -99,7 +99,7 @@ namespace LocoSwap
                 convertedLang = langConversionTable[lang];
             }
             XElement preferredElement = localisedString.Element(convertedLang);
-            if (preferredElement != null || preferredElement.Value == "")
+            if (preferredElement != null)
             {
                 if (preferredElement.Value != "") return preferredElement.Value;
             }
