@@ -41,6 +41,20 @@ namespace LocoSwap
 
             Log.Debug("LocoSwap version {0} starting up..", Assembly.GetEntryAssembly().GetName().Version.ToString());
 
+            if(Settings.Default.UpgradeRequired)
+            {
+                Log.Debug("Upgrade detected, migrating settings..");
+                try
+                {
+                    Settings.Default.Upgrade();
+                    Settings.Default.UpgradeRequired = false;
+                }
+                catch(Exception)
+                {
+                    Log.Debug("Could not migrate settings!");
+                }
+            }
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
 
