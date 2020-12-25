@@ -276,6 +276,77 @@ namespace LocoSwap
             ViewModel.VehicleScanInProgress = false;
         }
 
+        private void InsertButton_Click(bool after)
+        {
+            if (AvailableVehicleListBox.SelectedItem == null || VehicleListBox.SelectedItem == null)
+            {
+                MessageBox.Show(
+                    LocoSwap.Language.Resources.msg_no_vehicle_selected,
+                    LocoSwap.Language.Resources.msg_message,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var insertIndex = after ? (VehicleListBox.SelectedIndex + 1) : VehicleListBox.SelectedIndex;
+
+            Consist consist = (Consist)ConsistListBox.SelectedItem;
+            AvailableVehicle newVehicle = (AvailableVehicle)AvailableVehicleListBox.SelectedItem;
+
+            ScenarioVehicle vehicle = ViewModel.Scenario.InsertVehicle(consist.Idx, insertIndex, newVehicle);
+            consist.Vehicles.Insert(insertIndex, vehicle);
+            for (var i = 0; i < consist.Vehicles.Count; i++)
+            {
+                consist.Vehicles[i].Idx = i;
+            }
+
+            ViewModel.Vehicles.Clear();
+            foreach (ScenarioVehicle scenarioVehicle in ((Consist)ConsistListBox.SelectedItem).Vehicles)
+            {
+                ViewModel.Vehicles.Add(scenarioVehicle);
+            }
+
+            return;
+        }
+
+        private void InsertBeforeButton_Click(object sender, RoutedEventArgs e)
+        {
+            InsertButton_Click(false);
+        }
+
+        private void InsertAfterButton_Click(object sender, RoutedEventArgs e)
+        {
+            InsertButton_Click(true);
+        }
+
+        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (VehicleListBox.SelectedItems.Count == 0)
+            {
+                MessageBox.Show(
+                    LocoSwap.Language.Resources.msg_no_vehicle_selected,
+                    LocoSwap.Language.Resources.msg_message,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            Consist consist = (Consist)ConsistListBox.SelectedItem;
+            foreach (ScenarioVehicle vehicle in VehicleListBox.SelectedItems)
+            {
+                ViewModel.Scenario.RemoveVehicle(consist.Idx, vehicle.Idx);
+                consist.Vehicles.RemoveAt(vehicle.Idx);
+                for (var i = 0; i < consist.Vehicles.Count; i++)
+                {
+                    consist.Vehicles[i].Idx = i;
+                }
+            }
+
+            ViewModel.Vehicles.Clear();
+            foreach (ScenarioVehicle scenarioVehicle in ((Consist)ConsistListBox.SelectedItem).Vehicles)
+            {
+                ViewModel.Vehicles.Add(scenarioVehicle);
+            }
+        }
+
         private void ReplaceButton_Click(object sender, RoutedEventArgs e)
         {
             if (VehicleListBox.SelectedItems.Count == 0 || AvailableVehicleListBox.SelectedItem == null)

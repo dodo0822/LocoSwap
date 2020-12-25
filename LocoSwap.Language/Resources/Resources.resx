@@ -162,6 +162,12 @@
   <data name="id" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="insert_after" xml:space="preserve">
+    <value>Insert v</value>
+  </data>
+  <data name="insert_before" xml:space="preserve">
+    <value>Insert ^</value>
+  </data>
   <data name="language" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -236,6 +242,9 @@
   </data>
   <data name="reading_scenario_files" xml:space="preserve">
     <value>Reading scenario files...</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Remove</value>
   </data>
   <data name="replace" xml:space="preserve">
     <value>Replace</value>

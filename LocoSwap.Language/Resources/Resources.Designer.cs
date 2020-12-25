@@ -196,6 +196,24 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert v.
+        /// </summary>
+        public static string insert_after {
+            get {
+                return ResourceManager.GetString("insert_after", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert ^.
+        /// </summary>
+        public static string insert_before {
+            get {
+                return ResourceManager.GetString("insert_before", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string language {
@@ -417,6 +435,15 @@ namespace LocoSwap.Language {
         public static string reading_scenario_files {
             get {
                 return ResourceManager.GetString("reading_scenario_files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string remove {
+            get {
+                return ResourceManager.GetString("remove", resourceCulture);
             }
         }
         

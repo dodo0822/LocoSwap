@@ -376,11 +376,7 @@ namespace LocoSwap
                 Log.Debug("Need to create cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
                 for (int i = cargoCount; i < newVehicle.CargoCount; ++i)
                 {
-                    XElement newNode = new XElement("e");
-                    newNode.SetAttributeValue(Namespace + "type", "sFloat32");
-                    newNode.SetAttributeValue(Namespace + "alt_encoding", "0000000000000000");
-                    newNode.SetAttributeValue(Namespace + "precision", "string");
-                    newNode.SetValue("0");
+                    var newNode = Utilities.GenerateCargoComponentItem();
                     cCargoComponent.Add(newNode);
                 }
             }
@@ -398,11 +394,7 @@ namespace LocoSwap
                 Log.Debug("Need to add entities {0} -> {1}", entityCount, newVehicle.EntityCount);
                 for (int i = entityCount; i < newVehicle.EntityCount; ++i)
                 {
-                    XElement newNode = new XElement("e");
-                    newNode.SetAttributeValue(Namespace + "numElements", "16");
-                    newNode.SetAttributeValue(Namespace + "elementType", "sFloat32");
-                    newNode.SetAttributeValue(Namespace + "precision", "string");
-                    newNode.SetValue("1.0000000 0.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 0.0000000 1.0000000");
+                    var newNode = Utilities.GenerateEntityContainerItem();
                     cEntityContainer.Add(newNode);
                 }
             }
@@ -526,6 +518,112 @@ namespace LocoSwap
                 return;
             }
             flippedElement.Value = flipped ? "1" : "0";
+            return;
+        }
+
+        public ScenarioVehicle InsertVehicle(int consistIdx, int insertPos, AvailableVehicle vehicle)
+        {
+            XElement consist = ScenarioXml.Root.Descendants("cConsist").Skip(consistIdx).FirstOrDefault();
+            if (consist == null)
+            {
+                throw new Exception("Consist not found");
+            }
+            XElement vehicles = consist.Element("RailVehicles");
+
+            bool atEnd = insertPos >= vehicles.Elements("cOwnedEntity").Count();
+
+            var insert = VehicleGenerator.GenerateVehicle(
+                atEnd ? vehicles.Elements("cOwnedEntity").Last() : vehicles.Elements("cOwnedEntity").ElementAt(insertPos),
+                vehicle);
+            var elem = insert.Item1;
+            elem.Attribute(XNamespace.Xmlns + "d").Remove();
+
+            if (atEnd)
+            {
+                vehicles.Add(elem);
+            }
+            else
+            {
+                vehicles.Elements("cOwnedEntity").ElementAt(insertPos).AddBeforeSelf(elem);
+            }
+
+            // Check InitialRV lists
+            var cDriver = consist.Element("Driver").Element("cDriver");
+            if (cDriver != null)
+            {
+                var e = new XElement("e");
+                e.SetAttributeValue(Namespace + "type", "cDeltaString");
+                e.SetValue(insert.Item2.Number);
+
+                var initialRV = cDriver.Element("InitialRV");
+                if (atEnd)
+                {
+                    initialRV.Add(e);
+                }
+                else
+                {
+                    var row = initialRV.Elements("e").ElementAt(insertPos);
+                    if (row != null)
+                    {
+                        row.AddBeforeSelf(e);
+                    }
+                }
+            }
+
+            CreateBlueprintSetPreLoad(vehicle.Provider, vehicle.Product);
+
+            return insert.Item2;
+        }
+
+        public void RemoveVehicle(int consistIdx, int vehicleIdx)
+        {
+            XElement consist = ScenarioXml.Root.Descendants("cConsist").Skip(consistIdx).FirstOrDefault();
+            if (consist == null)
+            {
+                throw new Exception("Consist not found");
+            }
+            XElement vehicles = consist.Element("RailVehicles");
+            if (vehicles.Elements("cOwnedEntity").Count() <= vehicleIdx)
+            {
+                throw new Exception("Vehicle index out of range");
+            }
+            var elem = vehicles.Elements("cOwnedEntity").ElementAt(vehicleIdx);
+            var uniqueNumber = elem.Descendants("UniqueNumber").FirstOrDefault();
+
+            string originalNumber = uniqueNumber.Value;
+            // Check InitialRV lists
+            var cDriver = consist.Element("Driver").Element("cDriver");
+            if (cDriver != null)
+            {
+                var initialRV = cDriver.Element("InitialRV");
+                var row = initialRV.Elements("e").Skip(vehicleIdx).FirstOrDefault();
+                if (row != null)
+                {
+                    if (row.Value == originalNumber)
+                    {
+                        Log.Debug("InitialRV number matched, going to remove");
+                        row.Remove();
+                    }
+                    else
+                    {
+                        Log.Debug("InitialRV number did not match, vehicle is {0}, initialRV is {1}, skipping removal.", originalNumber, row.Value);
+                    }
+                }
+            }
+
+            // Check number in instructions
+            var cConsistOperations = ScenarioXml.Root.Descendants("cConsistOperations");
+            var operationTargetNumbers = from item in cConsistOperations.Elements("DeltaTarget").Elements("cDriverInstructionTarget").Elements("RailVehicleNumber").Elements("e")
+                                         where item.Value == originalNumber
+                                         select item;
+            Log.Debug("{0} matching instructions found", operationTargetNumbers.Count());
+            foreach (XElement e in operationTargetNumbers)
+            {
+                e.Remove();
+            }
+
+            elem.Remove();
+
             return;
         }
 

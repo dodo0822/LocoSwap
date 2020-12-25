@@ -113,9 +113,11 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="VehicleAvailibility.cs" />
+    <Compile Include="VehicleGenerator.cs" />
     <Compile Include="VehicleNumberSelectionWindow.xaml.cs">
       <DependentUpon>VehicleNumberSelectionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VehicleTemplates.cs" />
     <Compile Include="XmlDocumentLoader.cs" />
     <Page Include="AllVehiclesWindow.xaml">
       <SubType>Designer</SubType>

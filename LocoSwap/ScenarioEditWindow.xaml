@@ -53,18 +53,18 @@
             <ProgressBar Value="{Binding LoadingProgress}" x:Name="LoadingProgressBar" HorizontalAlignment="Left" Height="22" Margin="10,36,0,0" VerticalAlignment="Top" Width="176"/>
             <Label Content="{Binding LoadingInformation}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <GroupBox Header="{x:Static lang:Resources.vehicle_to_be_replaced}" HorizontalAlignment="Left" Height="351" Margin="593,73,0,0" VerticalAlignment="Top" Width="300">
+        <GroupBox Header="{x:Static lang:Resources.vehicle_to_be_replaced}" HorizontalAlignment="Left" Height="320" Margin="593,73,0,0" VerticalAlignment="Top" Width="300">
             <Grid HorizontalAlignment="Left" Margin="10,0,-2,0" Width="280">
                 <Label Content="{x:Static lang:Resources.name}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,6,0,0"/>
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="66,7,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayName, Mode=OneWay, ElementName=VehicleListBox}" VerticalAlignment="Top" Width="204" IsReadOnly="True"/>
                 <Label Content="{x:Static lang:Resources.number}" HorizontalAlignment="Left" Margin="0,39,0,0" VerticalAlignment="Top"/>
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="66,41,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.Number, ElementName=VehicleListBox, Mode=OneWay}" VerticalAlignment="Top" Width="204" IsReadOnly="True"/>
                 <Label Content="{x:Static lang:Resources.path}" HorizontalAlignment="Left" Margin="0,70,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="63" Margin="0,101,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayXmlPath, Mode=OneWay, ElementName=VehicleListBox, StringFormat='\\Assets\\\{0\}'}" VerticalAlignment="Top" Width="270" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
-                <Image Source="{Binding SelectedItem, Mode=OneWay, ElementName=VehicleListBox, Converter={StaticResource VehicleImageSourceConverter}}" HorizontalAlignment="Left" Height="116" Margin="0,171,0,0" VerticalAlignment="Top" Width="270"/>
+                <TextBox HorizontalAlignment="Left" Height="39" Margin="0,101,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayXmlPath, Mode=OneWay, ElementName=VehicleListBox, StringFormat='\\Assets\\\{0\}'}" VerticalAlignment="Top" Width="270" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+                <Image Source="{Binding SelectedItem, Mode=OneWay, ElementName=VehicleListBox, Converter={StaticResource VehicleImageSourceConverter}}" HorizontalAlignment="Left" Height="111" Margin="0,145,0,0" VerticalAlignment="Top" Width="270"/>
                 <Button x:Name="ChangeNumberButton" Content="{x:Static lang:Resources.change_number}" HorizontalAlignment="Left" Margin="0,0,0,10" Width="125" Click="ChangeNumberButton_Click" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="26"/>
                 <CheckBox Content="{x:Static lang:Resources.flipped}" Margin="0,76,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" IsChecked="{Binding SelectedItem.Flipped, Mode=OneWay, ElementName=VehicleListBox}" IsEnabled="False" />
-                <Button x:Name="FlipButton" Content="{x:Static lang:Resources.flip}" HorizontalAlignment="Left" Margin="145,292,0,0" Width="125" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="26" Click="FlipButton_Click"/>
+                <Button x:Name="FlipButton" Content="{x:Static lang:Resources.flip}" HorizontalAlignment="Left" Margin="145,0,0,10.429" Width="125" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="26" Click="FlipButton_Click"/>
             </Grid>
         </GroupBox>
         <TreeView x:Name="DirectoryTree" Height="329" Margin="898,99,20,0" VerticalAlignment="Top" ItemsSource="{Binding Directories}" TreeViewItem.Expanded="TreeView_Expanded">
@@ -80,8 +80,8 @@
             </TreeView.Resources>
         </TreeView>
         <Label Content="{x:Static lang:Resources.replace_with}" HorizontalAlignment="Left" Margin="898,73,0,0" VerticalAlignment="Top"/>
-        <GroupBox Header="{x:Static lang:Resources.new_vehicle_selected}" HorizontalAlignment="Left" Height="352" Margin="593,492,0,0" VerticalAlignment="Top" Width="300">
-            <Grid HorizontalAlignment="Left" Height="341" Margin="10,0,-2,-13" VerticalAlignment="Top" Width="280">
+        <GroupBox Header="{x:Static lang:Resources.new_vehicle_selected}" HorizontalAlignment="Left" Height="320" Margin="593,524,0,0" VerticalAlignment="Top" Width="300">
+            <Grid HorizontalAlignment="Left" Height="326" Margin="10,0,-2,0" VerticalAlignment="Top" Width="280">
                 <Label Content="{x:Static lang:Resources.name}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="0,26,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayName, Mode=OneWay, ElementName=AvailableVehicleListBox}" VerticalAlignment="Top" Width="270" IsReadOnly="True"/>
                 <Label Content="{x:Static lang:Resources.path}" HorizontalAlignment="Left" Margin="0,49,0,0" VerticalAlignment="Top"/>
@@ -99,12 +99,15 @@
         </ListBox>
         <Button x:Name="ScanButton" IsEnabled="{Binding VehicleScanInProgress, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static lang:Resources.look_up_vehicles}" Margin="898,433,0,0" VerticalAlignment="Top" Click="ScanButton_Click" Height="26" HorizontalAlignment="Left" Width="155"/>
         <Button Visibility="{Binding VehicleScanInProgress, Converter={StaticResource BoolToVis}}" x:Name="CancelScanningButton" Content="{x:Static lang:Resources.cancel}" Margin="0,433,20,0" VerticalAlignment="Top" Height="26" Click="CancelScanningButton_Click" HorizontalAlignment="Right" Width="75"/>
-        <Button x:Name="AddToRulesButton" Content="{x:Static lang:Resources.add_to_rules}" HorizontalAlignment="Left" Margin="760,458,0,0" VerticalAlignment="Top" Width="133" Height="26" Click="AddToRulesButton_Click"/>
-        <Button x:Name="ReplaceIdenticalButton" Content="{x:Static lang:Resources.replace_identical}" HorizontalAlignment="Left" Margin="593,458,0,0" VerticalAlignment="Top" Width="162" Height="26" Click="ReplaceIdenticalButton_Click"/>
+        <Button x:Name="AddToRulesButton" Content="{x:Static lang:Resources.add_to_rules}" HorizontalAlignment="Left" Margin="746,493,0,0" VerticalAlignment="Top" Width="147" Height="26" Click="AddToRulesButton_Click"/>
+        <Button x:Name="ReplaceIdenticalButton" Content="{x:Static lang:Resources.replace_identical}" HorizontalAlignment="Left" Margin="593,493,0,0" VerticalAlignment="Top" Width="148" Height="26" Click="ReplaceIdenticalButton_Click"/>
         <Button IsEnabled="{Binding SaveButtonEnabled}" x:Name="SaveButton" Content="{x:Static lang:Resources.save}" Margin="0,13,20,0" VerticalAlignment="Top" Click="SaveButton_Click" HorizontalAlignment="Right" Width="75"/>
-        <Button x:Name="ReplaceButton" Content="{x:Static lang:Resources.replace}" HorizontalAlignment="Left" Margin="593,429,0,0" VerticalAlignment="Top" Width="300" Height="26" Click="ReplaceButton_Click"/>
+        <Button x:Name="ReplaceButton" Content="{x:Static lang:Resources.replace}" HorizontalAlignment="Left" Margin="593,462,0,0" VerticalAlignment="Top" Width="300" Height="26" Click="ReplaceButton_Click"/>
         <Button x:Name="PresetButton" Content="{x:Static lang:Resources.replacement_rules}" Margin="0,13,100,0" VerticalAlignment="Top" Click="PresetButton_Click" HorizontalAlignment="Right" Width="119"/>
         <Button IsEnabled="{Binding SaveButtonEnabled}" x:Name="AllVehiclesListButton" Content="{x:Static lang:Resources.all_vehicles}" Margin="0,38,20.444,0" VerticalAlignment="Top" Click="AllVehiclesListButton_Click" HorizontalAlignment="Right" Width="199"/>
+        <Button x:Name="InsertBeforeButton" Content="{x:Static lang:Resources.insert_before}" HorizontalAlignment="Left" Margin="593,400,0,0" VerticalAlignment="Top" Width="148" Height="26" Click="InsertBeforeButton_Click"/>
+        <Button x:Name="InsertAfterButton" Content="{x:Static lang:Resources.insert_after}" HorizontalAlignment="Left" Margin="746,400,0,0" VerticalAlignment="Top" Width="147" Height="26" Click="InsertAfterButton_Click"/>
+        <Button x:Name="RemoveButton" Content="{x:Static lang:Resources.remove}" HorizontalAlignment="Left" Margin="593,431,0,0" VerticalAlignment="Top" Width="300" Height="26" Click="RemoveButton_Click"/>
 
     </Grid>
 </Window>

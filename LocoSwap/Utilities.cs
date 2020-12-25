@@ -16,6 +16,7 @@ namespace LocoSwap
 {
     static class Utilities
     {
+        private static XNamespace Namespace = "http://www.kuju.com/TnT/2003/Delta";
         public static string GetTempDir()
         {
             return Path.Combine(Directory.GetCurrentDirectory(), "temp");
@@ -115,6 +116,60 @@ namespace LocoSwap
                 }
             }
             return result;
+        }
+
+        public static Tuple<ulong, ulong> GetUUIDLongs(Guid guid)
+        {
+            var result = new Tuple<ulong, ulong>(
+                BitConverter.ToUInt64(guid.ToByteArray(), 0),
+                BitConverter.ToUInt64(guid.ToByteArray(), 8));
+
+            return result;
+        }
+
+        public static XElement GenerateCGUID()
+        {
+            var guid = Guid.NewGuid();
+            var ulongs = GetUUIDLongs(guid);
+            var cGUID = new XElement("cGUID");
+            var UUID = new XElement("UUID");
+
+            var e1 = new XElement("e");
+            e1.SetAttributeValue(Namespace + "type", "sUInt64");
+            e1.SetValue(ulongs.Item1);
+
+            var e2 = new XElement("e");
+            e2.SetAttributeValue(Namespace + "type", "sUInt64");
+            e2.SetValue(ulongs.Item2);
+
+            UUID.Add(e1, e2);
+
+            var devString = new XElement("DevString");
+            devString.SetAttributeValue(Namespace + "type", "cDeltaString");
+            devString.SetValue(guid.ToString());
+
+            cGUID.Add(UUID, devString);
+            return cGUID;
+        }
+
+        public static XElement GenerateEntityContainerItem()
+        {
+            XElement newNode = new XElement("e");
+            newNode.SetAttributeValue(Namespace + "numElements", "16");
+            newNode.SetAttributeValue(Namespace + "elementType", "sFloat32");
+            newNode.SetAttributeValue(Namespace + "precision", "string");
+            newNode.SetValue("1.0000000 0.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 0.0000000 1.0000000");
+            return newNode;
+        }
+
+        public static XElement GenerateCargoComponentItem()
+        {
+            XElement newNode = new XElement("e");
+            newNode.SetAttributeValue(Namespace + "type", "sFloat32");
+            newNode.SetAttributeValue(Namespace + "alt_encoding", "0000000000000000");
+            newNode.SetAttributeValue(Namespace + "precision", "string");
+            newNode.SetValue("0");
+            return newNode;
         }
 
         public static class StaticRandom

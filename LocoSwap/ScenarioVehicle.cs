@@ -71,6 +71,10 @@ namespace LocoSwap
                 var index = Utilities.StaticRandom.Instance.Next(from.NumberingList.Count);
                 Number = from.NumberingList[index];
             }
+            else
+            {
+                Number = (new Guid()).ToString();
+            }
         }
 
     }
