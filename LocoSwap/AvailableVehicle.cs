@@ -13,14 +13,20 @@ namespace LocoSwap
 {
     public class AvailableVehicle : Vehicle
     {
-        private int _cargoCount;
+        private static XNamespace Namespace = "http://www.kuju.com/TnT/2003/Delta";
+
+        private List<Tuple<double, string>> _cargoComponents;
         private int _entityCount;
         private List<string> _numberingList;
         private XElement _nameLocalisedString;
+        public List<Tuple<double, string>> CargoComponents
+        {
+            get => _cargoComponents;
+            set => SetProperty(ref _cargoComponents, value);
+        }
         public int CargoCount
         {
-            get => _cargoCount;
-            set => SetProperty(ref _cargoCount, value);
+            get => _cargoComponents.Count;
         }
         public int EntityCount
         {
@@ -137,7 +143,7 @@ namespace LocoSwap
                     AvailableVehicle mainVehicle = new AvailableVehicle(mainVehicleBinPath, false);
                     Type = mainVehicle.Type;
                     EntityCount = mainVehicle.EntityCount;
-                    CargoCount = mainVehicle.CargoCount;
+                    CargoComponents = mainVehicle.CargoComponents;
                     NumberingList = mainVehicle.NumberingList;
                 }
                 catch (Exception e)
@@ -153,11 +159,22 @@ namespace LocoSwap
 
             EntityCount = document.Root.Descendants("cEntityContainerBlueprint-sChild").Count();
 
+            CargoComponents = new List<Tuple<double, string>>();
             XElement cargoDef = document.Root.Descendants("CargoDef").FirstOrDefault();
-            if (cargoDef == null) CargoCount = 0;
-            else
+            if (cargoDef != null)
             {
-                CargoCount = cargoDef.Elements().Count();
+                foreach (var cBulkCargoDef in cargoDef.Elements())
+                {
+                    var capacity = cBulkCargoDef.Element("Capacity");
+                    var tuple = new Tuple<double, string>(0, "0000000000000000");
+                    if (capacity != null)
+                    {
+                        tuple = new Tuple<double, string>(
+                            Convert.ToDouble(capacity.Value),
+                            capacity.Attribute(Namespace + "alt_encoding").Value);
+                    }
+                    CargoComponents.Add(tuple);
+                }
             }
 
             try
