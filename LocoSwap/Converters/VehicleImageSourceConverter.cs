@@ -16,11 +16,7 @@ namespace LocoSwap.Converters
         {
             if (value == null) return "/LocoSwap;component/Resources/PreviewNotAvailable.png";
             Vehicle vehicle = (Vehicle)value;
-            var xmlPath = vehicle.IsReskin ? vehicle.ReskinXmlPath : vehicle.XmlPath;
-            var vehicleDirectory = new FileInfo(Path.Combine(Properties.Settings.Default.TsPath, "Assets", xmlPath)).Directory.FullName;
-            var imagePath = Path.Combine(vehicleDirectory, "Locoinformation", "image.png");
-            if (File.Exists(imagePath)) return imagePath;
-            else return "/LocoSwap;component/Resources/PreviewNotAvailable.png";
+            return VehicleAvailibility.GetVehicleImage(vehicle);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

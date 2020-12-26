@@ -21,14 +21,80 @@ namespace LocoSwap
     static class VehicleAvailibility
     {
         private static ConcurrentDictionary<string, VehicleAvailibilityResult> _vehicleTable;
+        private static ConcurrentDictionary<string, string> _vehicleImageTable;
         private static ConcurrentDictionary<string, string> _vehicleDisplayNameTable;
         private static Dictionary<string, List<string>> _numberingListCache;
 
         static VehicleAvailibility()
         {
             _vehicleTable = new ConcurrentDictionary<string, VehicleAvailibilityResult>();
+            _vehicleImageTable = new ConcurrentDictionary<string, string>();
             _vehicleDisplayNameTable = new ConcurrentDictionary<string, string>();
             _numberingListCache = new Dictionary<string, List<string>>();
+        }
+
+        public static string GetVehicleImage(Vehicle vehicle)
+        {
+            var xmlPath = vehicle.XmlPath;
+            if (vehicle.IsReskin) xmlPath = vehicle.ReskinXmlPath;
+            if (_vehicleImageTable.ContainsKey(xmlPath))
+            {
+                return _vehicleImageTable[xmlPath];
+            }
+
+            var availibility = IsVehicleAvailable(vehicle);
+            if (!availibility.Available)
+            {
+                _vehicleImageTable[xmlPath] = "/LocoSwap;component/Resources/PreviewNotAvailable.png";
+                return _vehicleImageTable[xmlPath];
+            }
+
+            if (!availibility.InApFile)
+            {
+                var vehicleDirectory = new FileInfo(Path.Combine(Properties.Settings.Default.TsPath, "Assets", xmlPath)).Directory.FullName;
+                var imagePath = Path.Combine(vehicleDirectory, "LocoInformation", "image.png");
+                if (File.Exists(imagePath)) _vehicleImageTable[xmlPath] = imagePath;
+                else _vehicleImageTable[xmlPath] = "/LocoSwap;component/Resources/PreviewNotAvailable.png";
+
+                return _vehicleImageTable[xmlPath];
+            }
+
+            try
+            {
+                var zipFile = ZipFile.Read(availibility.ApPath);
+                var components = availibility.PathWithinAp.Split('/');
+                var componentsList = components.ToList();
+                componentsList.RemoveAt(componentsList.Count - 1);
+                componentsList.Add("LocoInformation");
+                componentsList.Add("image.png");
+                var imageEntry = zipFile.Where(entry => entry.FileName == string.Join("/", componentsList)).FirstOrDefault();
+                if (imageEntry == null)
+                {
+                    _vehicleImageTable[xmlPath] = "/LocoSwap;component/Resources/PreviewNotAvailable.png";
+                    return _vehicleImageTable[xmlPath];
+                }
+                var extractPath = Path.Combine(
+                    Utilities.GetTempDir(),
+                    "image-" + Utilities.StaticRandom.Instance.Next(10000, 99999).ToString() + ".png");
+
+                Utilities.RemoveFile(extractPath);
+                using (var fileStream = new FileStream(extractPath, FileMode.Create))
+                {
+                    imageEntry.Extract(fileStream);
+                    fileStream.Flush();
+                    fileStream.Close();
+                }
+
+                _vehicleImageTable[xmlPath] = extractPath;
+                return extractPath;
+            }
+            catch (Exception e)
+            {
+                Log.Debug("GetVehicleImage: Could not extract image from .ap file! {0}", e);
+
+                _vehicleImageTable[xmlPath] = "/LocoSwap;component/Resources/PreviewNotAvailable.png";
+                return _vehicleImageTable[xmlPath];
+            }
         }
 
         public static string GetVehicleDisplayName(Vehicle vehicle)
@@ -164,6 +230,7 @@ namespace LocoSwap
         public static void ClearTable()
         {
             _vehicleTable.Clear();
+            _vehicleImageTable.Clear();
             _vehicleDisplayNameTable.Clear();
             _numberingListCache.Clear();
         }
