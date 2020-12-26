@@ -71,7 +71,9 @@ namespace LocoSwap
                 .Element("Component").Element("cCargoComponent").Element("InitialLevel");
             for (var i = 0; i < vehicle.CargoCount; i++)
             {
-                var newNode = Utilities.GenerateCargoComponentItem();
+                var newNode = Utilities.GenerateCargoComponentItem(
+                    vehicle.CargoComponents[i].Item1,
+                    vehicle.CargoComponents[i].Item2);
                 cCargoComponent.Add(newNode);
             }
 

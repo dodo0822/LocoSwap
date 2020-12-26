@@ -15,11 +15,11 @@ namespace LocoSwap
     {
         private static XNamespace Namespace = "http://www.kuju.com/TnT/2003/Delta";
 
-        private List<Tuple<double, string>> _cargoComponents;
+        private List<Tuple<string, string>> _cargoComponents;
         private int _entityCount;
         private List<string> _numberingList;
         private XElement _nameLocalisedString;
-        public List<Tuple<double, string>> CargoComponents
+        public List<Tuple<string, string>> CargoComponents
         {
             get => _cargoComponents;
             set => SetProperty(ref _cargoComponents, value);
@@ -159,18 +159,18 @@ namespace LocoSwap
 
             EntityCount = document.Root.Descendants("cEntityContainerBlueprint-sChild").Count();
 
-            CargoComponents = new List<Tuple<double, string>>();
+            CargoComponents = new List<Tuple<string, string>>();
             XElement cargoDef = document.Root.Descendants("CargoDef").FirstOrDefault();
             if (cargoDef != null)
             {
                 foreach (var cBulkCargoDef in cargoDef.Elements())
                 {
                     var capacity = cBulkCargoDef.Element("Capacity");
-                    var tuple = new Tuple<double, string>(0, "0000000000000000");
+                    var tuple = new Tuple<string, string>("0", "0000000000000000");
                     if (capacity != null)
                     {
-                        tuple = new Tuple<double, string>(
-                            Convert.ToDouble(capacity.Value),
+                        tuple = new Tuple<string, string>(
+                            capacity.Value,
                             capacity.Attribute(Namespace + "alt_encoding").Value);
                     }
                     CargoComponents.Add(tuple);

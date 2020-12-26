@@ -162,13 +162,13 @@ namespace LocoSwap
             return newNode;
         }
 
-        public static XElement GenerateCargoComponentItem()
+        public static XElement GenerateCargoComponentItem(string val, string altEncoding)
         {
             XElement newNode = new XElement("e");
             newNode.SetAttributeValue(Namespace + "type", "sFloat32");
-            newNode.SetAttributeValue(Namespace + "alt_encoding", "0000000000000000");
+            newNode.SetAttributeValue(Namespace + "alt_encoding", altEncoding);
             newNode.SetAttributeValue(Namespace + "precision", "string");
-            newNode.SetValue("0");
+            newNode.SetValue(val);
             return newNode;
         }
 

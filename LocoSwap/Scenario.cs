@@ -376,7 +376,9 @@ namespace LocoSwap
                 Log.Debug("Need to create cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
                 for (int i = cargoCount; i < newVehicle.CargoCount; ++i)
                 {
-                    var newNode = Utilities.GenerateCargoComponentItem();
+                    var newNode = Utilities.GenerateCargoComponentItem(
+                        newVehicle.CargoComponents[i].Item1,
+                        newVehicle.CargoComponents[i].Item2);
                     cCargoComponent.Add(newNode);
                 }
             }
