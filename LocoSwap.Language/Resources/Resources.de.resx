@@ -162,6 +162,12 @@
   <data name="id" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="insert_after" xml:space="preserve">
+    <value>Einfügen v</value>
+  </data>
+  <data name="insert_before" xml:space="preserve">
+    <value>Einfügen ^</value>
+  </data>
   <data name="language" xml:space="preserve">
     <value>Sprache</value>
   </data>
@@ -236,6 +242,9 @@
   </data>
   <data name="reading_scenario_files" xml:space="preserve">
     <value>Szenariodatei wird geladen...</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Entfernen</value>
   </data>
   <data name="replace" xml:space="preserve">
     <value>Tauschen</value>
