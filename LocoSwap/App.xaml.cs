@@ -1,12 +1,11 @@
 ﻿using LocoSwap.Properties;
+using Serilog;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
-
-using Serilog;
 
 namespace LocoSwap
 {
@@ -41,7 +40,7 @@ namespace LocoSwap
 
             Log.Debug("LocoSwap version {0} starting up..", Assembly.GetEntryAssembly().GetName().Version.ToString());
 
-            if(Settings.Default.UpgradeRequired)
+            if (Settings.Default.UpgradeRequired)
             {
                 Log.Debug("Upgrade detected, migrating settings..");
                 try
@@ -49,7 +48,7 @@ namespace LocoSwap
                     Settings.Default.Upgrade();
                     Settings.Default.UpgradeRequired = false;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     Log.Debug("Could not migrate settings!");
                 }
@@ -78,7 +77,7 @@ namespace LocoSwap
             {
                 MessageBox.Show(Language.Resources.msg_first_time, Language.Resources.msg_message, MessageBoxButton.OK, MessageBoxImage.Information);
                 var selected = Utilities.ChangeTsPath();
-                if(!selected)
+                if (!selected)
                 {
                     MessageBox.Show(Language.Resources.msg_ts_path_required, Language.Resources.msg_message, MessageBoxButton.OK, MessageBoxImage.Information);
                     Current.Shutdown();

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace LocoSwap
 {
@@ -94,7 +89,7 @@ namespace LocoSwap
 	</EntityID>
 </cOwnedEntity>";
 
-		public static string WagonXml = @"
+        public static string WagonXml = @"
 <cOwnedEntity d:id="""">
 	<Component>
 		<cWagon d:id="""">
@@ -172,7 +167,7 @@ namespace LocoSwap
 	</EntityID>
 </cOwnedEntity>";
 
-		public static string TenderXml = @"
+        public static string TenderXml = @"
 <cOwnedEntity d:id="""">
 	<Component>
 		<cTender d:id="""">
@@ -245,19 +240,19 @@ namespace LocoSwap
 	</EntityID>
 </cOwnedEntity>";
 
-		public static string GetXml(VehicleType type)
+        public static string GetXml(VehicleType type)
         {
-			switch(type)
+            switch (type)
             {
-				case VehicleType.Engine:
-					return EngineXml;
-				case VehicleType.Wagon:
-					return WagonXml;
-				case VehicleType.Tender:
-					return TenderXml;
-				default:
-					throw new Exception("Unknown vehicle type.");
+                case VehicleType.Engine:
+                    return EngineXml;
+                case VehicleType.Wagon:
+                    return WagonXml;
+                case VehicleType.Tender:
+                    return TenderXml;
+                default:
+                    throw new Exception("Unknown vehicle type.");
             }
         }
-	}
+    }
 }

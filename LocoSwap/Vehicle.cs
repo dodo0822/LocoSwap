@@ -1,12 +1,5 @@
-﻿using Ionic.Zip;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace LocoSwap
 {
@@ -93,7 +86,8 @@ namespace LocoSwap
             get => _exists;
             set => SetProperty(ref _exists, value);
         }
-        public string XmlPath {
+        public string XmlPath
+        {
             get
             {
                 return String.Format("{0}\\{1}\\{2}", Provider, Product, BlueprintId);

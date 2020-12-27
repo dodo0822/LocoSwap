@@ -2,15 +2,10 @@
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
-using Serilog;
 
 namespace LocoSwap
 {
@@ -66,7 +61,7 @@ namespace LocoSwap
         public static void CopyUserLocalisedString(XElement dest, XElement orig)
         {
             if (dest == null || orig == null) return;
-            var names = new string[]{ "English", "French", "Italian", "German", "Spanish", "Dutch", "Polish", "Russian", "Key" };
+            var names = new string[] { "English", "French", "Italian", "German", "Spanish", "Dutch", "Polish", "Russian", "Key" };
             foreach (var name in names)
             {
                 XElement destName = dest.Element(name);

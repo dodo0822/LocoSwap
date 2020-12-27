@@ -1,13 +1,10 @@
 ﻿using Ionic.Zip;
+using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using Serilog;
 
 namespace LocoSwap
 {
@@ -85,7 +82,7 @@ namespace LocoSwap
             {
                 document = TsSerializer.Load(actualBinPath);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Debug("Failed to load vehicle blueprint: {0}", e);
                 throw new Exception("Failed to load vehicle blueprint");
@@ -182,7 +179,7 @@ namespace LocoSwap
                 var location = document.Root.Descendants("NumberingList").FirstOrDefault().Element("cCSVContainer").Element("CsvFile").Value;
                 NumberingList = VehicleAvailibility.GetNumberingList(location);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 NumberingList = new List<string>();
             }

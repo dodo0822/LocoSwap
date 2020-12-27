@@ -1,17 +1,16 @@
-﻿using System;
+﻿using Ionic.Zip;
+using LocoSwap.Properties;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.IO;
-using System.ComponentModel;
-using System.Diagnostics;
-using Ionic.Zip;
-using System.Threading;
-using LocoSwap.Properties;
-using Serilog;
 using System.Windows.Input;
 
 namespace LocoSwap
@@ -45,7 +44,8 @@ namespace LocoSwap
             public int LoadingProgress
             {
                 get => _loadingProgress;
-                set {
+                set
+                {
                     SetProperty(ref _loadingProgress, value);
                     OnPropertyChanged(new PropertyChangedEventArgs("LoadingGridVisibility"));
                     OnPropertyChanged(new PropertyChangedEventArgs("SaveButtonEnabled"));
@@ -70,7 +70,7 @@ namespace LocoSwap
             public ObservableCollection<ScenarioVehicle> Vehicles { get; set; } = new ObservableCollection<ScenarioVehicle>();
             public ObservableCollection<DirectoryItem> Directories { get; set; } = new ObservableCollection<DirectoryItem>();
             public ObservableCollection<AvailableVehicle> AvailableVehicles { get; set; } = new ObservableCollection<AvailableVehicle>();
-            
+
         }
 
         private string RouteId;
@@ -361,7 +361,7 @@ namespace LocoSwap
             IEnumerable<ScenarioVehicle> oldVehicles = VehicleListBox.SelectedItems.Cast<ScenarioVehicle>();
             AvailableVehicle newVehicle = (AvailableVehicle)AvailableVehicleListBox.SelectedItem;
 
-            foreach(var vehicle in oldVehicles)
+            foreach (var vehicle in oldVehicles)
             {
                 vehicle.CopyFrom(newVehicle);
                 ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, newVehicle);
@@ -654,7 +654,8 @@ namespace LocoSwap
                     if (vehicle.IsReskin)
                     {
                         identifier = vehicle.ReskinXmlPath;
-                    } else
+                    }
+                    else
                     {
                         identifier = vehicle.XmlPath;
                     }
@@ -680,7 +681,7 @@ namespace LocoSwap
                 int index = e.Key - Key.A;
                 char ch = 'a';
                 ch += (char)index;
-                
+
                 foreach (DirectoryItem dir in DirectoryTree.Items)
                 {
                     if (dir.Name.ToLower()[0] == ch)

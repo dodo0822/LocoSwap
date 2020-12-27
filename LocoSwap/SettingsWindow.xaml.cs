@@ -1,8 +1,7 @@
 ﻿using LocoSwap.Properties;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Windows;
 using Serilog;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace LocoSwap
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LocoSwap
 {
@@ -66,9 +62,9 @@ namespace LocoSwap
 
         public void DetermineCompletenessAfterReplace()
         {
-            foreach(var vehicle in Vehicles)
+            foreach (var vehicle in Vehicles)
             {
-                if(vehicle.Exists == VehicleExistance.Missing)
+                if (vehicle.Exists == VehicleExistance.Missing)
                 {
                     IsComplete = ConsistVehicleExistance.PartiallyReplaced;
                     return;

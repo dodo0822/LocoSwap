@@ -1,22 +1,12 @@
 ﻿using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LocoSwap
 {
@@ -45,7 +35,7 @@ namespace LocoSwap
                     route.PropertyChanged += Route_PropertyChanged;
                     Routes.Add(route);
                 }
-                catch(Exception)
+                catch (Exception)
                 {
 
                 }
@@ -114,7 +104,7 @@ namespace LocoSwap
 
         private void ScenarioList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var dataContext = ((FrameworkElement) e.OriginalSource).DataContext;
+            var dataContext = ((FrameworkElement)e.OriginalSource).DataContext;
             if (dataContext is Scenario)
             {
                 if (RouteList.SelectedItem == null) return;

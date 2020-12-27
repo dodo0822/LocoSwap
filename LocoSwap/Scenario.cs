@@ -1,17 +1,12 @@
-﻿using Ionic.Zip;
+﻿using Serilog;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using Serilog;
 
 namespace LocoSwap
 {
@@ -73,7 +68,7 @@ namespace LocoSwap
         public static string[] ListAllScenarios(string routeId)
         {
             var routeDirectory = Route.GetRouteDirectory(routeId);
-            if(!Directory.Exists(routeDirectory) || !Directory.Exists(GetScenariosDirectory(routeId)))
+            if (!Directory.Exists(routeDirectory) || !Directory.Exists(GetScenariosDirectory(routeId)))
             {
                 return new string[] { };
             }
@@ -177,7 +172,7 @@ namespace LocoSwap
                             Log.Debug("{0} is a reskin at {1}\\{2}\\{3}", v.Name, reskinProvider, reskinProduct, reskinBlueprintId);
                         }
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Log.Debug("Exception caught when determining whether a ScenarioVehicle is reskin\n{0}", e);
                     }
@@ -348,7 +343,8 @@ namespace LocoSwap
                 XElement cEngineSimContainer = new XElement("cEngineSimContainer");
                 cEngineSimContainer.SetAttributeValue(Namespace + "id", id.ToString());
                 vehicle.Element("Component").Add(cEngineSimContainer);
-            } else if (newVehicle.Type == VehicleType.Tender && cElement.Name != "cTender")
+            }
+            else if (newVehicle.Type == VehicleType.Tender && cElement.Name != "cTender")
             {
                 cElement.Name = "cTender";
                 Log.Debug("Creating additional tender nodes for replacement {0}", newVehicle.DisplayName);
@@ -371,7 +367,7 @@ namespace LocoSwap
             // Cargo component count matching
             XElement cCargoComponent = vehicle.Element("Component").Element("cCargoComponent").Element("InitialLevel");
             int cargoCount = cCargoComponent.Elements().Count();
-            if(newVehicle.CargoCount > cargoCount)
+            if (newVehicle.CargoCount > cargoCount)
             {
                 Log.Debug("Need to create cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
                 for (int i = cargoCount; i < newVehicle.CargoCount; ++i)
@@ -382,7 +378,7 @@ namespace LocoSwap
                     cCargoComponent.Add(newNode);
                 }
             }
-            else if(newVehicle.CargoCount < cargoCount)
+            else if (newVehicle.CargoCount < cargoCount)
             {
                 Log.Debug("Need to remove cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
                 cCargoComponent.Elements().Take(cargoCount - newVehicle.CargoCount).Remove();
@@ -407,18 +403,18 @@ namespace LocoSwap
             }
 
             // If the consist is driven by the player, loco name in ScenarioProperties.xml should be updated
-            if(consist.Element("Driver").Element("cDriver") != null)
+            if (consist.Element("Driver").Element("cDriver") != null)
             {
                 XElement cDriver = consist.Element("Driver").Element("cDriver");
-                if(cDriver.Element("PlayerDriver") != null)
+                if (cDriver.Element("PlayerDriver") != null)
                 {
-                    if(cDriver.Element("PlayerDriver").Value == "1")
+                    if (cDriver.Element("PlayerDriver").Value == "1")
                     {
                         Log.Debug("Train is driven by player; checking whether the loco is swapped");
                         var key = cDriver.Element("ServiceName").Descendants("Key").First().Value;
                         XElement sDriverFrontEndDetails = ScenarioProperties.Root.Element("FrontEndDriverList")
                             .Elements("sDriverFrontEndDetails").Where(element => element.Element("ServiceName").Element("Localisation-cUserLocalisedString").Element("Key").Value == key).FirstOrDefault();
-                        if(sDriverFrontEndDetails == null)
+                        if (sDriverFrontEndDetails == null)
                         {
                             Log.Debug("Could not find sDriverFrontEndDetails with key {0}!", key);
                         }
