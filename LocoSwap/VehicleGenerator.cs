@@ -106,6 +106,19 @@ namespace LocoSwap
                 .SetValue(vehicle.Product);
             cAbsoluteBlueprintID.Element("BlueprintID").SetValue(vehicle.BlueprintId);
 
+            if (vehicle.IsReskin)
+            {
+                cAbsoluteBlueprintID = cOwnedEntity
+                    .Element("ReskinBlueprintID").Element("iBlueprintLibrary-cAbsoluteBlueprintID");
+                cAbsoluteBlueprintID
+                    .Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider")
+                    .SetValue(vehicle.ReskinProvider);
+                cAbsoluteBlueprintID
+                    .Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product")
+                    .SetValue(vehicle.ReskinProduct);
+                cAbsoluteBlueprintID.Element("BlueprintID").SetValue(vehicle.ReskinBlueprintId);
+            }
+
             return new Tuple<XElement, ScenarioVehicle>(cOwnedEntity, retVehicle);
         }
     }
