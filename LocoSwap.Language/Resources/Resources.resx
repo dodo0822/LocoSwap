@@ -177,6 +177,9 @@
   <data name="msg_cannot_load_vehicle" xml:space="preserve">
     <value>Could not load vehicle "{0}"!</value>
   </data>
+  <data name="msg_consist_empty" xml:space="preserve">
+    <value>The consist must contain at least one vehicle after the removal!</value>
+  </data>
   <data name="msg_error" xml:space="preserve">
     <value>Error</value>
   </data>

@@ -241,6 +241,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The consist must contain at least one vehicle after the removal!.
+        /// </summary>
+        public static string msg_consist_empty {
+            get {
+                return ResourceManager.GetString("msg_consist_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string msg_error {

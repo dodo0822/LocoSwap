@@ -177,6 +177,9 @@
   <data name="msg_cannot_load_vehicle" xml:space="preserve">
     <value>Fahrzeug "{0}" kann nicht geladen werden!</value>
   </data>
+  <data name="msg_consist_empty" xml:space="preserve">
+    <value>Es muss mindestens ein Fahrzeug nach der Entfernung geben.</value>
+  </data>
   <data name="msg_error" xml:space="preserve">
     <value>Fehler</value>
   </data>

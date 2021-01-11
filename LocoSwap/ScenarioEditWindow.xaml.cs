@@ -330,6 +330,16 @@ namespace LocoSwap
             }
 
             Consist consist = (Consist)ConsistListBox.SelectedItem;
+
+            if (consist.Vehicles.Count == VehicleListBox.SelectedItems.Count)
+            {
+                MessageBox.Show(
+                    LocoSwap.Language.Resources.msg_consist_empty,
+                    LocoSwap.Language.Resources.msg_message,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             foreach (ScenarioVehicle vehicle in VehicleListBox.SelectedItems)
             {
                 ViewModel.Scenario.RemoveVehicle(consist.Idx, vehicle.Idx);
