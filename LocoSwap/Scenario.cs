@@ -260,22 +260,28 @@ namespace LocoSwap
             blueprintID.Element("BlueprintID").SetValue(newVehicle.BlueprintId);
             vehicle.Element("Name").SetValue(newVehicle.Name);
 
-            // Update reskin info
-            XElement reskinBlueprintID = vehicle.Element("ReskinBlueprintID").Element("iBlueprintLibrary-cAbsoluteBlueprintID");
-            if (newVehicle.IsReskin)
+            try
             {
-                Log.Debug("ReplaceVehicle: Reskin set to {0}", newVehicle.ReskinXmlPath);
-                reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").SetValue(newVehicle.ReskinProvider);
-                reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").SetValue(newVehicle.ReskinProduct);
-                reskinBlueprintID.Element("BlueprintID").SetValue(newVehicle.ReskinBlueprintId);
-            }
-            else
+                // Update reskin info
+                XElement reskinBlueprintID = vehicle.Element("ReskinBlueprintID").Element("iBlueprintLibrary-cAbsoluteBlueprintID");
+                if (newVehicle.IsReskin)
+                {
+                    Log.Debug("ReplaceVehicle: Reskin set to {0}", newVehicle.ReskinXmlPath);
+                    reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").SetValue(newVehicle.ReskinProvider);
+                    reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").SetValue(newVehicle.ReskinProduct);
+                    reskinBlueprintID.Element("BlueprintID").SetValue(newVehicle.ReskinBlueprintId);
+                }
+                else
+                {
+                    // Remove reskin info
+                    Log.Debug("ReplaceVehicle: Remove reskin info");
+                    reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").SetValue("");
+                    reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").SetValue("");
+                    reskinBlueprintID.Element("BlueprintID").SetValue("");
+                }
+            } catch (Exception e)
             {
-                // Remove reskin info
-                Log.Debug("ReplaceVehicle: Remove reskin info");
-                reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").SetValue("");
-                reskinBlueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").SetValue("");
-                reskinBlueprintID.Element("BlueprintID").SetValue("");
+                Log.Debug("ReplaceVehicle: Could not update reskin info! {0}", e);
             }
 
             // Update engine and wagon dependent parameters
