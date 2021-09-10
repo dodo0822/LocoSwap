@@ -3,6 +3,7 @@ using Serilog;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -201,8 +202,17 @@ namespace LocoSwap
                 var binName = Path.ChangeExtension(vehicle.BlueprintId, "bin").Replace('\\', '/');
                 foreach (var apPath in apFiles)
                 {
-                    var zipFile = ZipFile.Read(apPath);
-                    var result = zipFile.Any(entry => entry.FileName.Equals(binName));
+                    var result = false;
+                    try
+                    {
+                        var zipFile = ZipFile.Read(apPath);
+                        result = zipFile.Any(entry => entry.FileName.Equals(binName));
+                    }
+                    catch(ZipException e)
+                    {
+                        Debug.WriteLine("Error while reading zip file: " + apPath);
+                    }
+                   
                     if (result)
                     {
                         found = true;
