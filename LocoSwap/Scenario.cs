@@ -635,6 +635,17 @@ namespace LocoSwap
             xmlWriterSettings.NewLineHandling = NewLineHandling.None;
 
             FileStream stream = new FileStream(propertiesXmlPath, FileMode.Create);
+
+            // Append a suffix to scenario DisplayName
+            IEnumerable<XElement> displayNameLanguageNodes = ScenarioProperties.XPathSelectElements("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString/*");
+            foreach (XElement displayNameLanguageNode in displayNameLanguageNodes)
+            {
+                if (displayNameLanguageNode.Name != "Key" && displayNameLanguageNode.Value != "" && !displayNameLanguageNode.Value.EndsWith("[LoSw]"))
+                {
+                    displayNameLanguageNode.SetValue(displayNameLanguageNode.Value + " [LoSw]");
+                }
+            }
+
             using (XmlWriter writer = XmlWriter.Create(stream, xmlWriterSettings))
             {
                 ScenarioProperties.Save(writer);
