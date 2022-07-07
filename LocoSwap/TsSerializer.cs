@@ -66,6 +66,7 @@ namespace LocoSwap
             xmlWriterSettings.Indent = true;
             xmlWriterSettings.IndentChars = "\t";
             xmlWriterSettings.Encoding = new UTF8Encoding(false);
+            xmlWriterSettings.NewLineHandling = NewLineHandling.None;
 
             FileStream stream = new FileStream(xmlPath, FileMode.Create);
             using (XmlWriter writer = XmlWriter.Create(stream, xmlWriterSettings))
