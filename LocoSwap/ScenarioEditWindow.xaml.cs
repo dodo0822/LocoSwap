@@ -230,7 +230,12 @@ namespace LocoSwap
                 {
                     Log.Debug("Trying ap file {0}", item.value);
                     var zipFile = ZipFile.Read(item.value);
-                    var binEntries = zipFile.Where(entry => entry.FileName.EndsWith(".bin")).ToList();
+                    var binEntries = zipFile.Where(entry => { return entry.FileName.ToLower().StartsWith("railvehicles/") && entry.FileName.EndsWith(".bin"); }).ToList();
+
+                    if (!binEntries.Any())
+                    {
+                        binEntries = zipFile.Where(entry => { return entry.FileName.EndsWith(".bin"); }).ToList();
+                    }
 
                     var baseProgress = (int)Math.Ceiling((float)item.i / apFiles.Count() * 100);
                     var basePath = Path.GetDirectoryName(item.value).Replace(Settings.Default.TsPath + "\\Assets\\", "");
