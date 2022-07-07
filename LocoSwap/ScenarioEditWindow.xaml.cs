@@ -174,7 +174,7 @@ namespace LocoSwap
             ViewModel.VehicleScanInProgress = true;
             List<string> files = Directory.GetFiles(path, "*.bin", SearchOption.AllDirectories).ToList();
             List<string> apFiles = Directory.GetFiles(path, "*.ap", SearchOption.AllDirectories).ToList();
-            ViewModel.AvailableVehicles.Clear();
+
             ViewModel.LoadingInformation = LocoSwap.Language.Resources.scanning_bin_files;
             var startDateTime = DateTime.Now;
             var binTask = Task.Run(() =>
@@ -459,6 +459,11 @@ namespace LocoSwap
                 vehicle.Number = number;
                 ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, number);
             }
+        }
+
+        private void AvailableVehiclesClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.AvailableVehicles.Clear();
         }
 
         private void ReplaceIdenticalButton_Click(object sender, RoutedEventArgs e)

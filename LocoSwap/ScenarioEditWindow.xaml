@@ -97,7 +97,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="ScanButton" IsEnabled="{Binding VehicleScanInProgress, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static lang:Resources.look_up_vehicles}" Margin="898,433,0,0" VerticalAlignment="Top" Click="ScanButton_Click" Height="26" HorizontalAlignment="Left" Width="155"/>
+        <Button x:Name="ScanButton" IsEnabled="{Binding VehicleScanInProgress, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static lang:Resources.look_up_vehicles}" Margin="898,433,0,0" VerticalAlignment="Top" Click="ScanButton_Click" Height="26" HorizontalAlignment="Left" Width="114"/>
+        <Button x:Name="ClearButton" Content="{x:Static lang:Resources.clear_vehicles}" Margin="1026,433,0,0" VerticalAlignment="Top" Click="AvailableVehiclesClearButton_Click" Height="26" HorizontalAlignment="Left" Width="73"/>
         <Button Visibility="{Binding VehicleScanInProgress, Converter={StaticResource BoolToVis}}" x:Name="CancelScanningButton" Content="{x:Static lang:Resources.cancel}" Margin="0,433,20,0" VerticalAlignment="Top" Height="26" Click="CancelScanningButton_Click" HorizontalAlignment="Right" Width="75"/>
         <Button x:Name="AddToRulesButton" Content="{x:Static lang:Resources.add_to_rules}" HorizontalAlignment="Left" Margin="746,493,0,0" VerticalAlignment="Top" Width="147" Height="26" Click="AddToRulesButton_Click"/>
         <Button x:Name="ReplaceIdenticalButton" Content="{x:Static lang:Resources.replace_identical}" HorizontalAlignment="Left" Margin="593,493,0,0" VerticalAlignment="Top" Width="148" Height="26" Click="ReplaceIdenticalButton_Click"/>
