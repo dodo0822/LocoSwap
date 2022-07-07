@@ -135,6 +135,9 @@
   <data name="change_number" xml:space="preserve">
     <value>Change number</value>
   </data>
+  <data name="clear_vehicles" xml:space="preserve">
+    <value>Clear</value>
+  </data>
   <data name="close" xml:space="preserve">
     <value>Close</value>
   </data>
