@@ -79,6 +79,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to and add as rule.
+        /// </summary>
+        public static string and_add_as_rule {
+            get {
+                return ResourceManager.GetString("and_add_as_rule", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         public static string apply {
@@ -87,6 +96,15 @@ namespace LocoSwap.Language {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Apply all rules.
+        /// </summary>
+        public static string apply_all_rules {
+            get {
+                return ResourceManager.GetString("apply_all_rules", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Browse ....
         /// </summary>

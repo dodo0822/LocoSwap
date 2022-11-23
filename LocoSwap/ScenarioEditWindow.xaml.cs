@@ -180,7 +180,6 @@ namespace LocoSwap
             var binTask = Task.Run(() =>
             {
                 progress.Report(0);
-                //foreach (var item in files.Select((value, i) => (value, i)))
                 Parallel.ForEach(files.Select((value, i) => (value, i)), (item) =>
                 {
                     var fullBin = item.value;
@@ -381,13 +380,9 @@ namespace LocoSwap
                 vehicle.CopyFrom(newVehicle);
                 ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, newVehicle);
                 ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, vehicle.Number);
+                vehicle.PossibleSubstitutionDisplayName = null;
             }
             consist.DetermineCompletenessAfterReplace();
-
-            MessageBox.Show(
-                LocoSwap.Language.Resources.msg_swap_completed,
-                LocoSwap.Language.Resources.msg_message,
-                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private async void SaveScenario()
@@ -482,6 +477,11 @@ namespace LocoSwap
                 return;
             }
 
+            if (AddAsRule.IsChecked == true)
+            {
+                AddToRules(true);
+            }
+
             Dictionary<string, bool> identicalXmlPathList = new Dictionary<string, bool>();
             foreach (ScenarioVehicle vehicle in VehicleListBox.SelectedItems)
             {
@@ -499,15 +499,13 @@ namespace LocoSwap
                         vehicle.CopyFrom(newVehicle);
                         ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, newVehicle);
                         ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, vehicle.Number);
+                        vehicle.PossibleSubstitutionDisplayName = null;
+
                         consist.DetermineCompletenessAfterReplace();
                     }
                 }
             }
 
-            MessageBox.Show(
-                LocoSwap.Language.Resources.msg_swap_completed,
-                LocoSwap.Language.Resources.msg_message,
-                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void CancelScanningButton_Click(object sender, RoutedEventArgs e)
@@ -518,21 +516,13 @@ namespace LocoSwap
             }
         }
 
-        private void AddToRulesButton_Click(object sender, RoutedEventArgs e)
+        private void AddToRules(bool overwriteWithoutPrompting)
         {
-            if (VehicleListBox.SelectedItems.Count == 0 || AvailableVehicleListBox.SelectedItem == null)
-            {
-                MessageBox.Show(
-                    LocoSwap.Language.Resources.msg_no_vehicle_selected,
-                    LocoSwap.Language.Resources.msg_message,
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
             List<ScenarioVehicle> targetVehicleList = new List<ScenarioVehicle>();
             foreach (ScenarioVehicle vehicle in VehicleListBox.SelectedItems)
             {
                 if (targetVehicleList.Contains(vehicle)) continue;
-                if (Settings.Default.Preset.Contains(vehicle.XmlPath))
+                if (!overwriteWithoutPrompting && Settings.Default.Preset.Contains(vehicle.XmlPath))
                 {
                     var result = MessageBox.Show(
                         string.Format(LocoSwap.Language.Resources.msg_vehicle_already_in_rules, vehicle.Name),
@@ -573,10 +563,21 @@ namespace LocoSwap
                 });
             }
             Settings.Default.Save();
+        }
+
+        private void AddToRulesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (VehicleListBox.SelectedItems.Count == 0 || AvailableVehicleListBox.SelectedItem == null)
+            {
             MessageBox.Show(
-                LocoSwap.Language.Resources.msg_vehicles_added_to_rules,
+                    LocoSwap.Language.Resources.msg_no_vehicle_selected,
                 LocoSwap.Language.Resources.msg_message,
-                MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            AddToRules(false);
+
             BringUpPresetWindow();
         }
 
@@ -628,6 +629,8 @@ namespace LocoSwap
                     vehicle.CopyFrom(availableVehicles[rule.NewXmlPath]);
                     ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, availableVehicles[rule.NewXmlPath]);
                     ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, vehicle.Number);
+                    vehicle.PossibleSubstitutionDisplayName = null;
+
                     consist.DetermineCompletenessAfterReplace();
                 }
             }
@@ -714,6 +717,48 @@ namespace LocoSwap
                 }
             }
         }
+
+        private void ApplyAllRulesButton_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, AvailableVehicle> availableVehicles = new Dictionary<string, AvailableVehicle>();
+
+            foreach (Consist consist in ViewModel.Consists)
+            {
+                if (consist.IsComplete != ConsistVehicleExistance.Found && consist.IsComplete != ConsistVehicleExistance.FullyReplaced)
+                {
+                    foreach (ScenarioVehicle vehicle in consist.Vehicles)
+                    {
+                        if (vehicle.Exists == VehicleExistance.MissingWithRule)
+                        {
+                            var item = Settings.Default.Preset.Find(vehicle.XmlPath);
+
+                            var binPath = Path.ChangeExtension(item.NewXmlPath, "bin");
+
+                            if (!availableVehicles.ContainsKey(item.NewXmlPath))
+                            {
+                                try
+                                {
+                                    availableVehicles[item.NewXmlPath] = new AvailableVehicle(binPath);
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show(
+                                        string.Format(LocoSwap.Language.Resources.msg_cannot_load_vehicle, item.NewName),
+                                        LocoSwap.Language.Resources.msg_error,
+                                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    return;
+                                }
     }
 
+                            vehicle.CopyFrom(availableVehicles[item.NewXmlPath]);
+                            ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, availableVehicles[item.NewXmlPath]);
+                            ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, vehicle.Number);
+                            vehicle.PossibleSubstitutionDisplayName = null;
+                            consist.DetermineCompletenessAfterReplace();
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

@@ -14,6 +14,7 @@ namespace LocoSwap
     {
         Found,
         Missing,
+        MissingWithRule,
         Replaced
     }
     public class Vehicle : ModelBase

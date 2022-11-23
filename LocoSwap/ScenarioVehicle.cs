@@ -7,6 +7,8 @@ namespace LocoSwap
         private int _idx;
         private string _number;
         private bool _flipped;
+        private string _possibleSubstitutionDisplayName;
+
         public int Idx
         {
             get => _idx;
@@ -22,7 +24,11 @@ namespace LocoSwap
             get => _flipped;
             set => SetProperty(ref _flipped, value);
         }
-
+        public string PossibleSubstitutionDisplayName
+        {
+            get => _possibleSubstitutionDisplayName;
+            set => SetProperty(ref _possibleSubstitutionDisplayName, value);
+        }
         public ScenarioVehicle() : base()
         {
             Idx = -1;

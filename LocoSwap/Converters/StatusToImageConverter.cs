@@ -20,6 +20,9 @@ namespace LocoSwap.Converters
                 case VehicleExistance.Replaced:
                     image = "Replaced.png";
                     break;
+                case VehicleExistance.MissingWithRule:
+                    image = "BulletYellow.png";
+                    break;
                 case VehicleExistance.Missing:
                 default:
                     image = "BulletRed.png";
@@ -54,6 +57,12 @@ namespace LocoSwap.Converters
                     break;
                 case ConsistVehicleExistance.PartiallyReplaced:
                     image = "ReplacedRed.png";
+                    break;
+                case ConsistVehicleExistance.MissingWithRulesPartiallyReplaced:
+                    image = "ReplacedYellow.png";
+                    break;
+                case ConsistVehicleExistance.MissingWithRules:
+                    image = "BulletYellow.png";
                     break;
                 case ConsistVehicleExistance.Missing:
                 default:

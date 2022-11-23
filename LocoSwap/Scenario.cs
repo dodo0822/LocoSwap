@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using LocoSwap.Properties;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -197,8 +198,21 @@ namespace LocoSwap
                         vehicle.DisplayName = VehicleAvailibility.GetVehicleDisplayName(vehicle);
                         continue;
                     }
+
+                    SwapPresetItem foundSubst = Settings.Default.Preset.Find(vehicle.XmlPath);
+                    if (foundSubst != default)
+                    {
+                        vehicle.Exists = VehicleExistance.MissingWithRule;
+                        vehicle.PossibleSubstitutionDisplayName = "Rule : " + foundSubst.NewName;
+                    }
+                    else
+                    {
                     vehicle.Exists = VehicleExistance.Missing;
-                    consist.IsComplete = ConsistVehicleExistance.Missing;
+                    }
+
+                    consist.IsComplete = (consist.IsComplete != ConsistVehicleExistance.Missing && foundSubst != default) ?
+                        ConsistVehicleExistance.MissingWithRules :
+                        ConsistVehicleExistance.Missing;
                 }
                 progress?.Report((int)Math.Ceiling((float)row.i / ret.Count * 100));
             }

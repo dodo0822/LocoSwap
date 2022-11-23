@@ -212,5 +212,9 @@
     <Resource Include="Resources\ReplacedGreen.png" />
     <Resource Include="Resources\ReplacedRed.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BulletYellow.png" />
+    <Resource Include="Resources\ReplacedYellow.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -123,8 +123,14 @@
   <data name="all_vehicles" xml:space="preserve">
     <value>List All Vehicles</value>
   </data>
+  <data name="and_add_as_rule" xml:space="preserve">
+    <value>and add as rule</value>
+  </data>
   <data name="apply" xml:space="preserve">
     <value>Apply</value>
+  </data>
+  <data name="apply_all_rules" xml:space="preserve">
+    <value>Apply all rules</value>
   </data>
   <data name="browse" xml:space="preserve">
     <value>Browse ...</value>
