@@ -365,23 +365,26 @@ namespace LocoSwap
             }
 
             // Cargo component count matching
-            XElement cCargoComponent = vehicle.Element("Component").Element("cCargoComponent").Element("InitialLevel");
-            int cargoCount = cCargoComponent.Elements().Count();
-            if (newVehicle.CargoCount > cargoCount)
+            XElement cCargoComponent = vehicle.Element("Component").Element("cCargoComponent")?.Element("InitialLevel");
+            if (cCargoComponent != null)
             {
-                Log.Debug("Need to create cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
-                for (int i = cargoCount; i < newVehicle.CargoCount; ++i)
+                int cargoCount = cCargoComponent.Elements().Count();
+                if (newVehicle.CargoCount > cargoCount)
                 {
-                    var newNode = Utilities.GenerateCargoComponentItem(
-                        newVehicle.CargoComponents[i].Item1,
-                        newVehicle.CargoComponents[i].Item2);
-                    cCargoComponent.Add(newNode);
+                    Log.Debug("Need to create cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
+                    for (int i = cargoCount; i < newVehicle.CargoCount; ++i)
+                    {
+                        var newNode = Utilities.GenerateCargoComponentItem(
+                            newVehicle.CargoComponents[i].Item1,
+                            newVehicle.CargoComponents[i].Item2);
+                        cCargoComponent.Add(newNode);
+                    }
                 }
-            }
-            else if (newVehicle.CargoCount < cargoCount)
-            {
-                Log.Debug("Need to remove cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
-                cCargoComponent.Elements().Take(cargoCount - newVehicle.CargoCount).Remove();
+                else if (newVehicle.CargoCount < cargoCount)
+                {
+                    Log.Debug("Need to remove cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
+                    cCargoComponent.Elements().Take(cargoCount - newVehicle.CargoCount).Remove();
+                }
             }
 
             // Entity container count matching
