@@ -95,7 +95,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("apply", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Apply all rules.
         /// </summary>
@@ -113,7 +113,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("browse", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
@@ -122,7 +122,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("cancel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Change number.
         /// </summary>
@@ -131,7 +131,6 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("change_number", resourceCulture);
             }
         }
-        
         /// <summary>
         ///   Looks up a localized string similar to Clear.
         /// </summary>
@@ -149,7 +148,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("close", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Consists in scenario.
         /// </summary>
@@ -168,6 +167,15 @@ namespace LocoSwap.Language {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Delete scenarios.
+        /// </summary>
+        public static string delete_scenarios {
+            get {
+                return ResourceManager.GetString("delete_scenarios", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Edit scenario.
         /// </summary>
@@ -591,6 +599,24 @@ namespace LocoSwap.Language {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected scenario(s) ?.
+        /// </summary>
+        public static string scenario_delete_prompt_message {
+            get {
+                return ResourceManager.GetString("scenario_delete_prompt_message", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scenarios deletion.
+        /// </summary>
+        public static string scenario_delete_prompt_title {
+            get {
+                return ResourceManager.GetString("scenario_delete_prompt_title", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Select Train Simulator Path.
         /// </summary>

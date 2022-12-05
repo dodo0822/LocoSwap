@@ -153,6 +153,9 @@
   <data name="delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="delete_scenarios" xml:space="preserve">
+    <value>Delete scenarios</value>
+  </data>
   <data name="edit_scenario" xml:space="preserve">
     <value>Edit scenario</value>
   </data>
@@ -293,6 +296,12 @@
   </data>
   <data name="scenario" xml:space="preserve">
     <value>Scenario</value>
+  </data>
+  <data name="scenario_delete_prompt_message" xml:space="preserve">
+    <value>Are you sure you want to delete the selected scenario(s) ?</value>
+  </data>
+  <data name="scenario_delete_prompt_title" xml:space="preserve">
+    <value>Scenarios deletion</value>
   </data>
   <data name="select_ts_path" xml:space="preserve">
     <value>Select Train Simulator Path</value>

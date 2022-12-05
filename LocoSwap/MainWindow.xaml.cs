@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -65,6 +66,11 @@ namespace LocoSwap
 
         private void RouteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Refresh_Scenario_List();
+        }
+
+        private void Refresh_Scenario_List()
+        {
             Scenarios.Clear();
             var routeId = ((Route)RouteList.SelectedItem).Id;
             var scenarioIds = Scenario.ListAllScenarios(routeId);
@@ -112,6 +118,19 @@ namespace LocoSwap
                 var scenarioId = ((Scenario)dataContext).Id;
                 var editWindow = new ScenarioEditWindow(routeId, scenarioId);
                 editWindow.Show();
+            }
+        }
+
+        private void Delete_Scenarios_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult msgResult = MessageBox.Show(LocoSwap.Language.Resources.scenario_delete_prompt_message, LocoSwap.Language.Resources.scenario_delete_prompt_title, MessageBoxButton.YesNoCancel);
+            if (msgResult == MessageBoxResult.Yes)
+            {
+                foreach (Scenario scenario in ScenarioList.SelectedItems)
+                {
+                    Directory.Delete(scenario.ScenarioDirectory, true);
+                }
+                Refresh_Scenario_List();
             }
         }
     }
