@@ -718,43 +718,56 @@ namespace LocoSwap
             }
         }
 
-        private void ApplyAllRulesButton_Click(object sender, RoutedEventArgs e)
+        private void ApplyAllRulesOnlyOnMissingStock_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyAllRules(true);
+        }
+
+        private void ApplyAllRulesOnAllStock_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyAllRules(false);
+        }
+
+        private void ApplyAllRules(bool onlyOnMissingStock)
         {
             Dictionary<string, AvailableVehicle> availableVehicles = new Dictionary<string, AvailableVehicle>();
 
             foreach (Consist consist in ViewModel.Consists)
             {
-                if (consist.IsComplete != ConsistVehicleExistance.Found && consist.IsComplete != ConsistVehicleExistance.FullyReplaced)
+                if (!onlyOnMissingStock || consist.IsComplete != ConsistVehicleExistance.Found && consist.IsComplete != ConsistVehicleExistance.FullyReplaced)
                 {
                     foreach (ScenarioVehicle vehicle in consist.Vehicles)
                     {
-                        if (vehicle.Exists == VehicleExistance.MissingWithRule)
+                        if (vehicle.Exists != VehicleExistance.Missing && !onlyOnMissingStock || vehicle.Exists == VehicleExistance.MissingWithRule)
                         {
                             var item = Settings.Default.Preset.Find(vehicle.XmlPath);
 
-                            var binPath = Path.ChangeExtension(item.NewXmlPath, "bin");
-
-                            if (!availableVehicles.ContainsKey(item.NewXmlPath))
+                            if (item != null)
                             {
-                                try
-                                {
-                                    availableVehicles[item.NewXmlPath] = new AvailableVehicle(binPath);
-                                }
-                                catch (Exception)
-                                {
-                                    MessageBox.Show(
-                                        string.Format(LocoSwap.Language.Resources.msg_cannot_load_vehicle, item.NewName),
-                                        LocoSwap.Language.Resources.msg_error,
-                                        MessageBoxButton.OK, MessageBoxImage.Warning);
-                                    return;
-                                }
-    }
+                                var binPath = Path.ChangeExtension(item.NewXmlPath, "bin");
 
-                            vehicle.CopyFrom(availableVehicles[item.NewXmlPath]);
-                            ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, availableVehicles[item.NewXmlPath]);
-                            ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, vehicle.Number);
-                            vehicle.PossibleSubstitutionDisplayName = null;
-                            consist.DetermineCompletenessAfterReplace();
+                                if (!availableVehicles.ContainsKey(item.NewXmlPath))
+                                {
+                                    try
+                                    {
+                                        availableVehicles[item.NewXmlPath] = new AvailableVehicle(binPath);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        MessageBox.Show(
+                                            string.Format(LocoSwap.Language.Resources.msg_cannot_load_vehicle, item.NewName),
+                                            LocoSwap.Language.Resources.msg_error,
+                                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                                        return;
+                                    }
+                                }
+
+                                vehicle.CopyFrom(availableVehicles[item.NewXmlPath]);
+                                ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, availableVehicles[item.NewXmlPath]);
+                                ViewModel.Scenario.ChangeVehicleNumber(consist.Idx, vehicle.Idx, vehicle.Number);
+                                vehicle.PossibleSubstitutionDisplayName = null;
+                                consist.DetermineCompletenessAfterReplace();
+                            }
                         }
                     }
                 }

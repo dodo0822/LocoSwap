@@ -86,7 +86,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("and_add_as_rule", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
@@ -95,7 +95,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("apply", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Apply all rules.
         /// </summary>
@@ -104,7 +104,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("apply_all_rules", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Browse ....
         /// </summary>
@@ -113,7 +113,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("browse", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
@@ -122,7 +122,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("cancel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Change number.
         /// </summary>
@@ -131,6 +131,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("change_number", resourceCulture);
             }
         }
+        
         /// <summary>
         ///   Looks up a localized string similar to Clear.
         /// </summary>
@@ -139,7 +140,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("clear_vehicles", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
@@ -148,7 +149,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("close", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Consists in scenario.
         /// </summary>
@@ -175,7 +176,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("delete_scenarios", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Edit scenario.
         /// </summary>
@@ -456,6 +457,24 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to on all stock.
+        /// </summary>
+        public static string on_all_stock {
+            get {
+                return ResourceManager.GetString("on_all_stock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to only on missing stock (yellows).
+        /// </summary>
+        public static string only_on_missing_stock {
+            get {
+                return ResourceManager.GetString("only_on_missing_stock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open scenario directory.
         /// </summary>
         public static string open_scenario_directory {
@@ -607,7 +626,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("scenario_delete_prompt_message", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Scenarios deletion.
         /// </summary>
@@ -616,7 +635,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("scenario_delete_prompt_title", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Scenario name suffix.
         /// </summary>
@@ -625,7 +644,7 @@ namespace LocoSwap.Language {
                 return ResourceManager.GetString("scenario_name_suffix", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select Train Simulator Path.
         /// </summary>

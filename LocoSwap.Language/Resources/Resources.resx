@@ -249,6 +249,12 @@
   <data name="ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="only_on_missing_stock" xml:space="preserve">
+    <value>only on missing stock (yellows)</value>
+  </data>
+  <data name="on_all_stock" xml:space="preserve">
+    <value>on all stock</value>
+  </data>
   <data name="open_scenario_directory" xml:space="preserve">
     <value>Open scenario directory</value>
   </data>

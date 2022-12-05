@@ -110,7 +110,38 @@
         <Button x:Name="InsertAfterButton" Content="{x:Static lang:Resources.insert_after}" HorizontalAlignment="Left" Margin="780,405,0,0" VerticalAlignment="Top" Width="147" Height="26" Click="InsertAfterButton_Click"/>
         <Button x:Name="RemoveButton" Content="{x:Static lang:Resources.remove}" HorizontalAlignment="Left" Margin="627,436,0,0" VerticalAlignment="Top" Width="300" Height="26" Click="RemoveButton_Click"/>
         <CheckBox x:Name="AddAsRule" Content="{x:Static lang:Resources.and_add_as_rule}" HorizontalAlignment="Left" Margin="782,503,0,0" VerticalAlignment="Top" Width="145" IsChecked="True"/>
-        <Button x:Name="ApplyAllRulesButton" Content="{x:Static lang:Resources.apply_all_rules}" HorizontalAlignment="Left" Margin="166,76,0,0" VerticalAlignment="Top" Width="157" Click="ApplyAllRulesButton_Click"/>
-
+        <Button Content="{x:Static lang:Resources.apply_all_rules}" HorizontalAlignment="Left" Margin="166,76,0,0" VerticalAlignment="Top" Width="157">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="ContextMenu.IsOpen">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                                        </BooleanAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Style.Triggers>
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem />
+                                <MenuItem />
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Button.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{x:Static lang:Resources.only_on_missing_stock}" Click="ApplyAllRulesOnlyOnMissingStock_Click"/>
+                    <MenuItem Header="{x:Static lang:Resources.on_all_stock}" Click="ApplyAllRulesOnAllStock_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
     </Grid>
 </Window>
