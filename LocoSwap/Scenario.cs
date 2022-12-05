@@ -654,12 +654,15 @@ namespace LocoSwap
             FileStream stream = new FileStream(propertiesXmlPath, FileMode.Create);
 
             // Append a suffix to scenario DisplayName
-            IEnumerable<XElement> displayNameLanguageNodes = ScenarioProperties.XPathSelectElements("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString/*");
-            foreach (XElement displayNameLanguageNode in displayNameLanguageNodes)
+            if (Settings.Default.ScenarioNameSuffix != "")
             {
-                if (displayNameLanguageNode.Name != "Key" && displayNameLanguageNode.Value != "" && !displayNameLanguageNode.Value.EndsWith("[LoSw]"))
+                IEnumerable<XElement> displayNameLanguageNodes = ScenarioProperties.XPathSelectElements("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString/*");
+                foreach (XElement displayNameLanguageNode in displayNameLanguageNodes)
                 {
-                    displayNameLanguageNode.SetValue(displayNameLanguageNode.Value + " [LoSw]");
+                    if (displayNameLanguageNode.Name != "Key" && displayNameLanguageNode.Value != "" && !displayNameLanguageNode.Value.EndsWith(Settings.Default.ScenarioNameSuffix))
+                    {
+                        displayNameLanguageNode.SetValue(displayNameLanguageNode.Value + " " + Settings.Default.ScenarioNameSuffix);
+                    }
                 }
             }
 

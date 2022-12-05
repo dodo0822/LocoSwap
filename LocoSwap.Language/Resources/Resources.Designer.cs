@@ -618,6 +618,15 @@ namespace LocoSwap.Language {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Scenario name suffix.
+        /// </summary>
+        public static string scenario_name_suffix {
+            get {
+                return ResourceManager.GetString("scenario_name_suffix", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Select Train Simulator Path.
         /// </summary>
         public static string select_ts_path {

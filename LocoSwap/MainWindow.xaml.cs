@@ -89,7 +89,6 @@ namespace LocoSwap
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (RouteList.SelectedItem == null || ScenarioList.SelectedItem == null) return;
             var routeId = ((Route)RouteList.SelectedItem).Id;
             var scenarioId = ((Scenario)ScenarioList.SelectedItem).Id;
             var editWindow = new ScenarioEditWindow(routeId, scenarioId);
@@ -98,7 +97,6 @@ namespace LocoSwap
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (RouteList.SelectedItem == null || ScenarioList.SelectedItem == null) return;
             var scenario = (Scenario)ScenarioList.SelectedItem;
             Process.Start(scenario.ScenarioDirectory);
         }

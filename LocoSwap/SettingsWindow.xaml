@@ -11,6 +11,7 @@
     <Grid>
         <Label Content="{x:Static lang:Resources.ts_directory}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="{x:Static lang:Resources.language}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <Label Content="{x:Static lang:Resources.scenario_name_suffix}" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top"/>
         <TextBox Height="23" Margin="154,13,98.5,0" Text="{Binding Source={x:Static p:Settings.Default}, Path=TsPath, Mode=OneWay}" VerticalAlignment="Top" IsReadOnly="True"/>
         <Button x:Name="TsPathBrowseButton" Content="{x:Static lang:Resources.browse}" Margin="0,13,9.5,0" VerticalAlignment="Top" Height="23" Click="TsPathBrowseButton_Click" HorizontalAlignment="Right" Width="76"/>
         <ComboBox x:Name="LanguageComboBox"
@@ -21,6 +22,7 @@
             SelectedValuePath="Value"
             SelectedValue="{Binding Source={x:Static p:Settings.Default}, Path=Language, Mode=TwoWay}" SelectionChanged="LanguageComboBox_SelectionChanged"/>
         <Button x:Name="CloseButton" Content="{x:Static lang:Resources.close}" Margin="0,0,9.5,9.5" HorizontalAlignment="Right" Width="75" Click="CloseButton_Click" Height="20" VerticalAlignment="Bottom"/>
+        <TextBox Text="{Binding Source={x:Static p:Settings.Default}, Path=ScenarioNameSuffix, Mode=TwoWay}"  Margin="154,81,186,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

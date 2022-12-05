@@ -62,9 +62,9 @@
                 <Label Content="{x:Static lang:Resources.path}" HorizontalAlignment="Left" Margin="0,70,0,0" VerticalAlignment="Top"/>
                 <TextBox HorizontalAlignment="Left" Height="39" Margin="0,101,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayXmlPath, Mode=OneWay, ElementName=VehicleListBox, StringFormat='\\Assets\\\{0\}'}" VerticalAlignment="Top" Width="270" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
                 <Image Source="{Binding SelectedItem, Mode=OneWay, ElementName=VehicleListBox, Converter={StaticResource VehicleImageSourceConverter}}" HorizontalAlignment="Left" Height="111" Margin="0,145,0,0" VerticalAlignment="Top" Width="270"/>
-                <Button x:Name="ChangeNumberButton" Content="{x:Static lang:Resources.change_number}" HorizontalAlignment="Left" Margin="0,0,0,10" Width="125" Click="ChangeNumberButton_Click" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="26"/>
+                <Button x:Name="ChangeNumberButton" Content="{x:Static lang:Resources.change_number}" IsEnabled="{Binding ElementName=VehicleListBox, Path=SelectedItems.Count}" HorizontalAlignment="Left" Margin="0,0,0,10" Width="125" Click="ChangeNumberButton_Click" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="26"/>
                 <CheckBox Content="{x:Static lang:Resources.flipped}" Margin="0,76,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" IsChecked="{Binding SelectedItem.Flipped, Mode=OneWay, ElementName=VehicleListBox}" IsEnabled="False" />
-                <Button x:Name="FlipButton" Content="{x:Static lang:Resources.flip}" HorizontalAlignment="Left" Margin="145,0,0,10.429" Width="125" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="26" Click="FlipButton_Click"/>
+                <Button x:Name="FlipButton" Content="{x:Static lang:Resources.flip}" IsEnabled="{Binding ElementName=VehicleListBox, Path=SelectedItems.Count}" HorizontalAlignment="Left" Margin="145,0,0,10.429" Width="125" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="26" Click="FlipButton_Click"/>
             </Grid>
         </GroupBox>
         <TreeView x:Name="DirectoryTree" Height="329" Margin="955,99,20,0" VerticalAlignment="Top" ItemsSource="{Binding Directories}" TreeViewItem.Expanded="TreeView_Expanded">

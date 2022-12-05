@@ -303,6 +303,9 @@
   <data name="scenario_delete_prompt_title" xml:space="preserve">
     <value>Scenarios deletion</value>
   </data>
+  <data name="scenario_name_suffix" xml:space="preserve">
+    <value>Scenario name suffix</value>
+  </data>
   <data name="select_ts_path" xml:space="preserve">
     <value>Select Train Simulator Path</value>
   </data>
