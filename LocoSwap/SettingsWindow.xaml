@@ -22,7 +22,7 @@
             SelectedValuePath="Value"
             SelectedValue="{Binding Source={x:Static p:Settings.Default}, Path=Language, Mode=TwoWay}" SelectionChanged="LanguageComboBox_SelectionChanged"/>
         <Button x:Name="CloseButton" Content="{x:Static lang:Resources.close}" Margin="0,0,9.5,9.5" HorizontalAlignment="Right" Width="75" Click="CloseButton_Click" Height="20" VerticalAlignment="Bottom"/>
-        <TextBox Text="{Binding Source={x:Static p:Settings.Default}, Path=ScenarioNameSuffix, Mode=TwoWay}"  Margin="154,81,186,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Text="{Binding Source={x:Static p:Settings.Default}, Path=ScenarioNameSuffix, Mode=TwoWay}"  Margin="154,81,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

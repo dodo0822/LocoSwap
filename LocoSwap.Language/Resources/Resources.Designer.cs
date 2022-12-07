@@ -178,6 +178,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string duration {
+            get {
+                return ResourceManager.GetString("duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit scenario.
         /// </summary>
         public static string edit_scenario {
@@ -219,6 +228,15 @@ namespace LocoSwap.Language {
         public static string flipped {
             get {
                 return ResourceManager.GetString("flipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save date.
+        /// </summary>
+        public static string game_save_date {
+            get {
+                return ResourceManager.GetString("game_save_date", resourceCulture);
             }
         }
         
@@ -493,6 +511,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Player train.
+        /// </summary>
+        public static string player_train_name {
+            get {
+                return ResourceManager.GetString("player_train_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reading scenario files....
         /// </summary>
         public static string reading_scenario_files {
@@ -646,6 +673,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Season.
+        /// </summary>
+        public static string season {
+            get {
+                return ResourceManager.GetString("season", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Train Simulator Path.
         /// </summary>
         public static string select_ts_path {
@@ -660,6 +696,15 @@ namespace LocoSwap.Language {
         public static string settings {
             get {
                 return ResourceManager.GetString("settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time.
+        /// </summary>
+        public static string start_time {
+            get {
+                return ResourceManager.GetString("start_time", resourceCulture);
             }
         }
         

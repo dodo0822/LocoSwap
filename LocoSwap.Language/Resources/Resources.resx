@@ -156,6 +156,9 @@
   <data name="delete_scenarios" xml:space="preserve">
     <value>Delete scenarios</value>
   </data>
+  <data name="duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
   <data name="edit_scenario" xml:space="preserve">
     <value>Edit scenario</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="flipped" xml:space="preserve">
     <value>Flipped?</value>
+  </data>
+  <data name="game_save_date" xml:space="preserve">
+    <value>Save date</value>
   </data>
   <data name="id" xml:space="preserve">
     <value>ID</value>
@@ -261,6 +267,9 @@
   <data name="path" xml:space="preserve">
     <value>Path</value>
   </data>
+  <data name="player_train_name" xml:space="preserve">
+    <value>Player train</value>
+  </data>
   <data name="reading_scenario_files" xml:space="preserve">
     <value>Reading scenario files...</value>
   </data>
@@ -312,11 +321,17 @@
   <data name="scenario_name_suffix" xml:space="preserve">
     <value>Scenario name suffix</value>
   </data>
+  <data name="season" xml:space="preserve">
+    <value>Season</value>
+  </data>
   <data name="select_ts_path" xml:space="preserve">
     <value>Select Train Simulator Path</value>
   </data>
   <data name="settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="start_time" xml:space="preserve">
+    <value>Start time</value>
   </data>
   <data name="ts_directory" xml:space="preserve">
     <value>Train Simulator directory</value>

@@ -13,12 +13,25 @@ namespace LocoSwap
 {
     public class Scenario
     {
+        public enum Seasons
+        {
+            Spring,
+            Summer,
+            Autumn,
+            Winter
+        }
+
         private XDocument ScenarioProperties;
         private XDocument ScenarioXml;
         private XNamespace Namespace = "http://www.kuju.com/TnT/2003/Delta";
         public string RouteId;
+        private string _description;
+
         public string Id { get; set; }
         public string Name { get; set; } = "Name not available";
+        public string Description { get { return _description; } set { _description = value.Length == 0 ? null : value; } }
+        public uint Duration { get; set; } = 0;
+        public Seasons Season { get; set; }
         public string ScenarioDirectory
         {
             get
@@ -26,6 +39,11 @@ namespace LocoSwap
                 return GetScenarioDirectory(RouteId, Id);
             }
         }
+        public TimeSpan StartTime { get; set; }
+
+        public string PlayerTrainName { get; set; } = "";
+
+        public DateTime? LastPlayed { get; set; }
 
         public Scenario()
         {
@@ -44,16 +62,58 @@ namespace LocoSwap
             RouteId = routeId;
             Id = id;
 
+            // Parse XML
             try
             {
                 ScenarioProperties = XmlDocumentLoader.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
+
                 XElement displayName = ScenarioProperties.XPathSelectElement("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString");
                 Name = Utilities.DetermineDisplayName(displayName);
+
+                XElement descriptionNode = ScenarioProperties.XPathSelectElement("/cScenarioProperties/Description/Localisation-cUserLocalisedString");
+                Description = Utilities.DetermineDisplayName(descriptionNode);
+
+                Duration = uint.Parse(ScenarioProperties.XPathSelectElement("/cScenarioProperties/DurationMins").Value);
+
+                switch (ScenarioProperties.XPathSelectElement("/cScenarioProperties/Season").Value)
+                {
+                    case "SEASON_SPRING":
+                        Season = Seasons.Spring;
+                        break;
+                    case "SEASON_SUMMER":
+                        Season = Seasons.Summer;
+                        break;
+                    case "SEASON_AUTUMN":
+                        Season = Seasons.Autumn;
+                        break;
+                    case "SEASON_WINTER":
+                        Season = Seasons.Winter;
+                        break;
+                }
+
+                StartTime = TimeSpan.FromSeconds(uint.Parse(ScenarioProperties.XPathSelectElement("/cScenarioProperties/StartTime").Value.Split('.')[0]));
+
+                PlayerTrainName = Utilities.DetermineDisplayName(ScenarioProperties.XPathSelectElement("(/cScenarioProperties/FrontEndDriverList/sDriverFrontEndDetails/LocoName[../PlayerDriver = 1])[last()]/Localisation-cUserLocalisedString"));
             }
             catch (Exception e)
             {
                 Log.Warning("Exception caught when trying to load ScenarioProperties.xml: {0}", e);
                 throw new Exception("Malformed ScenarioProperties.xml file!");
+            }
+
+            // Scenario infos extra-XML
+            try
+            {
+                var routeDirectory = Route.GetRouteDirectory(routeId);
+                var potentialSavePath = Path.Combine(routeDirectory, "Scenarios", id, "CurrentSave.bin");
+                if (File.Exists(potentialSavePath))
+                {
+                    LastPlayed = File.GetLastWriteTime(potentialSavePath);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Warning("Exception caught when trying to get extra scenario info {0}", e);
             }
         }
 
@@ -207,7 +267,7 @@ namespace LocoSwap
                     }
                     else
                     {
-                    vehicle.Exists = VehicleExistance.Missing;
+                        vehicle.Exists = VehicleExistance.Missing;
                     }
 
                     consist.IsComplete = (consist.IsComplete != ConsistVehicleExistance.Missing && foundSubst != default) ?

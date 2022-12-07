@@ -3,12 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LocoSwap"
         xmlns:lang="clr-namespace:LocoSwap.Language;assembly=LocoSwap.Language"
-        xmlns:converters="clr-namespace:LocoSwap.Converters"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="{Binding WindowTitle}" Height="574.286" Width="800">
+        Title="{Binding WindowTitle}" Height="675" Width="986">
     <Window.Resources>
         <CollectionViewSource Source="{Binding Routes}" x:Key="RoutesSource" IsLiveSortingRequested="True">
             <CollectionViewSource.SortDescriptions>
@@ -64,22 +62,38 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="{x:Static lang:Resources.name}" Width="400" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="{x:Static lang:Resources.id}" Width="300" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.name}" Width="640" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.id}" DisplayMemberBinding="{Binding Id}" />
                 </GridView>
             </ListView.View>
         </ListView>
         <ListView x:Name="ScenarioList" Margin="10,236,10,35" ItemsSource="{Binding Source={StaticResource ScenariosSource}}" MouseDoubleClick="ScenarioList_MouseDoubleClick">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <UniformGrid Columns="1">
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxWidth="500"/>
+                            </UniformGrid>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="{x:Static lang:Resources.name}" Width="400" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="{x:Static lang:Resources.id}" Width="300" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.name}" Width="350" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.id}" Width="75" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.player_train_name}" Width="auto" DisplayMemberBinding="{Binding PlayerTrainName}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.duration}" Width="auto" DisplayMemberBinding="{Binding Duration}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.start_time}" Width="auto" DisplayMemberBinding="{Binding StartTime, StringFormat=hh\\:mm}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.season}" Width="auto" DisplayMemberBinding="{Binding Season}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.game_save_date}" Width="auto" DisplayMemberBinding="{Binding LastPlayed}" />
                 </GridView>
             </ListView.View>
         </ListView>
         <Button Content="{x:Static lang:Resources.edit_scenario}" IsEnabled="{Binding ElementName=ScenarioList, Path=SelectedItems.Count}" HorizontalAlignment="Left" Margin="10,0,0,10.111" Width="145" Click="Button_Click" VerticalAlignment="Bottom"/>
         <Button Content="{x:Static lang:Resources.open_scenario_directory}" IsEnabled="{Binding ElementName=ScenarioList, Path=SelectedItems.Count}" HorizontalAlignment="Left" Margin="160,0,0,10.111"  Width="172"  Click="Button_Click_1" VerticalAlignment="Bottom"/>
-        <Button x:Name="SettingsButton" Content="{x:Static lang:Resources.settings}" Margin="658,0,10,10" VerticalAlignment="Bottom" Click="SettingsButton_Click"/>
+        <Button x:Name="SettingsButton" Content="{x:Static lang:Resources.settings}" Width="150" Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="SettingsButton_Click"/>
         <Button Content="{x:Static lang:Resources.delete_scenarios}" IsEnabled="{Binding SelectedItems.Count, ElementName=ScenarioList}" HorizontalAlignment="Left" Margin="337,0,0,10.111"  Width="172"  Click="Delete_Scenarios_Click" VerticalAlignment="Bottom"/>
 
     </Grid>

@@ -76,6 +76,8 @@ namespace LocoSwap
 
         public static string DetermineDisplayName(XElement localisedString)
         {
+            if (localisedString == null) return "";
+
             var lang = Settings.Default.Language;
             if (lang == "") lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
             var langConversionTable = new Dictionary<string, string>()
