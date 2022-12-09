@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LocoSwap
@@ -70,7 +71,6 @@ namespace LocoSwap
             public ObservableCollection<ScenarioVehicle> Vehicles { get; set; } = new ObservableCollection<ScenarioVehicle>();
             public ObservableCollection<DirectoryItem> Directories { get; set; } = new ObservableCollection<DirectoryItem>();
             public ObservableCollection<AvailableVehicle> AvailableVehicles { get; set; } = new ObservableCollection<AvailableVehicle>();
-
         }
 
         private string RouteId;
@@ -90,6 +90,14 @@ namespace LocoSwap
             ViewModel.Scenario = new Scenario(RouteId, ScenarioId);
             VehicleAvailibility.ClearTable();
             ReadScenario();
+        }
+
+        private bool AvailableVehicleFilter(object item)
+        {
+            if (string.IsNullOrEmpty(AvailableVehicleFilterTextbox.Text))
+                return true;
+            else
+                return (item as AvailableVehicle).DisplayName.IndexOf(AvailableVehicleFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         public async void ReadScenario()
@@ -278,6 +286,10 @@ namespace LocoSwap
 
             ViewModel.LoadingProgress = 100;
             ViewModel.VehicleScanInProgress = false;
+
+            // Add filter to AvailableVehicleList
+            CollectionView AvailableVehicleListview = (CollectionView)CollectionViewSource.GetDefaultView(AvailableVehicleListBox.ItemsSource);
+            AvailableVehicleListview.Filter = AvailableVehicleFilter;
         }
 
         private void InsertButton_Click(bool after)
@@ -772,6 +784,11 @@ namespace LocoSwap
                     }
                 }
             }
+        }
+
+        public void AvailableVehiclesFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(AvailableVehicleListBox.ItemsSource).Refresh();
         }
     }
 }

@@ -90,7 +90,7 @@
                 <Button x:Name="AvailableVehicleNumberListButton" Content="{x:Static lang:Resources.numbering_list}" HorizontalAlignment="Left" Margin="0,269,0,0" VerticalAlignment="Top" Width="125" Height="26" Click="AvailableVehicleNumberListButton_Click"/>
             </Grid>
         </GroupBox>
-        <ListBox x:Name="AvailableVehicleListBox" ItemsSource="{Binding Source={StaticResource AvailableVehiclesSource}}" Margin="955,464,20,10">
+        <ListBox x:Name="AvailableVehicleListBox" ItemsSource="{Binding Source={StaticResource AvailableVehiclesSource}}" Margin="955,500,20,10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding DisplayName}" Margin="0,0,0,0" />
@@ -143,5 +143,6 @@
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>
+        <TextBox Name="AvailableVehicleFilterTextbox" HorizontalAlignment="Left" Margin="960,471,0,0" TextChanged="AvailableVehiclesFilter_TextChanged" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
     </Grid>
 </Window>
