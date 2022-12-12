@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace LocoSwap
 {
@@ -19,6 +21,10 @@ namespace LocoSwap
         public SwapPresetWindow()
         {
             InitializeComponent();
+
+            // Add filter to PresetList
+            CollectionView PresetListview = (CollectionView)CollectionViewSource.GetDefaultView(PresetList.ItemsSource);
+            PresetListview.Filter = PresetFilter;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -39,6 +45,21 @@ namespace LocoSwap
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
             ApplyClicked?.Invoke(this, new EventArgs());
+        }
+
+        private void PresetsFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(PresetList.ItemsSource).Refresh();
+        }
+
+        private bool PresetFilter(object item)
+        {
+            if (string.IsNullOrEmpty(PresetsFilterTextbox.Text))
+                return true;
+            else
+                return (item as SwapPresetItem).NewName.IndexOf(PresetsFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0
+                    ||
+                    (item as SwapPresetItem).TargetName.IndexOf(PresetsFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }

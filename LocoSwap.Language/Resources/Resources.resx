@@ -168,6 +168,9 @@
   <data name="enter_number_manually" xml:space="preserve">
     <value>Or enter vehicle number manually:</value>
   </data>
+  <data name="filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
   <data name="flip" xml:space="preserve">
     <value>Flip vehicle</value>
   </data>

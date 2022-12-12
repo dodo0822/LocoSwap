@@ -4,10 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:p="clr-namespace:LocoSwap.Properties"
-        xmlns:local="clr-namespace:LocoSwap"
         xmlns:lang="clr-namespace:LocoSwap.Language;assembly=LocoSwap.Language"
         mc:Ignorable="d"
-        Title="SwapPresetWindow" Height="340" Width="550">
+        Title="SwapPresetWindow" Height="379" Width="600">
     <Window.Resources>
         <DataTemplate x:Key="FirstCell">
             <StackPanel Orientation="Horizontal">
@@ -27,7 +26,7 @@
         </DataTemplate>
     </Window.Resources>
     <Grid Margin="0,0,0,0">
-        <ListView x:Name="PresetList" Margin="10,10,10,35.5" ItemsSource="{Binding Source={x:Static p:Settings.Default}, Path=Preset.List, Mode=OneWay}" SelectionMode="Multiple">
+        <ListView x:Name="PresetList" Margin="10,40,10,35.5" ItemsSource="{Binding Source={x:Static p:Settings.Default}, Path=Preset.List, Mode=OneWay}" SelectionMode="Multiple">
             <ListView.View>
                 <GridView>
                     <GridViewColumn CellTemplate="{StaticResource FirstCell}" Width="30"/>
@@ -39,6 +38,8 @@
         <Button x:Name="ApplyButton" Content="{x:Static lang:Resources.apply}" HorizontalAlignment="Left" Margin="10,0,0,10.5" Width="119" VerticalAlignment="Bottom" Click="ApplyButton_Click"/>
         <Button x:Name="DeleteButton" Content="{x:Static lang:Resources.delete}" HorizontalAlignment="Left" Margin="134,0,0,10.5" Width="117" VerticalAlignment="Bottom" Click="DeleteButton_Click"/>
         <Button x:Name="CloseButton" Content="{x:Static lang:Resources.close}" Margin="0,0,10,10.5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="CloseButton_Click"/>
+        <Label Content="{x:Static lang:Resources.filter}" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="PresetsFilterTextbox" TextChanged="PresetsFilter_TextChanged" HorizontalAlignment="Left" Margin="72,13,0,0" VerticalAlignment="Top" Width="164"/>
 
     </Grid>
 </Window>
