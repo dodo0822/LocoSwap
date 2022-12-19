@@ -44,6 +44,9 @@
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\icon_128.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetZip, Version=1.13.7.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.13.7\lib\net40\DotNetZip.dll</HintPath>
@@ -215,6 +218,9 @@
   <ItemGroup>
     <Resource Include="Resources\BulletYellow.png" />
     <Resource Include="Resources\ReplacedYellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_128.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

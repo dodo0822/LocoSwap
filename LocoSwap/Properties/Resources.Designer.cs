@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace LocoSwap.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -76,7 +79,7 @@ namespace LocoSwap.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
@@ -84,6 +87,16 @@ namespace LocoSwap.Properties {
             get {
                 object obj = ResourceManager.GetObject("BulletYellow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon icon_128 {
+            get {
+                object obj = ResourceManager.GetObject("icon_128", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }
