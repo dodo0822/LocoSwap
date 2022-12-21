@@ -6,7 +6,7 @@
         xmlns:p="clr-namespace:LocoSwap.Properties"
         xmlns:lang="clr-namespace:LocoSwap.Language;assembly=LocoSwap.Language"
         mc:Ignorable="d"
-        Title="SwapPresetWindow" Height="379" Width="600">
+        Title="{x:Static lang:Resources.replacement_rules_management}" Height="379" Width="600">
     <Window.Resources>
         <DataTemplate x:Key="FirstCell">
             <StackPanel Orientation="Horizontal">
@@ -25,13 +25,13 @@
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    <Grid Margin="0,0,0,0">
-        <ListView x:Name="PresetList" Margin="10,40,10,35.5" ItemsSource="{Binding Source={x:Static p:Settings.Default}, Path=Preset.List, Mode=OneWay}" SelectionMode="Multiple">
+    <Grid Margin="0,0,0,-6">
+        <ListView x:Name="PresetList" Margin="10,40,10,40" ItemsSource="{Binding Source={x:Static p:Settings.Default}, Path=Preset.List, Mode=OneWay}" SelectionMode="Multiple">
             <ListView.View>
                 <GridView>
                     <GridViewColumn CellTemplate="{StaticResource FirstCell}" Width="30"/>
-                    <GridViewColumn CellTemplate="{StaticResource FindCell}" Header="{x:Static lang:Resources.rule_find}" Width="200"/>
-                    <GridViewColumn CellTemplate="{StaticResource ReplaceWithCell}" Header="{x:Static lang:Resources.rule_replace}" Width="200" />
+                    <GridViewColumn CellTemplate="{StaticResource FindCell}" Header="{x:Static lang:Resources.rule_find}" Width="254"/>
+                    <GridViewColumn CellTemplate="{StaticResource ReplaceWithCell}" Header="{x:Static lang:Resources.rule_replace}" Width="254" />
                 </GridView>
             </ListView.View>
         </ListView>

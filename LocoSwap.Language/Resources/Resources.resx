@@ -285,6 +285,9 @@
   <data name="replacement_rules" xml:space="preserve">
     <value>Replacement rules</value>
   </data>
+  <data name="replacement_rules_management" xml:space="preserve">
+    <value>Replacement rules management</value>
+  </data>
   <data name="replace_identical" xml:space="preserve">
     <value>Replace identical</value>
   </data>

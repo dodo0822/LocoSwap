@@ -583,6 +583,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replacement rules management.
+        /// </summary>
+        public static string replacement_rules_management {
+            get {
+                return ResourceManager.GetString("replacement_rules_management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Route.
         /// </summary>
         public static string route {
