@@ -11,6 +11,7 @@ namespace LocoSwap
         public string TargetXmlPath { get; set; }
         public string NewName { get; set; }
         public string NewXmlPath { get; set; }
+        public float NewLength { get; set; }
     }
 
     [SettingsSerializeAs(SettingsSerializeAs.Xml)]

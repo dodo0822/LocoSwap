@@ -26,7 +26,7 @@
         <TextBox Text="{Binding Scenario.Name, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="73,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" IsReadOnly="True" Focusable="False"/>
         <TextBox Text="{Binding Route.Name, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="73,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" IsReadOnly="True" Focusable="False"/>
         <Label Content="{x:Static lang:Resources.consists_in_scenario}" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="ConsistListBox" ItemsSource="{Binding Consists}" HorizontalAlignment="Left" Margin="10,104,0,10" Width="313" SelectionChanged="ConsistListBox_SelectionChanged">
+        <ListBox x:Name="ConsistListBox" ItemsSource="{Binding Consists}" HorizontalAlignment="Left" Margin="5,104,0,10" Width="313" SelectionChanged="ConsistListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -43,7 +43,14 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding Exists, Converter={StaticResource VehicleStatusToImageConverter}}" Width="8" Height="8" />
-                        <TextBlock Text="{Binding DisplayName}" ToolTip="{Binding PossibleSubstitutionDisplayName}" Margin="10,0,0,0" />
+                        <TextBlock ToolTip="{Binding PossibleSubstitutionDisplayName}" Margin="5,0,0,0">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}m">
+                                    <Binding Path="DisplayName" />
+                                    <Binding Path="Length" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -92,7 +99,14 @@
         <ListBox x:Name="AvailableVehicleListBox" ItemsSource="{Binding Source={StaticResource AvailableVehiclesSource}}" Margin="955,500,20,10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DisplayName}" Margin="0,0,0,0" />
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} - {1}m">
+                                <Binding Path="DisplayName" />
+                                <Binding Path="Length" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

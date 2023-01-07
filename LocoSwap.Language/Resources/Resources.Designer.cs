@@ -601,6 +601,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rule.
+        /// </summary>
+        public static string rule {
+            get {
+                return ResourceManager.GetString("rule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search for....
         /// </summary>
         public static string rule_find {

@@ -82,6 +82,7 @@ namespace LocoSwap
             get => _type;
             set => SetProperty(ref _type, value);
         }
+        public float Length { get; set; }
         public VehicleExistance Exists
         {
             get => _exists;
@@ -134,7 +135,7 @@ namespace LocoSwap
             Type = VehicleType.Unknown;
         }
 
-        public Vehicle(string provider, string product, string blueprintId, string name)
+        public Vehicle(string provider, string product, string blueprintId, string name, float length)
         {
             Provider = provider;
             Product = product;
@@ -143,6 +144,7 @@ namespace LocoSwap
             DisplayName = name;
             Exists = VehicleExistance.Found;
             Type = VehicleType.Unknown;
+            Length = (float) Math.Round(length, 2);
         }
     }
 }

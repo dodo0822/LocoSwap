@@ -571,7 +571,8 @@ namespace LocoSwap
                     TargetName = vehicle.Name,
                     TargetXmlPath = vehicle.XmlPath,
                     NewName = newVehicle.DisplayName,
-                    NewXmlPath = newVehicle.XmlPath
+                    NewXmlPath = newVehicle.XmlPath,
+                    NewLength = newVehicle.Length
                 });
             }
             Settings.Default.Save();

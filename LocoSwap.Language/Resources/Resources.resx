@@ -297,6 +297,9 @@
   <data name="route" xml:space="preserve">
     <value>Route</value>
   </data>
+  <data name="rule" xml:space="preserve">
+    <value>Rule</value>
+  </data>
   <data name="rule_find" xml:space="preserve">
     <value>Search for...</value>
   </data>

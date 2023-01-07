@@ -2,6 +2,7 @@
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -214,7 +215,11 @@ namespace LocoSwap
                         flipped = flippedElement.Value == "1";
                     }
 
-                    ScenarioVehicle v = new ScenarioVehicle(vehicleIdx, provider, product, path, vehicleName, number, flipped);
+                    // Getting what is needed to determine length of vehicle
+                    IEnumerable<XElement> positions = vehicle.Descendants("Position");
+                    float length = Math.Abs(float.Parse(positions.ElementAt(0).Value, CultureInfo.InvariantCulture) - float.Parse(positions.ElementAt(1).Value, CultureInfo.InvariantCulture));
+
+                    ScenarioVehicle v = new ScenarioVehicle(vehicleIdx, provider, product, path, vehicleName, number, flipped, length);
                     v.Type = type;
 
                     // Determine if it is a reskin
@@ -263,7 +268,7 @@ namespace LocoSwap
                     if (foundSubst != default)
                     {
                         vehicle.Exists = VehicleExistance.MissingWithRule;
-                        vehicle.PossibleSubstitutionDisplayName = "Rule : " + foundSubst.NewName;
+                        vehicle.PossibleSubstitutionDisplayName = Language.Resources.rule + " : " + foundSubst.NewName + (foundSubst.NewLength != 0 ? " - " + foundSubst.NewLength + "m" : "");
                     }
                     else
                     {

@@ -36,8 +36,8 @@ namespace LocoSwap
             Flipped = false;
         }
 
-        public ScenarioVehicle(int idx, string provider, string product, string blueprintId, string name, string number, bool flipped)
-            : base(provider, product, blueprintId, name)
+        public ScenarioVehicle(int idx, string provider, string product, string blueprintId, string name, string number, bool flipped, float length)
+            : base(provider, product, blueprintId, name, length)
         {
             Idx = idx;
             Number = number;
