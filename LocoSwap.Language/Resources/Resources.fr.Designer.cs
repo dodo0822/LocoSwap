@@ -709,42 +709,6 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Autumn.
-        /// </summary>
-        public static string season_autumn {
-            get {
-                return ResourceManager.GetString("season_autumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spring.
-        /// </summary>
-        public static string season_spring {
-            get {
-                return ResourceManager.GetString("season_spring", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Summer.
-        /// </summary>
-        public static string season_summer {
-            get {
-                return ResourceManager.GetString("season_summer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Winter.
-        /// </summary>
-        public static string season_winter {
-            get {
-                return ResourceManager.GetString("season_winter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Select Train Simulator Path.
         /// </summary>
         public static string select_ts_path {

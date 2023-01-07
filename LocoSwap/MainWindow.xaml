@@ -86,7 +86,7 @@
                     <GridViewColumn Header="{x:Static lang:Resources.player_train_name}" Width="auto" DisplayMemberBinding="{Binding PlayerTrainName}" />
                     <GridViewColumn Header="{x:Static lang:Resources.duration}" Width="auto" DisplayMemberBinding="{Binding Duration}" />
                     <GridViewColumn Header="{x:Static lang:Resources.start_time}" Width="auto" DisplayMemberBinding="{Binding StartTime, StringFormat=hh\\:mm}" />
-                    <GridViewColumn Header="{x:Static lang:Resources.season}" Width="auto" DisplayMemberBinding="{Binding Season}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.season}" Width="auto" DisplayMemberBinding="{Binding LocalizedSeason}" />
                     <GridViewColumn Header="{x:Static lang:Resources.game_save_date}" Width="auto" DisplayMemberBinding="{Binding LastPlayed}" />
                 </GridView>
             </ListView.View>
