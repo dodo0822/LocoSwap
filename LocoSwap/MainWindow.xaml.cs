@@ -7,6 +7,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LocoSwap
@@ -41,6 +42,19 @@ namespace LocoSwap
 
                 }
             }
+
+            Loaded += On_MainWindow_Loaded;
+        }
+
+        private void On_MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Add filter to RouteList
+            CollectionView RouteListview = (CollectionView)CollectionViewSource.GetDefaultView(RouteList.ItemsSource);
+            RouteListview.Filter = RouteFilter;
+
+            // Add filter to ScenarioList
+            CollectionView ScenarioListview = (CollectionView)CollectionViewSource.GetDefaultView(ScenarioList.ItemsSource);
+            ScenarioListview.Filter = ScenarioFilter;
         }
 
         private void Route_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -66,7 +80,14 @@ namespace LocoSwap
 
         private void RouteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Refresh_Scenario_List();
+            if (RouteList.SelectedItem != null)
+            {
+                Refresh_Scenario_List();
+            }
+            else
+            {
+                Scenarios.Clear();
+            }
         }
 
         private void Refresh_Scenario_List()
@@ -130,6 +151,39 @@ namespace LocoSwap
                 }
                 Refresh_Scenario_List();
             }
+        }
+
+        private bool RouteFilter(object item)
+        {
+            if (string.IsNullOrEmpty(RouteFilterTextbox.Text))
+                return true;
+            else
+                return
+                    (item as Route).Id.IndexOf(RouteFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    (item as Route).Name.IndexOf(RouteFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private bool ScenarioFilter(object item)
+        {
+            if (string.IsNullOrEmpty(ScenarioFilterTextbox.Text))
+                return true;
+            else
+                return
+                    (item as Scenario).Id?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    (item as Scenario).Name?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    (item as Scenario).Description?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    (item as Scenario).PlayerTrainName?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0
+                    ;
+        }
+
+        public void RouteFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(RouteList.ItemsSource).Refresh();
+        }
+
+        public void ScenarioFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(ScenarioList.ItemsSource).Refresh();
         }
     }
 }
