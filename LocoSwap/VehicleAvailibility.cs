@@ -208,7 +208,7 @@ namespace LocoSwap
                         var zipFile = ZipFile.Read(apPath);
                         result = zipFile.Any(entry => entry.FileName.Equals(binName));
                     }
-                    catch(ZipException e)
+                    catch(ZipException)
                     {
                         Debug.WriteLine("Error while reading zip file: " + apPath);
                     }
