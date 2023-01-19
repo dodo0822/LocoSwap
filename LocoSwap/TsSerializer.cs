@@ -28,6 +28,11 @@ namespace LocoSwap
         }
         public static XDocument Load(string binPath)
         {
+            return XmlDocumentLoader.Load(BinToXml(binPath));
+        }
+
+        public static string BinToXml(string binPath)
+        {
             FileInfo binInfo = new FileInfo(binPath);
             string baseName = Path.GetFileNameWithoutExtension(binInfo.Name);
             string tempName = string.Format("{0}-{1}.bin", baseName, Utilities.StaticRandom.Instance.Next(10000, 99999));
@@ -53,7 +58,7 @@ namespace LocoSwap
             Process serz = InvokeSerz(tempBinPath);
             serz.WaitForExit();
 
-            return XmlDocumentLoader.Load(tempXmlPath);
+            return tempXmlPath;
         }
 
         public static void Save(XDocument document, string path)

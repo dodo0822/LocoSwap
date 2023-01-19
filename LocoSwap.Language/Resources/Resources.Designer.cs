@@ -151,6 +151,51 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completion.
+        /// </summary>
+        public static string completion {
+            get {
+                return ResourceManager.GetString("completion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed.
+        /// </summary>
+        public static string completion_completedfailed {
+            get {
+                return ResourceManager.GetString("completion_completedfailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string completion_completedsuccessfully {
+            get {
+                return ResourceManager.GetString("completion_completedsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string completion_notcompleted {
+            get {
+                return ResourceManager.GetString("completion_notcompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string completion_notindb {
+            get {
+                return ResourceManager.GetString("completion_notindb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Consists in scenario.
         /// </summary>
         public static string consists_in_scenario {
@@ -282,6 +327,15 @@ namespace LocoSwap.Language {
         public static string language {
             get {
                 return ResourceManager.GetString("language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading....
+        /// </summary>
+        public static string loading {
+            get {
+                return ResourceManager.GetString("loading", resourceCulture);
             }
         }
         

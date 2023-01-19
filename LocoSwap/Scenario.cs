@@ -16,10 +16,10 @@ namespace LocoSwap
     {
         public enum Seasons
         {
-            spring,
-            summer,
-            autumn,
-            winter
+            Spring,
+            Summer,
+            Autumn,
+            Winter
         }
 
         private XDocument ScenarioProperties;
@@ -33,7 +33,23 @@ namespace LocoSwap
         public string Description { get { return _description; } set { _description = value.Length == 0 ? null : value; } }
         public uint Duration { get; set; } = 0;
         public Seasons Season { get; set; }
-        public string LocalizedSeason { get { return Language.Resources.ResourceManager.GetString("season_" + Season); }  }
+        public string LocalizedSeason { get { return Language.Resources.ResourceManager.GetString("season_" + Season.ToString().ToLower(), Language.Resources.Culture); }  }
+        public ScenarioDb.ScenarioCompletion Completion { get => ScenarioDb.getScenarioDbInfos(Id); }
+        public string LocalizedCompletion
+        {
+            get
+            {
+                if (ScenarioDb.dbState == ScenarioDb.DBState.Loading)
+                {
+                    return Language.Resources.loading;
+                }
+                else
+                {
+                    return Language.Resources.ResourceManager.GetString("completion_" + Completion.ToString().ToLower(), Language.Resources.Culture);
+                }
+            }
+        }
+
         public string ScenarioDirectory
         {
             get
@@ -80,16 +96,16 @@ namespace LocoSwap
                 switch (ScenarioProperties.XPathSelectElement("/cScenarioProperties/Season").Value)
                 {
                     case "SEASON_SPRING":
-                        Season = Seasons.spring;
+                        Season = Seasons.Spring;
                         break;
                     case "SEASON_SUMMER":
-                        Season = Seasons.summer;
+                        Season = Seasons.Summer;
                         break;
                     case "SEASON_AUTUMN":
-                        Season = Seasons.autumn;
+                        Season = Seasons.Autumn;
                         break;
                     case "SEASON_WINTER":
-                        Season = Seasons.winter;
+                        Season = Seasons.Winter;
                         break;
                 }
 

@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -42,6 +43,9 @@ namespace LocoSwap
 
                 }
             }
+
+            // Asynchronously read the scenario DB to populate the Scenario completion status
+            ReadScenarioDb();
 
             Loaded += On_MainWindow_Loaded;
         }
@@ -174,6 +178,19 @@ namespace LocoSwap
                     (item as Scenario).Description?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     (item as Scenario).PlayerTrainName?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0
                     ;
+        }
+
+        public async void ReadScenarioDb()
+        {
+            var readDbTask = Task.Run(() =>
+            {
+                ScenarioDb.ParseScenarioDb();
+            });
+
+            await Task.WhenAll(readDbTask);
+
+            // Refresh scenario list with completion
+            CollectionViewSource.GetDefaultView(ScenarioList.ItemsSource).Refresh();
         }
 
         public void RouteFilter_TextChanged(object sender, TextChangedEventArgs e)

@@ -6,7 +6,7 @@
         xmlns:lang="clr-namespace:LocoSwap.Language;assembly=LocoSwap.Language"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="{Binding WindowTitle}" Height="701" Width="986">
+        Title="{Binding WindowTitle}" Height="701" Width="1025">
     <Window.Resources>
         <CollectionViewSource Source="{Binding Routes}" x:Key="RoutesSource" IsLiveSortingRequested="True">
             <CollectionViewSource.SortDescriptions>
@@ -87,6 +87,7 @@
                     <GridViewColumn Header="{x:Static lang:Resources.duration}" Width="auto" DisplayMemberBinding="{Binding Duration}" />
                     <GridViewColumn Header="{x:Static lang:Resources.start_time}" Width="auto" DisplayMemberBinding="{Binding StartTime, StringFormat=hh\\:mm}" />
                     <GridViewColumn Header="{x:Static lang:Resources.season}" Width="auto" DisplayMemberBinding="{Binding LocalizedSeason}" />
+                    <GridViewColumn Header="{x:Static lang:Resources.completion}" Width="auto" DisplayMemberBinding="{Binding LocalizedCompletion}" />
                     <GridViewColumn Header="{x:Static lang:Resources.game_save_date}" Width="auto" DisplayMemberBinding="{Binding LastPlayed}" />
                 </GridView>
             </ListView.View>

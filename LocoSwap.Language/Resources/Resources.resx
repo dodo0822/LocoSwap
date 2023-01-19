@@ -147,6 +147,21 @@
   <data name="close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="completion" xml:space="preserve">
+    <value>Completion</value>
+  </data>
+  <data name="completion_completedfailed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="completion_completedsuccessfully" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="completion_notcompleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="completion_notindb" xml:space="preserve">
+    <value />
+  </data>
   <data name="consists_in_scenario" xml:space="preserve">
     <value>Consists in scenario</value>
   </data>
@@ -191,6 +206,9 @@
   </data>
   <data name="language" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Loading...</value>
   </data>
   <data name="look_up_vehicles" xml:space="preserve">
     <value>Look up vehicles</value>
