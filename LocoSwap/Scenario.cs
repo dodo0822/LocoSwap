@@ -32,6 +32,7 @@ namespace LocoSwap
         public string Name { get; set; } = "Name not available";
         public string Description { get { return _description; } set { _description = value.Length == 0 ? null : value; } }
         public uint Duration { get; set; } = 0;
+        public string Author { get; set; }
         public Seasons Season { get; set; }
         public string LocalizedSeason { get { return Language.Resources.ResourceManager.GetString("season_" + Season.ToString().ToLower(), Language.Resources.Culture); }  }
         public ScenarioDb.ScenarioCompletion Completion { get => ScenarioDb.getScenarioDbInfos(Id); }
@@ -92,6 +93,8 @@ namespace LocoSwap
                 Description = Utilities.DetermineDisplayName(descriptionNode);
 
                 Duration = uint.Parse(ScenarioProperties.XPathSelectElement("/cScenarioProperties/DurationMins").Value);
+
+                Author = ScenarioProperties.XPathSelectElement("/cScenarioProperties/Author")?.Value;
 
                 switch (ScenarioProperties.XPathSelectElement("/cScenarioProperties/Season").Value)
                 {
@@ -210,9 +213,9 @@ namespace LocoSwap
                     // Fill in basic info
                     XElement vehicle = vehicleRow.value;
                     XElement blueprintID = vehicle.Element("BlueprintID").Element("iBlueprintLibrary-cAbsoluteBlueprintID");
-                    string provider = (string)blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").Value;
-                    string product = (string)blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").Value;
-                    string path = (string)blueprintID.Element("BlueprintID").Value;
+                    string provider = blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").Value;
+                    string product = blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").Value;
+                    string path = blueprintID.Element("BlueprintID").Value;
                     string vehicleName = vehicle.Element("Name").Value;
                     VehicleType type;
                     if (vehicle.Descendants("cEngine").Count() > 0)

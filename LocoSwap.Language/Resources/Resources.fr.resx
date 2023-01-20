@@ -132,6 +132,9 @@
   <data name="apply_all_rules" xml:space="preserve">
     <value>Appliquer toutes les règles</value>
   </data>
+  <data name="author" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
   <data name="browse" xml:space="preserve">
     <value>Parcourir...</value>
   </data>

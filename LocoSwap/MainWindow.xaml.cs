@@ -176,7 +176,8 @@ namespace LocoSwap
                     (item as Scenario).Id?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     (item as Scenario).Name?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     (item as Scenario).Description?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    (item as Scenario).PlayerTrainName?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0
+                    (item as Scenario).PlayerTrainName?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    (item as Scenario).Author?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0
                     ;
         }
 

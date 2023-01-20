@@ -106,6 +106,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        public static string author {
+            get {
+                return ResourceManager.GetString("author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Browse ....
         /// </summary>
         public static string browse {
