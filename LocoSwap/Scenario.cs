@@ -114,7 +114,18 @@ namespace LocoSwap
 
                 StartTime = TimeSpan.FromSeconds(uint.Parse(ScenarioProperties.XPathSelectElement("/cScenarioProperties/StartTime").Value.Split('.')[0]));
 
-                PlayerTrainName = Utilities.DetermineDisplayName(ScenarioProperties.XPathSelectElement("(/cScenarioProperties/FrontEndDriverList/sDriverFrontEndDetails/LocoName[../PlayerDriver = 1])[last()]/Localisation-cUserLocalisedString"));
+                switch (ScenarioProperties.XPathSelectElement("/cScenarioProperties/ScenarioClass").Value)
+                {
+                    case "eFreeRoamScenarioClass":
+                        PlayerTrainName = "Free roam";
+                        break;
+                    case "eTemplateScenarioClass":
+                        PlayerTrainName = "Quick drive";
+                        break;
+                    default:
+                        PlayerTrainName = Utilities.DetermineDisplayName(ScenarioProperties.XPathSelectElement("(/cScenarioProperties/FrontEndDriverList/sDriverFrontEndDetails/LocoName[../PlayerDriver = 1])[last()]/Localisation-cUserLocalisedString"));
+                        break;
+                }
             }
             catch (Exception e)
             {
