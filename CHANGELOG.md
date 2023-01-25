@@ -1,7 +1,15 @@
+# CHANGELOG 1.4.0.0 (25-01-2023)
+* Length of missing and available vehicles displayed
+* Filters added for routes and scenarios lists
+* Scenarios completion status now displayed
+* Scenario author now displayed
+* French language added
+* Free roam and Quick drive scenarios now identified as such in the `Player train` field
+
 # CHANGELOG 1.3.0.0 (21-12-2022)
 * Option to apply rules to all stocks added
 * The [LoSw] suffix is now a setting and can be modified or disabled
-* Scenarios list now show scenario informations (time of day, season, duration)
+* Scenarios list now shows scenario informations (time of day, season, duration)
 * Replacement rules and scanned vehicles can now be filtered with a text field
 * App now has an icon :)
 * Various quality of life improvements
