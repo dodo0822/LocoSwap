@@ -154,10 +154,12 @@ namespace LocoSwap
         private void TreeView_Expanded(object sender, RoutedEventArgs e)
         {
             TreeViewItem tvi = (TreeViewItem)e.OriginalSource;
+
+            // Focus to avoid undesired scroll to previously selected node
+            tvi.Focus();
+
             DirectoryItem selected = tvi.Header as DirectoryItem;
             selected.PopulateSubDirectories();
-
-            tvi.BringIntoView();
         }
 
         private void ScanButton_Click(object sender, RoutedEventArgs e)
