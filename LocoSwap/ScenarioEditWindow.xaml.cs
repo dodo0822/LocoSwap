@@ -155,6 +155,88 @@ namespace LocoSwap
             }
         }
 
+        private void VehicleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // This function will react to the selection of an unfound scenario vehicle by checking if the asset folder of the vehicle exists.
+            // This would be an indication that the player may already have a similar vehicle in his collection.
+            // We hint him by selecting said folder in the explorer tree view.
+
+            ScenarioVehicle selectedScenarioVehicle = (ScenarioVehicle)VehicleListBox.SelectedItem;
+
+            if (selectedScenarioVehicle == null || selectedScenarioVehicle.Exists == VehicleExistance.Found) return;
+
+            string[] splittedPath = selectedScenarioVehicle.XmlPath.Split(Path.DirectorySeparatorChar);
+
+            if (splittedPath.Length < 2) return;
+
+            TreeView dt = DirectoryTree;
+            // Start with the first level
+            DirectoryItem currentItem = null;
+            TreeViewItem currentTreeViewItem = null;
+            int index = 0;
+
+            while (index < splittedPath.Length)
+            {
+                string currentDirectoryName = splittedPath[index];
+
+                if (currentItem == null)
+                {
+                    // If currentItem is null, it means we are at the beginning or the previous item was not found.
+                    // We need to find the corresponding item in the TreeView.
+                    currentItem = (DirectoryItem)dt.ItemContainerGenerator.Items
+                        .FirstOrDefault(p => ((DirectoryItem)p).Name == currentDirectoryName);
+
+                    if (currentItem != null)
+                    {
+                        // If the item is found, get the corresponding TreeViewItem.
+                        currentItem.PopulateSubDirectories();
+                        currentTreeViewItem = (TreeViewItem)dt.ItemContainerGenerator.ContainerFromItem(currentItem);
+
+                        if (currentTreeViewItem != null)
+                        {
+                            // Expand and select the item.
+                            currentTreeViewItem.IsExpanded = true;
+                            currentTreeViewItem.IsSelected = true;
+                            currentTreeViewItem.UpdateLayout();
+                        }
+                    }
+                }
+                else
+                {
+                    // If currentItem is not null, it means we have already found the previous item.
+                    // We can now search for the corresponding subdirectory.
+                    DirectoryItem subdirectory = currentItem.SubDirectories
+                        .FirstOrDefault(p => p.Name == currentDirectoryName);
+
+                    if (subdirectory != null)
+                    {
+                        // If the subdirectory is found, get the corresponding TreeViewItem.
+                        subdirectory.PopulateSubDirectories();
+                        currentTreeViewItem = (TreeViewItem)currentTreeViewItem.ItemContainerGenerator.ContainerFromItem(subdirectory);
+
+                        if (currentTreeViewItem != null)
+                        {
+                            // Expand and select the item.
+                            currentTreeViewItem.IsExpanded = true;
+                            currentTreeViewItem.IsSelected = true;
+                            currentTreeViewItem.UpdateLayout();
+                        }
+
+                        // Move to the next subdirectory.
+                        currentItem = subdirectory;
+                    }
+                    else
+                    {
+                        // If the subdirectory is not found, exit the loop.
+                        break;
+                    }
+                }
+
+                // Move to the next item in splittedPath.
+                index++;
+            }
+        }
+
         private void TreeView_Expanded(object sender, RoutedEventArgs e)
         {
             TreeViewItem tvi = (TreeViewItem)e.OriginalSource;

@@ -38,7 +38,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Label Content="{x:Static lang:Resources.vehicles_in_selected_consist}" HorizontalAlignment="Left" Margin="328,73,0,0" VerticalAlignment="Top"/>
-        <ListBox ItemsSource="{Binding Vehicles}" x:Name="VehicleListBox" HorizontalAlignment="Left" Margin="328,104,0,10" Width="294" SelectionMode="Extended">
+        <ListBox ItemsSource="{Binding Vehicles}" x:Name="VehicleListBox" HorizontalAlignment="Left" Margin="328,104,0,10" Width="294" SelectionMode="Extended" SelectionChanged="VehicleListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
