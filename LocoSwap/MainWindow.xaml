@@ -101,6 +101,7 @@
         <Label Content="{x:Static lang:Resources.filter}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,6,0,0"/>
         <TextBox Name="ScenarioFilterTextbox" HorizontalAlignment="Left" Margin="55,240,0,0" TextChanged="ScenarioFilter_TextChanged" VerticalAlignment="Top" Width="120"/>
         <Label Content="{x:Static lang:Resources.filter}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,236,0,0"/>
+        <CheckBox Name="HidePlayedScenariosCheckbox" Content="{x:Static lang:Resources.hide_played_scenarios}" HorizontalAlignment="Left" Margin="257,242,0,0" VerticalAlignment="Top" Checked="HidePlayedScenario_CheckboxChanged" Unchecked="HidePlayedScenario_CheckboxChanged"/>
 
     </Grid>
 </Window>

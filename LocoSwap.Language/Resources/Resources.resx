@@ -198,6 +198,9 @@
   <data name="game_save_date" xml:space="preserve">
     <value>Save date</value>
   </data>
+  <data name="hide_played_scenarios" xml:space="preserve">
+    <value>Hide played scenarios</value>
+  </data>
   <data name="id" xml:space="preserve">
     <value>ID</value>
   </data>

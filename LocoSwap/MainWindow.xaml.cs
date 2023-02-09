@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -169,16 +170,29 @@ namespace LocoSwap
 
         private bool ScenarioFilter(object item)
         {
+            Scenario candidateScenario = item as Scenario;
+
+            // Hide played scenarios ?
+            if (HidePlayedScenariosCheckbox.IsChecked == true && (
+                candidateScenario.Completion == ScenarioDb.ScenarioCompletion.CompletedSuccessfully ||
+                candidateScenario.Completion == ScenarioDb.ScenarioCompletion.CompletedFailed)
+                )
+            {
+                return false;
+            }
+
+            // Textual filter
             if (string.IsNullOrEmpty(ScenarioFilterTextbox.Text))
                 return true;
-            else
-                return
-                    (item as Scenario).Id?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    (item as Scenario).Name?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    (item as Scenario).Description?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    (item as Scenario).PlayerTrainName?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    (item as Scenario).Author?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0
-                    ;
+
+            string[] filteredProperties = {
+                candidateScenario.Id,
+                candidateScenario.Name,
+                candidateScenario.Description,
+                candidateScenario.PlayerTrainName,
+                candidateScenario.Author
+            };
+            return filteredProperties.Where(prop => prop?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0).ToArray().Length > 0;
         }
 
         public async void ReadScenarioDb()
@@ -200,6 +214,11 @@ namespace LocoSwap
         }
 
         public void ScenarioFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(ScenarioList.ItemsSource).Refresh();
+        }
+
+        public void HidePlayedScenario_CheckboxChanged(object sender, RoutedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(ScenarioList.ItemsSource).Refresh();
         }

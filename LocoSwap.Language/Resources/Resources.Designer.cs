@@ -304,6 +304,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide played scenarios.
+        /// </summary>
+        public static string hide_played_scenarios {
+            get {
+                return ResourceManager.GetString("hide_played_scenarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string id {
