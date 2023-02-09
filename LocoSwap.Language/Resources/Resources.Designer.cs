@@ -205,6 +205,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ?.
+        /// </summary>
+        public static string completion_unknown {
+            get {
+                return ResourceManager.GetString("completion_unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Consists in scenario.
         /// </summary>
         public static string consists_in_scenario {
