@@ -96,8 +96,10 @@ namespace LocoSwap
         {
             if (string.IsNullOrEmpty(AvailableVehicleFilterTextbox.Text))
                 return true;
-            else
-                return (item as AvailableVehicle).DisplayName.IndexOf(AvailableVehicleFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+
+            return AvailableVehicleFilterTextbox.Text.Split(' ').All(
+                filterToken => (item as AvailableVehicle).DisplayName?.IndexOf(filterToken, StringComparison.OrdinalIgnoreCase) >= 0
+                );
         }
 
         public async void ReadScenario()

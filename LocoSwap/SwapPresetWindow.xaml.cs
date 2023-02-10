@@ -56,10 +56,18 @@ namespace LocoSwap
         {
             if (string.IsNullOrEmpty(PresetsFilterTextbox.Text))
                 return true;
-            else
-                return (item as SwapPresetItem).NewName.IndexOf(PresetsFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0
-                    ||
-                    (item as SwapPresetItem).TargetName.IndexOf(PresetsFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+
+            SwapPresetItem candidateSwapPresetItem = item as SwapPresetItem;
+
+            string[] filteredProperties = {
+                candidateSwapPresetItem.NewName,
+                candidateSwapPresetItem.TargetName
+            };
+
+            return PresetsFilterTextbox.Text.Split(' ').All(
+                filterToken => filteredProperties.Where(
+                    prop => prop?.IndexOf(filterToken, StringComparison.OrdinalIgnoreCase) >= 0).ToArray().Length > 0
+                );
         }
     }
 }

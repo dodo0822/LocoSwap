@@ -162,10 +162,18 @@ namespace LocoSwap
         {
             if (string.IsNullOrEmpty(RouteFilterTextbox.Text))
                 return true;
-            else
-                return
-                    (item as Route).Id.IndexOf(RouteFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    (item as Route).Name.IndexOf(RouteFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+
+            Route candidateRoute = item as Route;
+
+            string[] filteredProperties = {
+                candidateRoute.Id,
+                candidateRoute.Name
+            };
+
+            return RouteFilterTextbox.Text.Split(' ').All(
+                filterToken => filteredProperties.Where(
+                    prop => prop?.IndexOf(filterToken, StringComparison.OrdinalIgnoreCase) >= 0).ToArray().Length > 0
+                );
         }
 
         private bool ScenarioFilter(object item)
@@ -192,7 +200,11 @@ namespace LocoSwap
                 candidateScenario.PlayerTrainName,
                 candidateScenario.Author
             };
-            return filteredProperties.Where(prop => prop?.IndexOf(ScenarioFilterTextbox.Text, StringComparison.OrdinalIgnoreCase) >= 0).ToArray().Length > 0;
+
+            return ScenarioFilterTextbox.Text.Split(' ').All(
+                filterToken => filteredProperties.Where(
+                    prop => prop?.IndexOf(filterToken, StringComparison.OrdinalIgnoreCase) >= 0).ToArray().Length > 0
+                );
         }
 
         public async void ReadScenarioDb()
