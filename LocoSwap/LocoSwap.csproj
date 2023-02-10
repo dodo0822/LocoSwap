@@ -223,5 +223,8 @@
   <ItemGroup>
     <None Include="Resources\icon_128.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Coupling.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

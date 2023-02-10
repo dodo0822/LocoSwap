@@ -29,6 +29,8 @@ namespace LocoSwap
             get => _possibleSubstitutionDisplayName;
             set => SetProperty(ref _possibleSubstitutionDisplayName, value);
         }
+        public bool IsInvolvedInConsistOperation { get; set; }
+
         public ScenarioVehicle() : base()
         {
             Idx = -1;
@@ -36,12 +38,13 @@ namespace LocoSwap
             Flipped = false;
         }
 
-        public ScenarioVehicle(int idx, string provider, string product, string blueprintId, string name, string number, bool flipped, float length)
+        public ScenarioVehicle(int idx, string provider, string product, string blueprintId, string name, string number, bool flipped, float length, bool isInvolvedInConsistOperation)
             : base(provider, product, blueprintId, name, length)
         {
             Idx = idx;
             Number = number;
             Flipped = flipped;
+            IsInvolvedInConsistOperation = isInvolvedInConsistOperation;
         }
         public void CopyFrom(AvailableVehicle from)
         {
@@ -68,14 +71,17 @@ namespace LocoSwap
                 this.ReskinProduct = "";
             }
 
-            if (from.NumberingList.Count > 0)
+            if (!IsInvolvedInConsistOperation)
             {
-                var index = Utilities.StaticRandom.Instance.Next(from.NumberingList.Count);
-                Number = from.NumberingList[index];
-            }
-            else
-            {
-                Number = (new Guid()).ToString();
+                if (from.NumberingList.Count > 0)
+                {
+                    var index = Utilities.StaticRandom.Instance.Next(from.NumberingList.Count);
+                    Number = from.NumberingList[index];
+                }
+                else
+                {
+                    Number = (new Guid()).ToString();
+                }
             }
         }
 

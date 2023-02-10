@@ -210,6 +210,9 @@
   <data name="insert_before" xml:space="preserve">
     <value>Insérer ^</value>
   </data>
+  <data name="involved_in_consist_operation" xml:space="preserve">
+    <value>Ce véhicule apparaît dans des instructions de couplage/découplage. LocoSwap conservera son numéro.</value>
+  </data>
   <data name="language" xml:space="preserve">
     <value>Langue</value>
   </data>

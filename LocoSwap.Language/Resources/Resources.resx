@@ -213,6 +213,9 @@
   <data name="insert_before" xml:space="preserve">
     <value>Insert ^</value>
   </data>
+  <data name="involved_in_consist_operation" xml:space="preserve">
+    <value>This vehicle in involved in couple/uncouple instructions. LocoSwap will preserve its number.</value>
+  </data>
   <data name="language" xml:space="preserve">
     <value>Language</value>
   </data>

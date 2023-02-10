@@ -50,6 +50,7 @@ namespace LocoSwap
                 }
             }
         }
+        public string[] VehiclesInvolvedInConsistOperation { get; set; }
 
         public string ScenarioDirectory
         {
@@ -190,6 +191,10 @@ namespace LocoSwap
         public List<Consist> GetConsists(IProgress<int> progress = null)
         {
             progress?.Report(0);
+
+            // Save vehicles names which appear in couple/uncouple instructions, so we can prevent their numbers to be changed later
+            VehiclesInvolvedInConsistOperation = ScenarioXml.XPathSelectElements("//cConsistOperations/DeltaTarget/cDriverInstructionTarget/RailVehicleNumber/e").Select(x => x.Value).ToArray();
+
             List<Consist> ret = new List<Consist>();
             IEnumerable<XElement> consists = ScenarioXml.Root.Descendants("cConsist");
             foreach (var consistRow in consists.Select((value, i) => (value, i)))
@@ -250,7 +255,7 @@ namespace LocoSwap
                     IEnumerable<XElement> positions = vehicle.Descendants("Position");
                     float length = Math.Abs(float.Parse(positions.ElementAt(0).Value, CultureInfo.InvariantCulture) - float.Parse(positions.ElementAt(1).Value, CultureInfo.InvariantCulture));
 
-                    ScenarioVehicle v = new ScenarioVehicle(vehicleIdx, provider, product, path, vehicleName, number, flipped, length);
+                    ScenarioVehicle v = new ScenarioVehicle(vehicleIdx, provider, product, path, vehicleName, number, flipped, length, VehiclesInvolvedInConsistOperation.Contains(number));
                     v.Type = type;
 
                     // Determine if it is a reskin

@@ -349,6 +349,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This vehicle in involved in couple/uncouple instructions. LocoSwap will preserve its number..
+        /// </summary>
+        public static string involved_in_consist_operation {
+            get {
+                return ResourceManager.GetString("involved_in_consist_operation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string language {
