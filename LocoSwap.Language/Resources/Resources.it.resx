@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="add_to_rules" xml:space="preserve">
+    <value>Aggiungi alle Regole</value>
+  </data>
+  <data name="all_vehicles" xml:space="preserve">
+    <value>Lista tutti i Rotabili</value>
+  </data>
+  <data name="and_add_as_rule" xml:space="preserve">
+    <value>e aggiungi alle regole</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Applicare</value>
+  </data>
+  <data name="apply_all_rules" xml:space="preserve">
+    <value>Applicare tutte le regole</value>
+  </data>
+  <data name="author" xml:space="preserve">
+    <value>Autore</value>
+  </data>
+  <data name="browse" xml:space="preserve">
+    <value>Navigare ...</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="change_number" xml:space="preserve">
+    <value>Cambia numero</value>
+  </data>
+  <data name="clear_vehicles" xml:space="preserve">
+    <value>Pulisci</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="completion" xml:space="preserve">
+    <value>Completamento</value>
+  </data>
+  <data name="completion_completedfailed" xml:space="preserve">
+    <value>Fallito</value>
+  </data>
+  <data name="completion_completedsuccessfully" xml:space="preserve">
+    <value>Successo</value>
+  </data>
+  <data name="completion_notcompleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="completion_notindb" xml:space="preserve">
+    <value />
+  </data>
+  <data name="completion_unknown" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="consists_in_scenario" xml:space="preserve">
+    <value>Convoglio nello scenario</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+  <data name="delete_scenarios" xml:space="preserve">
+    <value>Cancella scenario</value>
+  </data>
+  <data name="duration" xml:space="preserve">
+    <value>Durata</value>
+  </data>
+  <data name="edit_scenario" xml:space="preserve">
+    <value>Modifica scenario</value>
+  </data>
+  <data name="edit_scenario_title" xml:space="preserve">
+    <value>Modifica titolo scenario: {0}</value>
+  </data>
+  <data name="enter_number_manually" xml:space="preserve">
+    <value>O inserisci numero rotabile manualmente:</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Filtra</value>
+  </data>
+  <data name="flip" xml:space="preserve">
+    <value>Gira rotabile</value>
+  </data>
+  <data name="flipped" xml:space="preserve">
+    <value>Girato?</value>
+  </data>
+  <data name="game_save_date" xml:space="preserve">
+    <value>Salva Dati</value>
+  </data>
+  <data name="hide_played_scenarios" xml:space="preserve">
+    <value>Nascondi scenari giocati</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="insert_after" xml:space="preserve">
+    <value>Inserisci v</value>
+  </data>
+  <data name="insert_before" xml:space="preserve">
+    <value>Inserisci ^</value>
+  </data>
+  <data name="involved_in_consist_operation" xml:space="preserve">
+    <value>Questo rotabile è coinvolto nelle istruzioni di accoppiamento/disaccoppiamento. LocoSwap conserverà il suo numero.</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>Linguaggio</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Caricamento...</value>
+  </data>
+  <data name="look_up_vehicles" xml:space="preserve">
+    <value>Cerca Rotabile</value>
+  </data>
+  <data name="msg_cannot_load_vehicle" xml:space="preserve">
+    <value>Impossibile caricare il rotabile "{0}"!</value>
+  </data>
+  <data name="msg_consist_empty" xml:space="preserve">
+    <value>La composizione deve contenere almeno un rotabile dopo la rimozione!</value>
+  </data>
+  <data name="msg_error" xml:space="preserve">
+    <value>Errore</value>
+  </data>
+  <data name="msg_first_time" xml:space="preserve">
+    <value>Primo avvio: Prego seleziona cartella Train Simulator.</value>
+  </data>
+  <data name="msg_flip_completed" xml:space="preserve">
+    <value>Il rotabile selezionato(i) sono girati correttamente.</value>
+  </data>
+  <data name="msg_message" xml:space="preserve">
+    <value>Messaggio</value>
+  </data>
+  <data name="msg_no_directory_selected" xml:space="preserve">
+    <value>Prego seleziona la cartella prima.</value>
+  </data>
+  <data name="msg_no_vehicle_selected" xml:space="preserve">
+    <value>Prego seleziona rotabile prima.</value>
+  </data>
+  <data name="msg_scenario_saved" xml:space="preserve">
+    <value>Files scenario salvati con successo.</value>
+  </data>
+  <data name="msg_swap_completed" xml:space="preserve">
+    <value>Cambio completato con successo.</value>
+  </data>
+  <data name="msg_ts_path_invalid" xml:space="preserve">
+    <value>Il percorso selezionato non è valido! (Controlla se contiene RailWorks.exe)</value>
+  </data>
+  <data name="msg_ts_path_required" xml:space="preserve">
+    <value>Un percorso di TS è richiesto per eseguire questa applicazione. L'applicazione verrà chiusa.</value>
+  </data>
+  <data name="msg_vehicles_added_to_rules" xml:space="preserve">
+    <value>Rotabile aggiunto con successo alle regole di sostituzione.</value>
+  </data>
+  <data name="msg_vehicle_already_in_rules" xml:space="preserve">
+    <value>Rotabile "{0}" è già aggiunto alle regole di sostituzione! Aggiorno questa regola?</value>
+  </data>
+  <data name="msg_write_access_denied" xml:space="preserve">
+    <value>Accesso negato durante il tentativo di scrittura nei file dello scenario. Verificare che Scenario.bin e ScenarioProperties.xml non siano protetti da scrittura.</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="new_vehicle_selected" xml:space="preserve">
+    <value>Nuovo rotabile selezionato</value>
+  </data>
+  <data name="number" xml:space="preserve">
+    <value>Numero</value>
+  </data>
+  <data name="numbering_list" xml:space="preserve">
+    <value>Lista di numerazione</value>
+  </data>
+  <data name="numbering_list_not_found" xml:space="preserve">
+    <value>Lista di numerazione non trovata; si prega di inserire il numero manualmente.</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="only_on_missing_stock" xml:space="preserve">
+    <value>solo su magazzino mancante (Giallo)</value>
+  </data>
+  <data name="on_all_stock" xml:space="preserve">
+    <value>su tutto il magazzino</value>
+  </data>
+  <data name="open_scenario_directory" xml:space="preserve">
+    <value>Apri Cartella scenario </value>
+  </data>
+  <data name="path" xml:space="preserve">
+    <value>Percorso</value>
+  </data>
+  <data name="player_train_name" xml:space="preserve">
+    <value>Treno Giocatore</value>
+  </data>
+  <data name="reading_scenario_files" xml:space="preserve">
+    <value>Leggendo i files scenario...</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Rimuovi</value>
+  </data>
+  <data name="replace" xml:space="preserve">
+    <value>Sostituzione</value>
+  </data>
+  <data name="replacement_rules" xml:space="preserve">
+    <value>Sostituzione regole</value>
+  </data>
+  <data name="replacement_rules_management" xml:space="preserve">
+    <value>Sostituzione regole amministrazione</value>
+  </data>
+  <data name="replace_identical" xml:space="preserve">
+    <value>Rimpiazza identico</value>
+  </data>
+  <data name="replace_with" xml:space="preserve">
+    <value>Sostituisci con</value>
+  </data>
+  <data name="route" xml:space="preserve">
+    <value>Rotta</value>
+  </data>
+  <data name="rule" xml:space="preserve">
+    <value>Regola</value>
+  </data>
+  <data name="rule_find" xml:space="preserve">
+    <value>Cercare...</value>
+  </data>
+  <data name="rule_replace" xml:space="preserve">
+    <value>Sostituisci regola con...</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="saving_scenario" xml:space="preserve">
+    <value>Salvataggio files scenario...</value>
+  </data>
+  <data name="scanning_ap_files" xml:space="preserve">
+    <value>Cerco negli .ap files...</value>
+  </data>
+  <data name="scanning_bin_files" xml:space="preserve">
+    <value>Cercando nei rotabili files .bin ...</value>
+  </data>
+  <data name="scenario" xml:space="preserve">
+    <value>Scenario</value>
+  </data>
+  <data name="scenario_delete_prompt_message" xml:space="preserve">
+    <value>Sei sicuro di voler cancellare lo scenario(i) selezionato?</value>
+  </data>
+  <data name="scenario_delete_prompt_title" xml:space="preserve">
+    <value>Cancellazione scenario</value>
+  </data>
+  <data name="scenario_name_suffix" xml:space="preserve">
+    <value>Suffisso nome scenario</value>
+  </data>
+  <data name="season" xml:space="preserve">
+    <value>Stagione</value>
+  </data>
+  <data name="season_autumn" xml:space="preserve">
+    <value>Autunno</value>
+  </data>
+  <data name="season_spring" xml:space="preserve">
+    <value>Primavera</value>
+  </data>
+  <data name="season_summer" xml:space="preserve">
+    <value>Estate</value>
+  </data>
+  <data name="season_winter" xml:space="preserve">
+    <value>Inverno</value>
+  </data>
+  <data name="select_ts_path" xml:space="preserve">
+    <value>Seleziona percorso TS</value>
+  </data>
+  <data name="settings" xml:space="preserve">
+    <value>Settaggi</value>
+  </data>
+  <data name="start_time" xml:space="preserve">
+    <value>Tempo inizio</value>
+  </data>
+  <data name="ts_directory" xml:space="preserve">
+    <value>Train Simulator cartella</value>
+  </data>
+  <data name="use_system_language" xml:space="preserve">
+    <value>Usa linguaggio di sistema</value>
+  </data>
+  <data name="vehicles_in_selected_consist" xml:space="preserve">
+    <value>Rotabile nel convoglio selezionato</value>
+  </data>
+  <data name="vehicle_selected" xml:space="preserve">
+    <value>Rotabile selezionato</value>
+  </data>
+  <data name="vehicle_to_be_replaced" xml:space="preserve">
+    <value>Rotabile è stato sostituito</value>
+  </data>
+</root>

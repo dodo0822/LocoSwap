@@ -44,6 +44,11 @@ namespace LocoSwap
             });
             LanguageList.Add(new LanguageListItem
             {
+                Name = "Italiano",
+                Value = "it"
+            });
+            LanguageList.Add(new LanguageListItem
+            {
                 Name = "Русский",
                 Value = "ru"
             });
