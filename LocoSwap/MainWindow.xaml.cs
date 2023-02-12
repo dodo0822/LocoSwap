@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Ionic.Zip;
+using Serilog;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -98,33 +100,61 @@ namespace LocoSwap
         private void Refresh_Scenario_List()
         {
             Scenarios.Clear();
-            var routeId = ((Route)RouteList.SelectedItem).Id;
-            var scenarioIds = Scenario.ListAllScenarios(routeId);
-            foreach (var id in scenarioIds)
+            string routeId = ((Route)RouteList.SelectedItem).Id;
+
+            string routeDirectory = Route.GetRouteDirectory(routeId);
+
+            string[] scenarioDirectories = Directory.GetDirectories(Scenario.GetScenariosDirectory(routeId));
+            foreach (string directory in scenarioDirectories)
+            {
+                string id = new DirectoryInfo(directory).Name;
+                string xmlPath = Path.Combine(directory, "ScenarioProperties.xml");
+                string binPath = Path.Combine(directory, "Scenario.bin");
+                if (!File.Exists(xmlPath) || !File.Exists(binPath)) continue;
+                Scenarios.Add(new Scenario(routeId, id, ""));
+            }
+
+            string[] apFiles = Directory.GetFiles(routeDirectory, "*.ap", SearchOption.TopDirectoryOnly);
+            foreach (string apPath in apFiles)
             {
                 try
                 {
-                    Scenarios.Add(new Scenario(routeId, id));
+                    ZipFile zipFile = ZipFile.Read(apPath);
+
+                    Regex scenarioPropFileRegex = new Regex(@"^(Scenarios/([a-f\d\-]{36})/)ScenarioProperties\.xml$");
+                    foreach (ZipEntry file in zipFile)
+                    {
+                        Match match = scenarioPropFileRegex.Match(file.FileName);
+                        if (match.Success &&
+                            zipFile.Select(file2 => file2.FileName == match.Groups[1].Value + "Scenario.bin").Count() > 0 &&
+                            !File.Exists(Path.Combine(routeDirectory, "Scenarios", match.Groups[2].Value, "ScenarioProperties.xml")))
+                        {
+                            Scenarios.Add(new Scenario(routeId, match.Groups[2].Value, apPath));
+                        }
+                    }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    Log.Debug("Exception caught when trying to list scenario {0}\\{1}: {2}", routeId, id, ex.Message);
                 }
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void EditScenarioButton_Click(object sender, RoutedEventArgs e)
         {
-            var routeId = ((Route)RouteList.SelectedItem).Id;
-            var scenarioId = ((Scenario)ScenarioList.SelectedItem).Id;
-            var editWindow = new ScenarioEditWindow(routeId, scenarioId);
-            editWindow.Show();
+            string routeId = ((Route)RouteList.SelectedItem).Id;
+            Scenario scenario = (Scenario)ScenarioList.SelectedItem;
+            new ScenarioEditWindow(routeId, scenario).Show();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void OpenScenarioDirButton_Click(object sender, RoutedEventArgs e)
         {
-            var scenario = (Scenario)ScenarioList.SelectedItem;
-            Process.Start(scenario.ScenarioDirectory);
+            foreach (Scenario scenario in ScenarioList.SelectedItems)
+            {
+                if (scenario.ApFileName == "")
+                {
+                    Process.Start(scenario.ScenarioDirectory);
+                }
+            }
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -138,10 +168,8 @@ namespace LocoSwap
             if (dataContext is Scenario)
             {
                 if (RouteList.SelectedItem == null) return;
-                var routeId = ((Route)RouteList.SelectedItem).Id;
-                var scenarioId = ((Scenario)dataContext).Id;
-                var editWindow = new ScenarioEditWindow(routeId, scenarioId);
-                editWindow.Show();
+                string routeId = ((Route)RouteList.SelectedItem).Id;
+                new ScenarioEditWindow(routeId, (Scenario)dataContext).Show();
             }
         }
 
@@ -152,7 +180,7 @@ namespace LocoSwap
             {
                 foreach (Scenario scenario in ScenarioList.SelectedItems)
                 {
-                    Directory.Delete(scenario.ScenarioDirectory, true);
+                    scenario.Delete();
                 }
                 Refresh_Scenario_List();
             }
@@ -209,7 +237,7 @@ namespace LocoSwap
 
         public async void ReadScenarioDb()
         {
-            var readDbTask = Task.Run(() =>
+            Task readDbTask = Task.Run(() =>
             {
                 ScenarioDb.ParseScenarioDb();
             });

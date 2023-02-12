@@ -351,6 +351,9 @@
   <data name="scenario_delete_prompt_title" xml:space="preserve">
     <value>Suppression de scénario(s)</value>
   </data>
+  <data name="scenario_in_ap" xml:space="preserve">
+    <value>*** Ce scénario est dans un fichier .ap. LocoSwap l'extraira automatiquement au moment de la sauvegarde. ***</value>
+  </data>
   <data name="scenario_name_suffix" xml:space="preserve">
     <value>Suffixe au nom du scénario</value>
   </data>

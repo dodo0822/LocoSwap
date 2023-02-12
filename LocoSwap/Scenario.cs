@@ -1,4 +1,5 @@
-﻿using LocoSwap.Properties;
+﻿using Ionic.Zip;
+using LocoSwap.Properties;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,8 @@ namespace LocoSwap
             }
         }
         public string[] VehiclesInvolvedInConsistOperation { get; set; }
+        public string ApFileName { get; set; } = "";
+        public string TooltipText { get => (ApFileName != "" ? Language.Resources.scenario_in_ap + Environment.NewLine : "") + Description; }
 
         public string ScenarioDirectory
         {
@@ -72,8 +75,9 @@ namespace LocoSwap
             Name = "";
         }
 
-        public Scenario(string routeId, string id)
+        public Scenario(string routeId, string id, string apFileName)
         {
+            ApFileName = apFileName;
             Load(routeId, id);
         }
 
@@ -82,10 +86,32 @@ namespace LocoSwap
             RouteId = routeId;
             Id = id;
 
+            if (ApFileName != "")
+            {
+                try
+                {
+                    ZipFile apFile = ZipFile.Read(ApFileName);
+
+                    ZipEntry scenarioPropertiesFile = apFile.Where(file => file.FileName == "Scenarios/" + id + "/ScenarioProperties.xml").FirstOrDefault();
+                    var ms = new MemoryStream();
+                    scenarioPropertiesFile.Extract(ms);
+                    ms.Position = 0;
+                    var fichierStringifie = new StreamReader(ms).ReadToEnd();
+                    ScenarioProperties = XDocument.Parse(fichierStringifie);
+                }
+                catch (Exception)
+                {
+                }
+            }
+            else
+            {
+                ScenarioProperties = XmlDocumentLoader.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
+
+            }
+
             // Parse XML
             try
             {
-                ScenarioProperties = XmlDocumentLoader.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
 
                 XElement displayName = ScenarioProperties.XPathSelectElement("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString");
                 Name = Utilities.DetermineDisplayName(displayName);
@@ -158,32 +184,30 @@ namespace LocoSwap
         {
             return Path.Combine(Route.GetRouteDirectory(routeId), "Scenarios");
         }
-
-        public static string[] ListAllScenarios(string routeId)
-        {
-            var routeDirectory = Route.GetRouteDirectory(routeId);
-            if (!Directory.Exists(routeDirectory) || !Directory.Exists(GetScenariosDirectory(routeId)))
-            {
-                return new string[] { };
-            }
-            List<string> ret = new List<string>();
-            var scenarioDirectories = Directory.GetDirectories(GetScenariosDirectory(routeId));
-            foreach (var directory in scenarioDirectories)
-            {
-                string id = new DirectoryInfo(directory).Name;
-                string xmlPath = Path.Combine(directory, "ScenarioProperties.xml");
-                string binPath = Path.Combine(directory, "Scenario.bin");
-                if (!File.Exists(xmlPath) || !File.Exists(binPath)) continue;
-                ret.Add(id);
-            }
-            return ret.ToArray();
-        }
-
         public void ReadScenario(IProgress<int> progress = null)
         {
             progress?.Report(10);
 
-            ScenarioXml = TsSerializer.Load(Path.Combine(ScenarioDirectory, "Scenario.bin"));
+            string scenarioBinDir = "";
+
+            if (ApFileName == "")
+            {
+                scenarioBinDir = ScenarioDirectory;
+            }
+            else
+            {
+                ZipFile apFile = ZipFile.Read(ApFileName);
+                apFile.FlattenFoldersOnExtract = true;
+                ZipEntry binEntry = apFile.Where(entry => entry.FileName == "Scenarios/" + Id + "/Scenario.bin").FirstOrDefault();
+                if (binEntry == null)
+                {
+                    throw new Exception("Unable to load scenario: bin file not found within .ap file");
+                }
+                binEntry.Extract(Utilities.GetTempDir(), ExtractExistingFileAction.OverwriteSilently);
+                scenarioBinDir = Utilities.GetTempDir();
+            }
+
+            ScenarioXml = TsSerializer.Load(Path.Combine(scenarioBinDir, "Scenario.bin"));
 
             progress?.Report(100);
         }
@@ -745,6 +769,24 @@ namespace LocoSwap
 
         public void Save()
         {
+            if (ApFileName != "")
+            {
+                // If scenario is inside an AP, we extract the scenario dir
+                try
+                {
+                    ZipFile apFile = ZipFile.Read(ApFileName);
+
+                    apFile.ExtractSelectedEntries("*", "Scenarios/" + Id + "/", Route.GetRouteDirectory(RouteId), ExtractExistingFileAction.OverwriteSilently);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Unable to save scenario: something went wrong while trying to extract the scenario from its .ap file");
+                }
+
+                // Scenario is no longer in an .ap
+                ApFileName = "";
+            }
+
             string propertiesXmlPath = Path.Combine(Utilities.GetTempDir(), "ScenarioProperties.xml");
             XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
             xmlWriterSettings.Indent = true;
@@ -788,6 +830,13 @@ namespace LocoSwap
             File.Copy(Path.Combine(Utilities.GetTempDir(), "Scenario.bin"), scenarioFileName, true);
             File.Copy(propertiesXmlPath, scenarioPropertiesFileName, true);
         }
-    }
 
+        public void Delete()
+        {
+            if (ApFileName == "")
+            {
+                Directory.Delete(ScenarioDirectory, true);
+            }
+        }
+    }
 }

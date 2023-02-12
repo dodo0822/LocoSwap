@@ -79,15 +79,15 @@ namespace LocoSwap
         private CancellationTokenSource ScanCancellationTokenSource;
         private SwapPresetWindow PresetWindow;
 
-        public ScenarioEditWindow(string routeId, string scenarioId)
+        public ScenarioEditWindow(string routeId, Scenario scenario)
         {
             InitializeComponent();
             RouteId = routeId;
-            ScenarioId = scenarioId;
+            ScenarioId = scenario.Id;
             ViewModel = new ScenarioViewModel();
             DataContext = ViewModel;
             ViewModel.Route = new Route(RouteId);
-            ViewModel.Scenario = new Scenario(RouteId, ScenarioId);
+            ViewModel.Scenario = scenario;
             VehicleAvailibility.ClearTable();
             ReadScenario();
         }

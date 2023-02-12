@@ -781,6 +781,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to *** This scenario is contained in an .ap file. LocoSwap will automatically extract it on save. ***.
+        /// </summary>
+        public static string scenario_in_ap {
+            get {
+                return ResourceManager.GetString("scenario_in_ap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scenario name suffix.
         /// </summary>
         public static string scenario_name_suffix {

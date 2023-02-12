@@ -357,6 +357,9 @@
   <data name="scenario_delete_prompt_title" xml:space="preserve">
     <value>Scenarios deletion</value>
   </data>
+  <data name="scenario_in_ap" xml:space="preserve">
+    <value>*** This scenario is contained in an .ap file. LocoSwap will automatically extract it on save. ***</value>
+  </data>
   <data name="scenario_name_suffix" xml:space="preserve">
     <value>Scenario name suffix</value>
   </data>

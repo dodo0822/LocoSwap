@@ -73,10 +73,17 @@
                     <Setter Property="ToolTip">
                         <Setter.Value>
                             <UniformGrid Columns="1">
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxWidth="500"/>
+                                <TextBlock Text="{Binding TooltipText}" TextWrapping="Wrap" MaxWidth="500"/>
                             </UniformGrid>
                         </Setter.Value>
                     </Setter>
+
+                    <Setter Property="FontStyle" Value="Italic" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ApFileName}" Value="">
+                            <Setter Property="FontStyle" Value="Normal" />
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
@@ -93,8 +100,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="{x:Static lang:Resources.edit_scenario}" IsEnabled="{Binding ElementName=ScenarioList, Path=SelectedItems.Count}" HorizontalAlignment="Left" Margin="14,0,0,13" Width="145" Click="Button_Click" VerticalAlignment="Bottom"/>
-        <Button Content="{x:Static lang:Resources.open_scenario_directory}" IsEnabled="{Binding ElementName=ScenarioList, Path=SelectedItems.Count}" HorizontalAlignment="Left" Margin="164,0,0,13"  Width="172"  Click="Button_Click_1" VerticalAlignment="Bottom"/>
+        <Button Content="{x:Static lang:Resources.edit_scenario}" IsEnabled="{Binding ElementName=ScenarioList, Path=SelectedItems.Count}" HorizontalAlignment="Left" Margin="14,0,0,13" Width="145" Click="EditScenarioButton_Click" VerticalAlignment="Bottom"/>
+        <Button Content="{x:Static lang:Resources.open_scenario_directory}" IsEnabled="{Binding ElementName=ScenarioList, Path=SelectedItems.Count}" HorizontalAlignment="Left" Margin="164,0,0,13"  Width="172" Click="OpenScenarioDirButton_Click" VerticalAlignment="Bottom"/>
         <Button x:Name="SettingsButton" Content="{x:Static lang:Resources.settings}" Width="150" Margin="0,0,10,14" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="SettingsButton_Click"/>
         <Button Content="{x:Static lang:Resources.delete_scenarios}" IsEnabled="{Binding SelectedItems.Count, ElementName=ScenarioList}" HorizontalAlignment="Left" Margin="341,0,0,13"  Width="172"  Click="Delete_Scenarios_Click" VerticalAlignment="Bottom"/>
         <TextBox Name="RouteFilterTextbox" HorizontalAlignment="Left" Margin="55,10,0,0" TextChanged="RouteFilter_TextChanged" VerticalAlignment="Top" Width="120"/>
