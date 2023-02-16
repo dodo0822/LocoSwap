@@ -206,7 +206,8 @@ namespace LocoSwap
                     try
                     {
                         var zipFile = ZipFile.Read(apPath);
-                        result = zipFile.Any(entry => entry.FileName.Equals(binName));
+
+                        result = zipFile.Any(entry => entry.FileName.Equals(binName, StringComparison.OrdinalIgnoreCase));
                     }
                     catch(ZipException)
                     {
