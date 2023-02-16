@@ -48,39 +48,39 @@ namespace LocoSwap
         }
         public void CopyFrom(AvailableVehicle from)
         {
-            this.Provider = from.Provider;
-            this.Product = from.Product;
-            this.BlueprintId = from.BlueprintId;
-            this.Name = from.Name;
-            this.Exists = VehicleExistance.Replaced;
-            this.Type = from.Type;
-            this.DisplayName = from.DisplayName;
+            Provider = from.Provider;
+            Product = from.Product;
+            BlueprintId = from.BlueprintId;
+            Name = from.Name;
+            Exists = VehicleExistance.Replaced;
+            Type = from.Type;
+            DisplayName = from.DisplayName;
 
             if (from.IsReskin)
             {
-                this.IsReskin = true;
-                this.ReskinBlueprintId = from.ReskinBlueprintId;
-                this.ReskinProvider = from.ReskinProvider;
-                this.ReskinProduct = from.ReskinProduct;
+                IsReskin = true;
+                ReskinBlueprintId = from.ReskinBlueprintId;
+                ReskinProvider = from.ReskinProvider;
+                ReskinProduct = from.ReskinProduct;
             }
             else
             {
-                this.IsReskin = false;
-                this.ReskinBlueprintId = "";
-                this.ReskinProvider = "";
-                this.ReskinProduct = "";
+                IsReskin = false;
+                ReskinBlueprintId = "";
+                ReskinProvider = "";
+                ReskinProduct = "";
             }
 
             if (!IsInvolvedInConsistOperation)
             {
                 if (from.NumberingList.Count > 0)
                 {
-                    var index = Utilities.StaticRandom.Instance.Next(from.NumberingList.Count);
+                    int index = Utilities.StaticRandom.Instance.Next(from.NumberingList.Count);
                     Number = from.NumberingList[index];
                 }
                 else
                 {
-                    Number = (new Guid()).ToString();
+                    Number = new Guid().ToString();
                 }
             }
         }

@@ -74,7 +74,6 @@ namespace LocoSwap
         }
 
         private string RouteId;
-        private string ScenarioId;
         private ScenarioViewModel ViewModel;
         private CancellationTokenSource ScanCancellationTokenSource;
         private SwapPresetWindow PresetWindow;
@@ -83,7 +82,6 @@ namespace LocoSwap
         {
             InitializeComponent();
             RouteId = routeId;
-            ScenarioId = scenario.Id;
             ViewModel = new ScenarioViewModel();
             DataContext = ViewModel;
             ViewModel.Route = new Route(RouteId);

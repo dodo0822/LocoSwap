@@ -92,7 +92,7 @@ namespace LocoSwap
         {
             get
             {
-                return String.Format("{0}\\{1}\\{2}", Provider, Product, BlueprintId);
+                return string.Format("{0}\\{1}\\{2}", Provider, Product, BlueprintId);
             }
         }
         public string FullXmlPath
@@ -106,7 +106,7 @@ namespace LocoSwap
         {
             get
             {
-                return String.Format("{0}\\{1}\\{2}", ReskinProvider, ReskinProduct, ReskinBlueprintId);
+                return string.Format("{0}\\{1}\\{2}", ReskinProvider, ReskinProduct, ReskinBlueprintId);
             }
         }
         public string ReskinFullXmlPath
