@@ -1,3 +1,13 @@
+# CHANGELOG 1.5.0.0 (22-02-2023)
+* Vehicule number now preserved by default if involved in couple/uncouple operations
+* Scenarios inside .ap files can now be viewed and edited
+* Filters now search on input words individually
+* Option to hide played scenarios added
+* Fix Assets directory tree scrolling to previously selected item
+* Scenario completion status now shown as `?` when SDBCache.bin is erroneous
+* Italian language added
+* Case now ignored when matching rolling stock paths
+
 # CHANGELOG 1.4.0.0 (25-01-2023)
 * Length of missing and available vehicles displayed
 * Filters added for routes and scenarios lists
