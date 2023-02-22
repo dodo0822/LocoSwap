@@ -21,12 +21,12 @@ namespace LocoSwap
 
         public bool Contains(string targetXmlPath)
         {
-            return List.Any((item) => item.TargetXmlPath == targetXmlPath);
+            return List.Any((item) => item.TargetXmlPath.Equals(targetXmlPath, System.StringComparison.OrdinalIgnoreCase));
         }
 
         public SwapPresetItem Find(string targetXmlPath)
         {
-            return List.Where((item) => item.TargetXmlPath == targetXmlPath).FirstOrDefault();
+            return List.Where((item) => item.TargetXmlPath.Equals(targetXmlPath, System.StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
     }
 }

@@ -639,7 +639,7 @@ namespace LocoSwap
             {
                 foreach (ScenarioVehicle vehicle in consist.Vehicles)
                 {
-                    var rule = selectedPresetRules.Where((item) => item.TargetXmlPath == vehicle.XmlPath).FirstOrDefault();
+                    var rule = selectedPresetRules.Where((item) => item.TargetXmlPath.Equals(vehicle.XmlPath, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
                     if (rule == null) continue;
                     vehicle.CopyFrom(availableVehicles[rule.NewXmlPath]);
                     ViewModel.Scenario.ReplaceVehicle(consist.Idx, vehicle.Idx, availableVehicles[rule.NewXmlPath]);
