@@ -160,5 +160,8 @@
         </Button>
         <TextBox Name="AvailableVehicleFilterTextbox" HorizontalAlignment="Left" Margin="1001,473,0,0" TextChanged="AvailableVehiclesFilter_TextChanged" VerticalAlignment="Top" Width="120" />
         <Label Content="{x:Static lang:Resources.filter}" HorizontalAlignment="Left" Margin="955,469,0,0" VerticalAlignment="Top"/>
+        <Button HorizontalAlignment="Left" Margin="1121,473,0,0" VerticalAlignment="Top" Height="18" Click="EmptyAvailableVehicleFilter_Click">
+            <Image Source="/Resources/Delete.png"/>
+        </Button>
     </Grid>
 </Window>

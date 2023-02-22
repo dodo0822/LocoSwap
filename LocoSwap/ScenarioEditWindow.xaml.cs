@@ -99,6 +99,10 @@ namespace LocoSwap
                 filterToken => (item as AvailableVehicle).DisplayName?.IndexOf(filterToken, StringComparison.OrdinalIgnoreCase) >= 0
                 );
         }
+        private void EmptyAvailableVehicleFilter_Click(object sender, RoutedEventArgs e)
+        {
+            AvailableVehicleFilterTextbox.Text = "";
+        }
 
         public async void ReadScenario()
         {

@@ -253,9 +253,18 @@ namespace LocoSwap
             CollectionViewSource.GetDefaultView(RouteList.ItemsSource).Refresh();
         }
 
+        private void EmptyRouteFilter_Click(object sender, RoutedEventArgs e)
+        {
+            RouteFilterTextbox.Text = "";
+        }
+
         public void ScenarioFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(ScenarioList.ItemsSource).Refresh();
+        }
+        private void EmptyScenarioFilter_Click(object sender, RoutedEventArgs e)
+        {
+            ScenarioFilterTextbox.Text = "";
         }
 
         public void HidePlayedScenario_CheckboxChanged(object sender, RoutedEventArgs e)

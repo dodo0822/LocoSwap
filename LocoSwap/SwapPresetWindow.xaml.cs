@@ -69,5 +69,9 @@ namespace LocoSwap
                     prop => prop?.IndexOf(filterToken, StringComparison.OrdinalIgnoreCase) >= 0).ToArray().Length > 0
                 );
         }
+        private void EmptyPresetFilter_Click(object sender, RoutedEventArgs e)
+        {
+            PresetsFilterTextbox.Text = "";
+        }
     }
 }
