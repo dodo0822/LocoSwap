@@ -103,15 +103,19 @@ namespace LocoSwap
             string routeId = ((Route)RouteList.SelectedItem).Id;
 
             string routeDirectory = Route.GetRouteDirectory(routeId);
+            string scenariosDirectory = Scenario.GetScenariosDirectory(routeId);
 
-            string[] scenarioDirectories = Directory.GetDirectories(Scenario.GetScenariosDirectory(routeId));
-            foreach (string directory in scenarioDirectories)
+            if (Directory.Exists(scenariosDirectory))
             {
-                string id = new DirectoryInfo(directory).Name;
-                string xmlPath = Path.Combine(directory, "ScenarioProperties.xml");
-                string binPath = Path.Combine(directory, "Scenario.bin");
-                if (!File.Exists(xmlPath) || !File.Exists(binPath)) continue;
-                Scenarios.Add(new Scenario(routeId, id, ""));
+                string[] scenarioDirectories = Directory.GetDirectories(scenariosDirectory);
+                foreach (string directory in scenarioDirectories)
+                {
+                    string id = new DirectoryInfo(directory).Name;
+                    string xmlPath = Path.Combine(directory, "ScenarioProperties.xml");
+                    string binPath = Path.Combine(directory, "Scenario.bin");
+                    if (!File.Exists(xmlPath) || !File.Exists(binPath)) continue;
+                    Scenarios.Add(new Scenario(routeId, id, ""));
+                }
             }
 
             string[] apFiles = Directory.GetFiles(routeDirectory, "*.ap", SearchOption.TopDirectoryOnly);
