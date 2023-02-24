@@ -277,6 +277,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error : scenario details cannot be read (malformed XML).
+        /// </summary>
+        public static string error_cannot_read_scenario {
+            get {
+                return ResourceManager.GetString("error_cannot_read_scenario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string filter {

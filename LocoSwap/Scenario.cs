@@ -86,9 +86,9 @@ namespace LocoSwap
             RouteId = routeId;
             Id = id;
 
-            if (ApFileName != "")
+            try
             {
-                try
+                if (ApFileName != "")
                 {
                     ZipFile apFile = ZipFile.Read(ApFileName);
 
@@ -96,23 +96,14 @@ namespace LocoSwap
                     var ms = new MemoryStream();
                     scenarioPropertiesFile.Extract(ms);
                     ms.Position = 0;
-                    var fichierStringifie = new StreamReader(ms).ReadToEnd();
-                    ScenarioProperties = XDocument.Parse(fichierStringifie);
+                    ScenarioProperties = XDocument.Parse(new StreamReader(ms).ReadToEnd());
                 }
-                catch (Exception)
+                else
                 {
+                    ScenarioProperties = XmlDocumentLoader.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
                 }
-            }
-            else
-            {
-                ScenarioProperties = XmlDocumentLoader.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
 
-            }
-
-            // Parse XML
-            try
-            {
-
+                // Parse XML
                 XElement displayName = ScenarioProperties.XPathSelectElement("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString");
                 Name = Utilities.DetermineDisplayName(displayName);
 
@@ -154,10 +145,11 @@ namespace LocoSwap
                         break;
                 }
             }
-            catch (Exception e)
+            catch (XmlException e)
             {
-                Log.Warning("Exception caught when trying to load ScenarioProperties.xml: {0}", e);
-                throw new Exception("Malformed ScenarioProperties.xml file!");
+                Log.Error("Exception caught when trying to load ScenarioProperties.xml: {0}", e);
+
+                Name = Language.Resources.error_cannot_read_scenario;
             }
 
             // Scenario infos extra-XML

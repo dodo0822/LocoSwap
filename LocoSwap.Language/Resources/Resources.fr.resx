@@ -186,6 +186,9 @@
   <data name="enter_number_manually" xml:space="preserve">
     <value>Ou saisissez le numéro :</value>
   </data>
+  <data name="error_cannot_read_scenario" xml:space="preserve">
+    <value>Erreur : impossible de lire les détails du scénario (XML malformé)</value>
+  </data>
   <data name="filter" xml:space="preserve">
     <value>Filtrer</value>
   </data>
