@@ -1,3 +1,7 @@
+# CHANGELOG 1.5.1.0 (25-02-2023)
+* Fix crash when listing scenarios on routes with no `Scenarios` dir
+* Handle malformed `ScenarioProperties.xml`
+
 # CHANGELOG 1.5.0.0 (22-02-2023)
 * Vehicule number now preserved by default if involved in couple/uncouple operations
 * Scenarios inside .ap files can now be viewed and edited
