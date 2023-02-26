@@ -132,6 +132,18 @@
   <data name="apply_all_rules" xml:space="preserve">
     <value>Appliquer toutes les règles</value>
   </data>
+  <data name="archive_rest" xml:space="preserve">
+    <value>Archiver toutes routes sauf sélectionnées</value>
+  </data>
+  <data name="archive_toggle" xml:space="preserve">
+    <value>Archiver/Désarchiver</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_message" xml:space="preserve">
+    <value>Etes-vous sûr de vouloir archiver maintenant ? La base des scénarios est en train d'être scannée et vous pourriez perdre certains statuts de complétion. Le mieux est de cliquer sur "non" et de réessayer dans quelques instants.</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_title" xml:space="preserve">
+    <value>Voulez-vous vraiment archiver maintenant ?</value>
+  </data>
   <data name="author" xml:space="preserve">
     <value>Auteur</value>
   </data>
@@ -176,6 +188,9 @@
   </data>
   <data name="delete_scenarios" xml:space="preserve">
     <value>Supprimer scénarios</value>
+  </data>
+  <data name="do_not_auto_archive_workshop_routes" xml:space="preserve">
+    <value>AutoArchive ne doit pas archiver les scénarios du workshop</value>
   </data>
   <data name="duration" xml:space="preserve">
     <value>Durée</value>

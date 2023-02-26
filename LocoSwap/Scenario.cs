@@ -46,7 +46,17 @@ namespace LocoSwap
         public string Author { get; set; }
         public Seasons Season { get; set; }
         public string LocalizedSeason { get { return Language.Resources.ResourceManager.GetString("season_" + Season.ToString().ToLower(), Language.Resources.Culture); }  }
-        public ScenarioDb.ScenarioCompletion Completion { get => ScenarioDb.getScenarioDbInfos(Id); }
+        public ScenarioDb.ScenarioCompletion Completion {
+            get {
+                ScenarioDb.ScenarioCompletion completionFromSDB = ScenarioDb.getScenarioDbInfos(RouteId, Id);
+                if (completionFromSDB == ScenarioDb.ScenarioCompletion.CompletedSuccessfully || completionFromSDB == ScenarioDb.ScenarioCompletion.CompletedFailed)
+                {
+                    return completionFromSDB;
+                }
+                return CompletionFromLocalDb != ScenarioDb.ScenarioCompletion.Unknown ? CompletionFromLocalDb : completionFromSDB;
+            }
+        }
+        public ScenarioDb.ScenarioCompletion CompletionFromLocalDb { get; set; } = ScenarioDb.ScenarioCompletion.Unknown;
         public string LocalizedCompletion
         {
             get
@@ -61,6 +71,7 @@ namespace LocoSwap
                 }
             }
         }
+        public bool IsArchived { get; set; } = false;
         public string[] VehiclesInvolvedInConsistOperation { get; set; }
         public string ApFileName { get; set; } = "";
         public string TooltipText { get => (ApFileName != "" ? Language.Resources.scenario_in_ap + Environment.NewLine : "") + Description; }
@@ -91,10 +102,11 @@ namespace LocoSwap
             Name = "";
         }
 
-        public Scenario(string routeId, string id, string apFileName)
+        public Scenario(Route route, string id, string apFileName)
         {
             ApFileName = apFileName;
-            Load(routeId, id);
+            Load(route, id);
+
             if (Settings.Default.CheckScenarioConsists)
             {
                 try
@@ -109,9 +121,9 @@ namespace LocoSwap
             }
         }
 
-        public void Load(string routeId, string id)
+        public void Load(Route route, string id)
         {
-            RouteId = routeId;
+            RouteId = route.Id;
             Id = id;
 
             try
@@ -121,14 +133,28 @@ namespace LocoSwap
                     ZipFile apFile = ZipFile.Read(ApFileName);
 
                     ZipEntry scenarioPropertiesFile = apFile.Where(file => file.FileName == "Scenarios/" + id + "/ScenarioProperties.xml").FirstOrDefault();
-                    var ms = new MemoryStream();
+
+                    MemoryStream ms = new MemoryStream();
                     scenarioPropertiesFile.Extract(ms);
+                    apFile.Dispose();
                     ms.Position = 0;
                     ScenarioProperties = XDocument.Parse(new StreamReader(ms).ReadToEnd());
                 }
                 else
                 {
-                    ScenarioProperties = XmlDocumentLoader.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
+                    string pathToLoad = "";
+
+                    if (File.Exists(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml")))
+                    {
+                        pathToLoad = Path.Combine(ScenarioDirectory, "ScenarioProperties.xml");
+                    }
+                    else
+                    {
+                        pathToLoad = Path.Combine(ScenarioDirectory, "ScenarioPropertiesLocoSwapOff.xml");
+                        IsArchived = true;
+                    }
+
+                    ScenarioProperties = XmlDocumentLoader.Load(pathToLoad);
                 }
 
                 // Parse XML
@@ -183,12 +209,13 @@ namespace LocoSwap
             // Scenario infos extra-XML
             try
             {
-                var routeDirectory = Route.GetRouteDirectory(routeId);
-                var potentialSavePath = Path.Combine(routeDirectory, "Scenarios", id, "CurrentSave.bin");
+                string potentialSavePath = Path.Combine(ScenarioDirectory, "CurrentSave.bin");
                 if (File.Exists(potentialSavePath))
                 {
                     LastPlayed = File.GetLastWriteTime(potentialSavePath);
                 }
+
+                CompletionFromLocalDb = route.LocalScenarioDb.ContainsKey(id) ? route.LocalScenarioDb[id] : ScenarioDb.ScenarioCompletion.NotInDB;
             }
             catch (Exception e)
             {
@@ -225,6 +252,7 @@ namespace LocoSwap
                 }
                 binEntry.Extract(Utilities.GetTempDir(), ExtractExistingFileAction.OverwriteSilently);
                 scenarioBinDir = Utilities.GetTempDir();
+                apFile.Dispose();
             }
 
             ScenarioXml = TsSerializer.Load(Path.Combine(scenarioBinDir, "Scenario.bin"));
@@ -804,6 +832,8 @@ namespace LocoSwap
                     ZipFile apFile = ZipFile.Read(ApFileName);
 
                     apFile.ExtractSelectedEntries("*", "Scenarios/" + Id + "/", Route.GetRouteDirectory(RouteId), ExtractExistingFileAction.OverwriteSilently);
+
+                    apFile.Dispose();
                 }
                 catch (Exception)
                 {

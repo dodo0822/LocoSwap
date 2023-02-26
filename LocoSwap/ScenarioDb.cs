@@ -1,5 +1,4 @@
 ﻿using Serilog;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -24,23 +23,42 @@ namespace LocoSwap
             Unknown
         }
 
-        private static Dictionary<string, ScenarioCompletion> scenarioDb = new Dictionary<string, ScenarioCompletion>();
+        // Represents the scenario completion infos as found in the SDBCache.bin TS file
+        // The first key is the route UUID, the second is the scenario UUID
+        private static Dictionary<string, Dictionary<string, ScenarioCompletion>> scenarioDb;
+
         public static DBState dbState = DBState.Init;
 
-        public static ScenarioCompletion getScenarioDbInfos(string id)
+        public static ScenarioCompletion getScenarioDbInfos(string routeId, string scenarioId)
         {
-            if (scenarioDb.ContainsKey(id))
+            if (scenarioDb.ContainsKey(routeId) && scenarioDb[routeId].ContainsKey(scenarioId))
             {
-                return scenarioDb[id];
+                return scenarioDb[routeId][scenarioId];
             } else if (dbState == DBState.Loaded)
             {
                 return ScenarioCompletion.NotInDB;
             }
             return ScenarioCompletion.Unknown;
         }
+
+        // Get all scenario completion status for one route, for the archiving feature
+        public static Dictionary<string, ScenarioCompletion> getScenarioDbRouteInfos(string routeId)
+        {
+            return scenarioDb.ContainsKey(routeId) ? scenarioDb[routeId] : new Dictionary<string, ScenarioCompletion>();
+        }
+
         public static void ParseScenarioDb()
         {
+            Log.Debug("ParseScenarioDb invoked");
+            // Protect against concurrent runs
+            if (dbState == DBState.Loading)
+            {
+                Log.Debug("SDB Already loading : abort");
+                return;
+            }
+
             dbState = DBState.Loading;
+            scenarioDb = new Dictionary<string, Dictionary<string, ScenarioCompletion>>();
 
             string dbPath = Path.Combine(Properties.Settings.Default.TsPath, "Content", "SDBCache.bin");
             if (File.Exists(dbPath))
@@ -54,32 +72,28 @@ namespace LocoSwap
                     XmlReader XReaderSDB = XmlReader.Create(streamReader);
 
                     // Browse scenarios
-                    while (XReaderSDB.ReadToFollowing("ScenarioID"))
+                    while (XReaderSDB.ReadToFollowing("sSDScenario"))
                     {
-                        // Read Id
+                        // Read route Id
                         XReaderSDB.ReadToFollowing("DevString");
                         XReaderSDB.Read();
-                        string id = XReaderSDB.Value;
+                        string routeId = XReaderSDB.Value;
+
+                        // Read scenario Id
+                        XReaderSDB.ReadToFollowing("DevString");
+                        XReaderSDB.Read();
+                        string scenarioId = XReaderSDB.Value;
 
                         // Read completion status
                         XReaderSDB.ReadToFollowing("Completion");
                         XReaderSDB.Read();
-                        ScenarioCompletion completion = ScenarioCompletion.Unknown;
-                        switch (XReaderSDB.Value)
-                        {
-                            case "NotCompleted":
-                                completion = ScenarioCompletion.NotCompleted;
-                                break;
-                            case "CompletedSuccessfully":
-                                completion = ScenarioCompletion.CompletedSuccessfully;
-                                break;
-                            case "CompletedFailed":
-                                completion = ScenarioCompletion.CompletedFailed;
-                                break;
-                        }
 
                         // Add completion status to our internal DB
-                        scenarioDb[id] = completion;
+                        if(!scenarioDb.ContainsKey(routeId))
+                        {
+                            scenarioDb[routeId] = new Dictionary<string, ScenarioCompletion>();
+                        }
+                        scenarioDb[routeId][scenarioId] = parseCompletion(XReaderSDB.Value);
                     }
                     dbState = DBState.Loaded;
 
@@ -92,12 +106,36 @@ namespace LocoSwap
                     dbState = DBState.Error;
                 }
 
-            } else
+            }
+            else
             {
+                Log.Debug("SDBCache.bin not found");
                 dbState = DBState.Error;
             }
+            Log.Debug("SDB has been read");
+        }
+
+        public static ScenarioCompletion parseCompletion (string input)
+        {
+            ScenarioCompletion parsedReturn = ScenarioCompletion.Unknown;
+
+            switch (input)
+            {
+                case "NotCompleted":
+                    parsedReturn = ScenarioCompletion.NotCompleted;
+                    break;
+                case "CompletedSuccessfully":
+                    parsedReturn = ScenarioCompletion.CompletedSuccessfully;
+                    break;
+                case "CompletedFailed":
+                    parsedReturn = ScenarioCompletion.CompletedFailed;
+                    break;
+            }
+            return parsedReturn;
         }
     }
+
+
 
     /**
      * Thanks to https://stackoverflow.com/a/38155562, we have a nice XML cleaner

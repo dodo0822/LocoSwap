@@ -276,6 +276,7 @@ namespace LocoSwap
                         progress.Report(baseProgress + ownProgress);
                         token.ThrowIfCancellationRequested();
                     });
+                    zipFile.Dispose();
                     token.ThrowIfCancellationRequested();
                 }
             }, token);

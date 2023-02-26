@@ -30,27 +30,36 @@ namespace LocoSwap
             InitializeComponent();
             UpdateColumnVisibility();
 
-            this.DataContext = this;
-            this.WindowTitle = "LocoSwap " + Assembly.GetEntryAssembly().GetName().Version.ToString();
+            DataContext = this;
+            WindowTitle = "LocoSwap " + Assembly.GetEntryAssembly().GetName().Version.ToString();
 
-            var routeIds = Route.ListAllRoutes();
+            var routes = Route.ListAllRoutes();
 
-            foreach (var id in routeIds)
+            foreach (Route route in routes)
             {
                 try
                 {
-                    Route route = new Route(id);
                     route.PropertyChanged += Route_PropertyChanged;
                     Routes.Add(route);
                 }
                 catch (Exception)
                 {
-
                 }
             }
 
             // Asynchronously read the scenario DB to populate the Scenario completion status
             ReadScenarioDb();
+
+            FileSystemWatcher watcher = new FileSystemWatcher(Path.Combine(Properties.Settings.Default.TsPath, "Content"));
+
+            watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size | NotifyFilters.LastWrite;
+
+            watcher.Changed += OnSDBCacheUpdate;
+            watcher.Created += OnSDBCacheUpdate;
+
+            watcher.Filter = "SDBCache.bin";
+            watcher.IncludeSubdirectories = false;
+            watcher.EnableRaisingEvents = true;
 
             Loaded += On_MainWindow_Loaded;
         }
@@ -102,10 +111,10 @@ namespace LocoSwap
         private void Refresh_Scenario_List()
         {
             Scenarios.Clear();
-            string routeId = ((Route)RouteList.SelectedItem).Id;
+            Route route = (Route)RouteList.SelectedItem;
 
-            string routeDirectory = Route.GetRouteDirectory(routeId);
-            string scenariosDirectory = Scenario.GetScenariosDirectory(routeId);
+            string routeDirectory = Route.GetRouteDirectory(route.Id);
+            string scenariosDirectory = Scenario.GetScenariosDirectory(route.Id);
 
             if (Directory.Exists(scenariosDirectory))
             {
@@ -114,34 +123,49 @@ namespace LocoSwap
                 {
                     string id = new DirectoryInfo(directory).Name;
                     string xmlPath = Path.Combine(directory, "ScenarioProperties.xml");
+                    string xmlPathIfArchived = Path.Combine(directory, "ScenarioPropertiesLocoSwapOff.xml");
                     string binPath = Path.Combine(directory, "Scenario.bin");
-                    if (!File.Exists(xmlPath) || !File.Exists(binPath)) continue;
-                    Scenarios.Add(new Scenario(routeId, id, ""));
+                    if (!File.Exists(binPath) || (!File.Exists(xmlPath) && !File.Exists(xmlPathIfArchived))) continue;
+                    Scenarios.Add(new Scenario(route, id, ""));
                 }
             }
-
-            string[] apFiles = Directory.GetFiles(routeDirectory, "*.ap", SearchOption.TopDirectoryOnly);
+            string[] allowedExtensions = new[] { ".ap", ".ap.LSoff" };
+            string[] apFiles = Directory.GetFiles(routeDirectory, "*", SearchOption.TopDirectoryOnly).Where(file => allowedExtensions.Any(file.EndsWith)).ToArray();
             foreach (string apPath in apFiles)
             {
+
                 try
                 {
                     ZipFile zipFile = ZipFile.Read(apPath);
-
-                    Regex scenarioPropFileRegex = new Regex(@"^(Scenarios/([a-f\d\-]{36})/)ScenarioProperties\.xml$");
-                    foreach (ZipEntry file in zipFile)
+                    try
                     {
-                        Match match = scenarioPropFileRegex.Match(file.FileName);
-                        if (match.Success &&
-                            zipFile.Select(file2 => file2.FileName == match.Groups[1].Value + "Scenario.bin").Count() > 0 &&
-                            !File.Exists(Path.Combine(routeDirectory, "Scenarios", match.Groups[2].Value, "ScenarioProperties.xml")))
+
+
+                        Regex scenarioPropFileRegex = new Regex(@"^(Scenarios/([a-f\d\-]{36})/)ScenarioProperties\.xml$");
+                        foreach (ZipEntry file in zipFile)
                         {
-                            Scenarios.Add(new Scenario(routeId, match.Groups[2].Value, apPath));
+                            Match match = scenarioPropFileRegex.Match(file.FileName);
+                            if (match.Success &&
+                                zipFile.Select(file2 => file2.FileName == match.Groups[1].Value + "Scenario.bin").Count() > 0 &&
+                                !File.Exists(Path.Combine(routeDirectory, "Scenarios", match.Groups[2].Value, "ScenarioProperties.xml")))
+                            {
+                                Scenarios.Add(new Scenario(route, match.Groups[2].Value, apPath));
+                            }
                         }
                     }
+                    catch (Exception e)
+                    {
+                        Log.Error("Error while reading " + apPath + " for scenarios, " + e.Message);
+                    }
+                    finally
+                    {
+                        zipFile.Dispose();
+                    }
                 }
-                catch (Exception e)
+
+                catch(Exception e)
                 {
-                    Log.Debug(e.ToString());
+                    Log.Error("Couldn't read " + apPath + " for scenarios, " + e.Message);
                 }
             }
         }
@@ -203,6 +227,35 @@ namespace LocoSwap
             }
         }
 
+        private void ToggleArchiveRoutes_Click(object sender, RoutedEventArgs e)
+        {
+            if (ScenarioDb.dbState != ScenarioDb.DBState.Loaded)
+            {
+                MessageBoxResult msgResult = MessageBox.Show(LocoSwap.Language.Resources.archive_without_db_loaded_prompt_message, LocoSwap.Language.Resources.archive_without_db_loaded_prompt_title, MessageBoxButton.YesNoCancel);
+                if (msgResult != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+            }
+            foreach (Route route in RouteList.SelectedItems)
+            {
+                route.ToggleArchive();
+            }
+        }
+
+        private void ArchiveAllButSelectedRoutes_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Route route in Routes)
+            {
+                if (!route.IsArchived && !RouteList.SelectedItems.Contains(route) && !(Properties.Settings.Default.DoNotAutoArchiveWorkshopRoutes && route.IsWorkshop)
+                    ||
+                    route.IsArchived && RouteList.SelectedItems.Contains(route))
+                {
+                    route.ToggleArchive();
+                }
+            }
+        }
+        
         private bool RouteFilter(object item)
         {
             if (string.IsNullOrEmpty(RouteFilterTextbox.Text))
@@ -258,11 +311,31 @@ namespace LocoSwap
             {
                 ScenarioDb.ParseScenarioDb();
             });
-
+            
+            Log.Debug("ReadScenarioDb is about to invoke parallel read");
+            
             await Task.WhenAll(readDbTask);
 
+            Log.Debug("SDB is read, refreshing scenarios list");
+
             // Refresh scenario list with completion
-            CollectionViewSource.GetDefaultView(ScenarioList.ItemsSource).Refresh();
+            // Use Dispatcher to update UI on the main (UI) thread
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                CollectionViewSource.GetDefaultView(ScenarioList.ItemsSource).Refresh();
+            });
+        }
+
+        private void OnSDBCacheUpdate(object sender, FileSystemEventArgs e)
+        {
+            FileInfo sdbCacheFileInfo = new FileInfo(Path.Combine(Properties.Settings.Default.TsPath, "Content", "SDBCache.bin"));
+            Log.Information("SDBCache.bin updated Event=Changed ! Size = " + sdbCacheFileInfo.Length);
+
+            // When TS rewrites the SDBCache, a first event will be triggered while the file is at 0 byte: ignore
+            if (sdbCacheFileInfo.Length > 0)
+            {
+                ReadScenarioDb();
+            }
         }
 
         public void RouteFilter_TextChanged(object sender, TextChangedEventArgs e)

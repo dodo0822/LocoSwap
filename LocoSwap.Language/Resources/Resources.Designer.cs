@@ -106,6 +106,42 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Archive all routes but selected.
+        /// </summary>
+        public static string archive_rest {
+            get {
+                return ResourceManager.GetString("archive_rest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archive/Unarchive.
+        /// </summary>
+        public static string archive_toggle {
+            get {
+                return ResourceManager.GetString("archive_toggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to archive routes while the scenario database is still being scanned? There is a risk of losing some scenario competion statuses. Better to click &quot;no&quot; and wait a few seconds before trying to archive again..
+        /// </summary>
+        public static string archive_without_db_loaded_prompt_message {
+            get {
+                return ResourceManager.GetString("archive_without_db_loaded_prompt_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to archive now?.
+        /// </summary>
+        public static string archive_without_db_loaded_prompt_title {
+            get {
+                return ResourceManager.GetString("archive_without_db_loaded_prompt_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         public static string author {
@@ -246,6 +282,15 @@ namespace LocoSwap.Language {
         public static string delete_scenarios {
             get {
                 return ResourceManager.GetString("delete_scenarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoArchive should not archive workshop routes.
+        /// </summary>
+        public static string do_not_auto_archive_workshop_routes {
+            get {
+                return ResourceManager.GetString("do_not_auto_archive_workshop_routes", resourceCulture);
             }
         }
         

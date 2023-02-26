@@ -132,6 +132,18 @@
   <data name="apply_all_rules" xml:space="preserve">
     <value>Apply all rules</value>
   </data>
+  <data name="archive_rest" xml:space="preserve">
+    <value>Archive all routes but selected</value>
+  </data>
+  <data name="archive_toggle" xml:space="preserve">
+    <value>Archive/Unarchive</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_message" xml:space="preserve">
+    <value>Are you sure you want to archive routes while the scenario database is still being scanned? There is a risk of losing some scenario competion statuses. Better to click "no" and wait a few seconds before trying to archive again.</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_title" xml:space="preserve">
+    <value>Are you sure you want to archive now?</value>
+  </data>
   <data name="author" xml:space="preserve">
     <value>Author</value>
   </data>
@@ -179,6 +191,9 @@
   </data>
   <data name="delete_scenarios" xml:space="preserve">
     <value>Delete scenarios</value>
+  </data>
+  <data name="do_not_auto_archive_workshop_routes" xml:space="preserve">
+    <value>AutoArchive should not archive workshop routes</value>
   </data>
   <data name="duration" xml:space="preserve">
     <value>Duration</value>

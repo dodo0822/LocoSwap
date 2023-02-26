@@ -132,6 +132,18 @@
   <data name="apply_all_rules" xml:space="preserve">
     <value>Applicare tutte le regole</value>
   </data>
+  <data name="archive_rest" xml:space="preserve">
+    <value>Archiviare tutti i rotti tranne quelli selezionati</value>
+  </data>
+  <data name="archive_toggle" xml:space="preserve">
+    <value>Archiviare/Disarchiviare</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_message" xml:space="preserve">
+    <value>Siete sicuri di voler archiviare i percorsi mentre il database degli scenari è ancora in fase di scansione? C'è il rischio di perdere gli stati di gara di alcuni scenari. È meglio fare clic su "no" e attendere qualche secondo prima di riprovare ad archiviare.</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_title" xml:space="preserve">
+    <value>Siete sicuri di voler archiviare ora?</value>
+  </data>
   <data name="author" xml:space="preserve">
     <value>Autore</value>
   </data>
@@ -179,6 +191,9 @@
   </data>
   <data name="delete_scenarios" xml:space="preserve">
     <value>Cancella scenario</value>
+  </data>
+  <data name="do_not_auto_archive_workshop_routes" xml:space="preserve">
+    <value>AutoArchive non deve archiviare i workshop rutti</value>
   </data>
   <data name="duration" xml:space="preserve">
     <value>Durata</value>
