@@ -275,5 +275,10 @@ namespace LocoSwap
         {
             CollectionViewSource.GetDefaultView(ScenarioList.ItemsSource).Refresh();
         }
+
+        public void OpenManual_Click(object sender, RoutedEventArgs e)
+        {
+            Utilities.OpenManual();
+        }
     }
 }

@@ -128,5 +128,8 @@
         <Button HorizontalAlignment="Left" Margin="175,240,0,0" VerticalAlignment="Top" Height="18" Click="EmptyScenarioFilter_Click">
             <Image Source="/Resources/Delete.png"/>
         </Button>
+        <Button HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Height="18" ToolTip="{x:Static lang:Resources.open_manual}" Click="OpenManual_Click">
+            <Image Source="/Resources/Help.png"/>
+        </Button>
     </Grid>
 </Window>
