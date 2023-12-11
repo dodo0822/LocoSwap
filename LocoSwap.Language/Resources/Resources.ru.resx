@@ -120,6 +120,9 @@
   <data name="add_to_rules" xml:space="preserve">
     <value>Добавить в правила</value>
   </data>
+  <data name="all_vehicles" xml:space="preserve">
+    <value>Весь подвижной состав</value>
+  </data>
   <data name="apply" xml:space="preserve">
     <value>Применить</value>
   </data>
@@ -159,6 +162,12 @@
   <data name="id" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="insert_after" xml:space="preserve">
+    <value>Вставить v</value>
+  </data>
+  <data name="insert_before" xml:space="preserve">
+    <value>Вставить ^</value>
+  </data>
   <data name="language" xml:space="preserve">
     <value>Язык</value>
   </data>
@@ -167,6 +176,9 @@
   </data>
   <data name="msg_cannot_load_vehicle" xml:space="preserve">
     <value>Невозможно загрузить объект "{0}"!</value>
+  </data>
+  <data name="msg_consist_empty" xml:space="preserve">
+    <value>После удаления в составе должен быть по крайней мере один объект!</value>
   </data>
   <data name="msg_error" xml:space="preserve">
     <value>Ошибка</value>
@@ -234,6 +246,9 @@
   <data name="reading_scenario_files" xml:space="preserve">
     <value>Чтение файлов сценария...</value>
   </data>
+  <data name="remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="replace" xml:space="preserve">
     <value>Заменить</value>
   </data>
@@ -284,6 +299,9 @@
   </data>
   <data name="vehicles_in_selected_consist" xml:space="preserve">
     <value>Объекты в выбранном составе</value>
+  </data>
+  <data name="vehicle_selected" xml:space="preserve">
+    <value>Выбранный подвижной состав</value>
   </data>
   <data name="vehicle_to_be_replaced" xml:space="preserve">
     <value>Заменяемый подвижной состав</value>
