@@ -144,6 +144,9 @@
   <data name="change_number" xml:space="preserve">
     <value>Changer numérotation</value>
   </data>
+  <data name="check_all_scenario_consists" xml:space="preserve">
+    <value>Contrôler toutes les rames de tous les scénarios à la sélection d'une route (lent !)</value>
+  </data>
   <data name="clear_vehicles" xml:space="preserve">
     <value>Vider</value>
   </data>

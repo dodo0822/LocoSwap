@@ -92,5 +92,17 @@ namespace LocoSwap.Properties {
                 this["ScenarioNameSuffix"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CheckScenarioConsists {
+            get {
+                return ((bool)(this["CheckScenarioConsists"]));
+            }
+            set {
+                this["CheckScenarioConsists"] = value;
+            }
+        }
     }
 }

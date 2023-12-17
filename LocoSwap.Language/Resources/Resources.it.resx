@@ -144,6 +144,9 @@
   <data name="change_number" xml:space="preserve">
     <value>Cambia numero</value>
   </data>
+  <data name="check_all_scenario_consists" xml:space="preserve">
+    <value>Controllare i convogli di tutti gli scenari quando si seleziona il percorso (sarà lento!)</value>
+  </data>
   <data name="clear_vehicles" xml:space="preserve">
     <value>Pulisci</value>
   </data>

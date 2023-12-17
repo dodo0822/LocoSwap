@@ -144,6 +144,9 @@
   <data name="change_number" xml:space="preserve">
     <value>Изменить номер</value>
   </data>
+  <data name="check_all_scenario_consists" xml:space="preserve">
+    <value>Проверяйте поезда во всех сценариях при выборе маршрута (это будет медленно!).</value>
+  </data>
   <data name="clear_vehicles" xml:space="preserve">
     <value>Очистить</value>
   </data>
@@ -318,7 +321,7 @@
   <data name="replacement_rules" xml:space="preserve">
     <value>Правила замены</value>
   </data>
-    <data name="replacement_rules_management" xml:space="preserve">
+  <data name="replacement_rules_management" xml:space="preserve">
     <value>Управление правилами замены</value>
   </data>
   <data name="replace_identical" xml:space="preserve">

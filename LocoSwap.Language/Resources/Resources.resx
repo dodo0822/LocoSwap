@@ -144,6 +144,9 @@
   <data name="change_number" xml:space="preserve">
     <value>Change number</value>
   </data>
+  <data name="check_all_scenario_consists" xml:space="preserve">
+    <value>Check all scenarios' consists when selecting route (this will be slow!)</value>
+  </data>
   <data name="clear_vehicles" xml:space="preserve">
     <value>Clear</value>
   </data>

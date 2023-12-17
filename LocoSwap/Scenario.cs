@@ -13,7 +13,16 @@ using System.Xml.XPath;
 
 namespace LocoSwap
 {
-    public class Scenario
+
+    public enum ScenarioVehicleExistance
+    {
+        NotChecked,
+        AllFound,
+        Missing,
+        MissingWithRules
+    }
+
+    public class Scenario : ModelBase
     {
         public enum Seasons
         {
@@ -28,6 +37,7 @@ namespace LocoSwap
         private XNamespace Namespace = "http://www.kuju.com/TnT/2003/Delta";
         public string RouteId;
         private string _description;
+        private ScenarioVehicleExistance _scenarioVehiclesExist = ScenarioVehicleExistance.NotChecked;
 
         public string Id { get; set; }
         public string Name { get; set; } = "Name not available";
@@ -68,6 +78,12 @@ namespace LocoSwap
 
         public DateTime? LastPlayed { get; set; }
 
+        public ScenarioVehicleExistance ScenarioVehiclesExist
+        {
+            get => _scenarioVehiclesExist;
+            set => SetProperty(ref _scenarioVehiclesExist, value);
+        }
+
         public Scenario()
         {
             RouteId = "";
@@ -79,6 +95,18 @@ namespace LocoSwap
         {
             ApFileName = apFileName;
             Load(routeId, id);
+            if (Settings.Default.CheckScenarioConsists)
+            {
+                try
+                {
+                    ReadScenario();
+                    GetConsists();
+                }
+                catch (Exception e)
+                {
+                    Log.Debug(e.ToString());
+                }
+            }
         }
 
         public void Load(string routeId, string id)
@@ -193,7 +221,7 @@ namespace LocoSwap
                 ZipEntry binEntry = apFile.Where(entry => entry.FileName == "Scenarios/" + Id + "/Scenario.bin").FirstOrDefault();
                 if (binEntry == null)
                 {
-                    throw new Exception("Unable to load scenario: bin file not found within .ap file");
+                    throw new Exception("Unable to load scenario: bin file not found within .ap file " + ApFileName + " and Id " + Id);
                 }
                 binEntry.Extract(Utilities.GetTempDir(), ExtractExistingFileAction.OverwriteSilently);
                 scenarioBinDir = Utilities.GetTempDir();
@@ -207,6 +235,8 @@ namespace LocoSwap
         public List<Consist> GetConsists(IProgress<int> progress = null)
         {
             progress?.Report(0);
+
+            ScenarioVehiclesExist = ScenarioVehicleExistance.AllFound;
 
             // Save vehicles names which appear in couple/uncouple instructions, so we can prevent their numbers to be changed later
             VehiclesInvolvedInConsistOperation = ScenarioXml.XPathSelectElements("//cConsistOperations/DeltaTarget/cDriverInstructionTarget/RailVehicleNumber/e").Select(x => x.Value).ToArray();
@@ -321,10 +351,15 @@ namespace LocoSwap
                     {
                         vehicle.Exists = VehicleExistance.MissingWithRule;
                         vehicle.PossibleSubstitutionDisplayName = Language.Resources.rule + " : " + foundSubst.NewName + (foundSubst.NewLength != 0 ? " - " + foundSubst.NewLength + "m" : "");
+                        if (ScenarioVehiclesExist != ScenarioVehicleExistance.Missing)
+                        {
+                            ScenarioVehiclesExist = ScenarioVehicleExistance.MissingWithRules;
+                        }
                     }
                     else
                     {
                         vehicle.Exists = VehicleExistance.Missing;
+                        ScenarioVehiclesExist = ScenarioVehicleExistance.Missing;
                     }
 
                     consist.IsComplete = (consist.IsComplete != ConsistVehicleExistance.Missing && foundSubst != default) ?
