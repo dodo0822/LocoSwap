@@ -68,7 +68,7 @@
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="66,41,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.Number, ElementName=VehicleListBox, Mode=OneWay}" VerticalAlignment="Top" Width="204" IsReadOnly="True"/>
                 <Label Content="{x:Static lang:Resources.path}" HorizontalAlignment="Left" Margin="0,70,0,0" VerticalAlignment="Top"/>
                 <TextBox HorizontalAlignment="Left" Height="39" Margin="0,101,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.DisplayXmlPath, Mode=OneWay, ElementName=VehicleListBox, StringFormat='\\Assets\\\{0\}'}" VerticalAlignment="Top" Width="270" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
-                <Image Source="{Binding SelectedItem, Mode=OneWay, ElementName=VehicleListBox, Converter={StaticResource VehicleImageSourceConverter}}" HorizontalAlignment="Left" Height="111" Margin="0,145,0,0" VerticalAlignment="Top" Width="124"/>
+                <Image Source="{Binding SelectedItem, Mode=OneWay, ElementName=VehicleListBox, Converter={StaticResource VehicleImageSourceConverter}}" HorizontalAlignment="Left" Height="111" Margin="0,145,0,0" VerticalAlignment="Top" Width="271"/>
                 <Button x:Name="ChangeNumberButton" Content="{x:Static lang:Resources.change_number}" HorizontalAlignment="Left" Margin="0,0,0,10" Width="125" Click="ChangeNumberButton_Click" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="26">
                     <Button.Style>
                         <Style TargetType="Button">
