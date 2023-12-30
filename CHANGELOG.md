@@ -1,3 +1,13 @@
+# CHANGELOG 1.6.0.0 (30-12-2023)
+* Added ability to archive routes (AutoArchive)
+* Added option to have symbols to show if scenarios are missing any stock on scenario list page
+* Presets filter now also considers XML paths
+* Enlarged `vehicle to be replaced` thumbnail
+* Updated Russian translation
+* Added an `Open manual` button
+* Vehicle number now preserved if the new vehicle has no numbering list
+* Moved the player train icon in front of the consist name
+
 # CHANGELOG 1.5.1.0 (25-02-2023)
 * Fix crash when listing scenarios on routes with no `Scenarios` dir
 * Handle malformed `ScenarioProperties.xml`
