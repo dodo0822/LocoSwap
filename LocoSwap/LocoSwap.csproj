@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>LocoSwap</RootNamespace>
     <AssemblyName>LocoSwap</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,9 +44,12 @@
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\icon_128.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetZip, Version=1.13.7.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetZip.1.13.7\lib\net40\DotNetZip.dll</HintPath>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -90,6 +94,8 @@
       <DependentUpon>AllVehiclesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="AvailableVehicle.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ScenarioDb.cs" />
     <Compile Include="Consist.cs" />
     <Compile Include="Converters\StatusToImageConverter.cs" />
     <Compile Include="Converters\VehicleImageSourceConverter.cs" />
@@ -210,6 +216,22 @@
   <ItemGroup>
     <Resource Include="Resources\ReplacedGreen.png" />
     <Resource Include="Resources\ReplacedRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BulletYellow.png" />
+    <Resource Include="Resources\ReplacedYellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_128.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Coupling.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Help.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

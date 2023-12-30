@@ -19,7 +19,7 @@ namespace LocoSwap.Language {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -79,11 +79,74 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to and add as rule.
+        /// </summary>
+        public static string and_add_as_rule {
+            get {
+                return ResourceManager.GetString("and_add_as_rule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         public static string apply {
             get {
                 return ResourceManager.GetString("apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply all rules.
+        /// </summary>
+        public static string apply_all_rules {
+            get {
+                return ResourceManager.GetString("apply_all_rules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archive all routes but selected.
+        /// </summary>
+        public static string archive_rest {
+            get {
+                return ResourceManager.GetString("archive_rest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archive/Unarchive.
+        /// </summary>
+        public static string archive_toggle {
+            get {
+                return ResourceManager.GetString("archive_toggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to archive routes while the scenario database is still being scanned? There is a risk of losing some scenario competion statuses. Better to click &quot;no&quot; and wait a few seconds before trying to archive again..
+        /// </summary>
+        public static string archive_without_db_loaded_prompt_message {
+            get {
+                return ResourceManager.GetString("archive_without_db_loaded_prompt_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to archive now?.
+        /// </summary>
+        public static string archive_without_db_loaded_prompt_title {
+            get {
+                return ResourceManager.GetString("archive_without_db_loaded_prompt_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        public static string author {
+            get {
+                return ResourceManager.GetString("author", resourceCulture);
             }
         }
         
@@ -115,11 +178,83 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check all scenarios&apos; consists when selecting route (this will be slow!).
+        /// </summary>
+        public static string check_all_scenario_consists {
+            get {
+                return ResourceManager.GetString("check_all_scenario_consists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string clear_vehicles {
+            get {
+                return ResourceManager.GetString("clear_vehicles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string close {
             get {
                 return ResourceManager.GetString("close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completion.
+        /// </summary>
+        public static string completion {
+            get {
+                return ResourceManager.GetString("completion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed.
+        /// </summary>
+        public static string completion_completedfailed {
+            get {
+                return ResourceManager.GetString("completion_completedfailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string completion_completedsuccessfully {
+            get {
+                return ResourceManager.GetString("completion_completedsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string completion_notcompleted {
+            get {
+                return ResourceManager.GetString("completion_notcompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string completion_notindb {
+            get {
+                return ResourceManager.GetString("completion_notindb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ?.
+        /// </summary>
+        public static string completion_unknown {
+            get {
+                return ResourceManager.GetString("completion_unknown", resourceCulture);
             }
         }
         
@@ -138,6 +273,33 @@ namespace LocoSwap.Language {
         public static string delete {
             get {
                 return ResourceManager.GetString("delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete scenarios.
+        /// </summary>
+        public static string delete_scenarios {
+            get {
+                return ResourceManager.GetString("delete_scenarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoArchive should not archive workshop routes.
+        /// </summary>
+        public static string do_not_auto_archive_workshop_routes {
+            get {
+                return ResourceManager.GetString("do_not_auto_archive_workshop_routes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string duration {
+            get {
+                return ResourceManager.GetString("duration", resourceCulture);
             }
         }
         
@@ -169,6 +331,24 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error : scenario details cannot be read (malformed XML).
+        /// </summary>
+        public static string error_cannot_read_scenario {
+            get {
+                return ResourceManager.GetString("error_cannot_read_scenario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string filter {
+            get {
+                return ResourceManager.GetString("filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Flip vehicle.
         /// </summary>
         public static string flip {
@@ -183,6 +363,24 @@ namespace LocoSwap.Language {
         public static string flipped {
             get {
                 return ResourceManager.GetString("flipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save date.
+        /// </summary>
+        public static string game_save_date {
+            get {
+                return ResourceManager.GetString("game_save_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide played scenarios.
+        /// </summary>
+        public static string hide_played_scenarios {
+            get {
+                return ResourceManager.GetString("hide_played_scenarios", resourceCulture);
             }
         }
         
@@ -214,11 +412,29 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This vehicle in involved in couple/uncouple instructions. LocoSwap will preserve its number..
+        /// </summary>
+        public static string involved_in_consist_operation {
+            get {
+                return ResourceManager.GetString("involved_in_consist_operation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string language {
             get {
                 return ResourceManager.GetString("language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading....
+        /// </summary>
+        public static string loading {
+            get {
+                return ResourceManager.GetString("loading", resourceCulture);
             }
         }
         
@@ -421,6 +637,33 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to on all stock.
+        /// </summary>
+        public static string on_all_stock {
+            get {
+                return ResourceManager.GetString("on_all_stock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to only on missing stock (yellows).
+        /// </summary>
+        public static string only_on_missing_stock {
+            get {
+                return ResourceManager.GetString("only_on_missing_stock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open manual.
+        /// </summary>
+        public static string open_manual {
+            get {
+                return ResourceManager.GetString("open_manual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open scenario directory.
         /// </summary>
         public static string open_scenario_directory {
@@ -435,6 +678,15 @@ namespace LocoSwap.Language {
         public static string path {
             get {
                 return ResourceManager.GetString("path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player train.
+        /// </summary>
+        public static string player_train_name {
+            get {
+                return ResourceManager.GetString("player_train_name", resourceCulture);
             }
         }
         
@@ -493,11 +745,29 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replacement rules management.
+        /// </summary>
+        public static string replacement_rules_management {
+            get {
+                return ResourceManager.GetString("replacement_rules_management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Route.
         /// </summary>
         public static string route {
             get {
                 return ResourceManager.GetString("route", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rule.
+        /// </summary>
+        public static string rule {
+            get {
+                return ResourceManager.GetString("rule", resourceCulture);
             }
         }
         
@@ -565,6 +835,87 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected scenario(s) ?.
+        /// </summary>
+        public static string scenario_delete_prompt_message {
+            get {
+                return ResourceManager.GetString("scenario_delete_prompt_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scenarios deletion.
+        /// </summary>
+        public static string scenario_delete_prompt_title {
+            get {
+                return ResourceManager.GetString("scenario_delete_prompt_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *** This scenario is contained in an .ap file. LocoSwap will automatically extract it on save. ***.
+        /// </summary>
+        public static string scenario_in_ap {
+            get {
+                return ResourceManager.GetString("scenario_in_ap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scenario name suffix.
+        /// </summary>
+        public static string scenario_name_suffix {
+            get {
+                return ResourceManager.GetString("scenario_name_suffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Season.
+        /// </summary>
+        public static string season {
+            get {
+                return ResourceManager.GetString("season", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autumn.
+        /// </summary>
+        public static string season_autumn {
+            get {
+                return ResourceManager.GetString("season_autumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spring.
+        /// </summary>
+        public static string season_spring {
+            get {
+                return ResourceManager.GetString("season_spring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summer.
+        /// </summary>
+        public static string season_summer {
+            get {
+                return ResourceManager.GetString("season_summer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Winter.
+        /// </summary>
+        public static string season_winter {
+            get {
+                return ResourceManager.GetString("season_winter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Train Simulator Path.
         /// </summary>
         public static string select_ts_path {
@@ -579,6 +930,15 @@ namespace LocoSwap.Language {
         public static string settings {
             get {
                 return ResourceManager.GetString("settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time.
+        /// </summary>
+        public static string start_time {
+            get {
+                return ResourceManager.GetString("start_time", resourceCulture);
             }
         }
         

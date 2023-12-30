@@ -14,6 +14,7 @@ namespace LocoSwap
     {
         Found,
         Missing,
+        MissingWithRule,
         Replaced
     }
     public class Vehicle : ModelBase
@@ -81,6 +82,7 @@ namespace LocoSwap
             get => _type;
             set => SetProperty(ref _type, value);
         }
+        public float Length { get; set; }
         public VehicleExistance Exists
         {
             get => _exists;
@@ -90,7 +92,7 @@ namespace LocoSwap
         {
             get
             {
-                return String.Format("{0}\\{1}\\{2}", Provider, Product, BlueprintId);
+                return string.Format("{0}\\{1}\\{2}", Provider, Product, BlueprintId);
             }
         }
         public string FullXmlPath
@@ -104,7 +106,7 @@ namespace LocoSwap
         {
             get
             {
-                return String.Format("{0}\\{1}\\{2}", ReskinProvider, ReskinProduct, ReskinBlueprintId);
+                return string.Format("{0}\\{1}\\{2}", ReskinProvider, ReskinProduct, ReskinBlueprintId);
             }
         }
         public string ReskinFullXmlPath
@@ -133,7 +135,7 @@ namespace LocoSwap
             Type = VehicleType.Unknown;
         }
 
-        public Vehicle(string provider, string product, string blueprintId, string name)
+        public Vehicle(string provider, string product, string blueprintId, string name, float length)
         {
             Provider = provider;
             Product = product;
@@ -142,6 +144,7 @@ namespace LocoSwap
             DisplayName = name;
             Exists = VehicleExistance.Found;
             Type = VehicleType.Unknown;
+            Length = (float) Math.Round(length, 2);
         }
     }
 }

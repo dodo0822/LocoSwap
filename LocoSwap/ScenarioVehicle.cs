@@ -7,6 +7,8 @@ namespace LocoSwap
         private int _idx;
         private string _number;
         private bool _flipped;
+        private string _possibleSubstitutionDisplayName;
+
         public int Idx
         {
             get => _idx;
@@ -22,6 +24,12 @@ namespace LocoSwap
             get => _flipped;
             set => SetProperty(ref _flipped, value);
         }
+        public string PossibleSubstitutionDisplayName
+        {
+            get => _possibleSubstitutionDisplayName;
+            set => SetProperty(ref _possibleSubstitutionDisplayName, value);
+        }
+        public bool IsInvolvedInConsistOperation { get; set; }
 
         public ScenarioVehicle() : base()
         {
@@ -30,48 +38,44 @@ namespace LocoSwap
             Flipped = false;
         }
 
-        public ScenarioVehicle(int idx, string provider, string product, string blueprintId, string name, string number, bool flipped)
-            : base(provider, product, blueprintId, name)
+        public ScenarioVehicle(int idx, string provider, string product, string blueprintId, string name, string number, bool flipped, float length, bool isInvolvedInConsistOperation)
+            : base(provider, product, blueprintId, name, length)
         {
             Idx = idx;
             Number = number;
             Flipped = flipped;
+            IsInvolvedInConsistOperation = isInvolvedInConsistOperation;
         }
         public void CopyFrom(AvailableVehicle from)
         {
-            this.Provider = from.Provider;
-            this.Product = from.Product;
-            this.BlueprintId = from.BlueprintId;
-            this.Name = from.Name;
-            this.Exists = VehicleExistance.Replaced;
-            this.Type = from.Type;
-            this.DisplayName = from.DisplayName;
+            Provider = from.Provider;
+            Product = from.Product;
+            BlueprintId = from.BlueprintId;
+            Name = from.Name;
+            Exists = VehicleExistance.Replaced;
+            Type = from.Type;
+            DisplayName = from.DisplayName;
 
             if (from.IsReskin)
             {
-                this.IsReskin = true;
-                this.ReskinBlueprintId = from.ReskinBlueprintId;
-                this.ReskinProvider = from.ReskinProvider;
-                this.ReskinProduct = from.ReskinProduct;
+                IsReskin = true;
+                ReskinBlueprintId = from.ReskinBlueprintId;
+                ReskinProvider = from.ReskinProvider;
+                ReskinProduct = from.ReskinProduct;
             }
             else
             {
-                this.IsReskin = false;
-                this.ReskinBlueprintId = "";
-                this.ReskinProvider = "";
-                this.ReskinProduct = "";
+                IsReskin = false;
+                ReskinBlueprintId = "";
+                ReskinProvider = "";
+                ReskinProduct = "";
             }
 
-            if (from.NumberingList.Count > 0)
+            if (!IsInvolvedInConsistOperation && from.NumberingList.Count > 0)
             {
-                var index = Utilities.StaticRandom.Instance.Next(from.NumberingList.Count);
+                int index = Utilities.StaticRandom.Instance.Next(from.NumberingList.Count);
                 Number = from.NumberingList[index];
             }
-            else
-            {
-                Number = (new Guid()).ToString();
-            }
         }
-
     }
 }

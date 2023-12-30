@@ -1,6 +1,9 @@
-﻿using Serilog;
+﻿using Ionic.Zip;
+using LocoSwap.Properties;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,20 +13,86 @@ using System.Xml.XPath;
 
 namespace LocoSwap
 {
-    public class Scenario
+
+    public enum ScenarioVehicleExistance
     {
+        NotChecked,
+        AllFound,
+        Missing,
+        MissingWithRules
+    }
+
+    public class Scenario : ModelBase
+    {
+        public enum Seasons
+        {
+            Spring,
+            Summer,
+            Autumn,
+            Winter
+        }
+
         private XDocument ScenarioProperties;
         private XDocument ScenarioXml;
         private XNamespace Namespace = "http://www.kuju.com/TnT/2003/Delta";
         public string RouteId;
+        private string _description;
+        private ScenarioVehicleExistance _scenarioVehiclesExist = ScenarioVehicleExistance.NotChecked;
+
         public string Id { get; set; }
         public string Name { get; set; } = "Name not available";
+        public string Description { get { return _description; } set { _description = value.Length == 0 ? null : value; } }
+        public uint Duration { get; set; } = 0;
+        public string Author { get; set; }
+        public Seasons Season { get; set; }
+        public string LocalizedSeason { get { return Language.Resources.ResourceManager.GetString("season_" + Season.ToString().ToLower(), Language.Resources.Culture); }  }
+        public ScenarioDb.ScenarioCompletion Completion {
+            get {
+                ScenarioDb.ScenarioCompletion completionFromSDB = ScenarioDb.getScenarioDbInfos(RouteId, Id);
+                if (completionFromSDB == ScenarioDb.ScenarioCompletion.CompletedSuccessfully || completionFromSDB == ScenarioDb.ScenarioCompletion.CompletedFailed)
+                {
+                    return completionFromSDB;
+                }
+                return CompletionFromLocalDb != ScenarioDb.ScenarioCompletion.Unknown ? CompletionFromLocalDb : completionFromSDB;
+            }
+        }
+        public ScenarioDb.ScenarioCompletion CompletionFromLocalDb { get; set; } = ScenarioDb.ScenarioCompletion.Unknown;
+        public string LocalizedCompletion
+        {
+            get
+            {
+                if (ScenarioDb.dbState == ScenarioDb.DBState.Loading)
+                {
+                    return Language.Resources.loading;
+                }
+                else
+                {
+                    return Language.Resources.ResourceManager.GetString("completion_" + Completion.ToString().ToLower(), Language.Resources.Culture);
+                }
+            }
+        }
+        public bool IsArchived { get; set; } = false;
+        public string[] VehiclesInvolvedInConsistOperation { get; set; }
+        public string ApFileName { get; set; } = "";
+        public string TooltipText { get => (ApFileName != "" ? Language.Resources.scenario_in_ap + Environment.NewLine : "") + Description; }
+
         public string ScenarioDirectory
         {
             get
             {
                 return GetScenarioDirectory(RouteId, Id);
             }
+        }
+        public TimeSpan StartTime { get; set; }
+
+        public string PlayerTrainName { get; set; } = "";
+
+        public DateTime? LastPlayed { get; set; }
+
+        public ScenarioVehicleExistance ScenarioVehiclesExist
+        {
+            get => _scenarioVehiclesExist;
+            set => SetProperty(ref _scenarioVehiclesExist, value);
         }
 
         public Scenario()
@@ -33,26 +102,124 @@ namespace LocoSwap
             Name = "";
         }
 
-        public Scenario(string routeId, string id)
+        public Scenario(Route route, string id, string apFileName)
         {
-            Load(routeId, id);
+            ApFileName = apFileName;
+            Load(route, id);
+
+            if (Settings.Default.CheckScenarioConsists)
+            {
+                try
+                {
+                    ReadScenario();
+                    GetConsists();
+                }
+                catch (Exception e)
+                {
+                    Log.Debug(e.ToString());
+                }
+            }
         }
 
-        public void Load(string routeId, string id)
+        public void Load(Route route, string id)
         {
-            RouteId = routeId;
+            RouteId = route.Id;
             Id = id;
 
             try
             {
-                ScenarioProperties = XmlDocumentLoader.Load(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml"));
+                if (ApFileName != "")
+                {
+                    ZipFile apFile = ZipFile.Read(ApFileName);
+
+                    ZipEntry scenarioPropertiesFile = apFile.Where(file => file.FileName == "Scenarios/" + id + "/ScenarioProperties.xml").FirstOrDefault();
+
+                    MemoryStream ms = new MemoryStream();
+                    scenarioPropertiesFile.Extract(ms);
+                    apFile.Dispose();
+                    ms.Position = 0;
+                    ScenarioProperties = XDocument.Parse(new StreamReader(ms).ReadToEnd());
+                }
+                else
+                {
+                    string pathToLoad = "";
+
+                    if (File.Exists(Path.Combine(ScenarioDirectory, "ScenarioProperties.xml")))
+                    {
+                        pathToLoad = Path.Combine(ScenarioDirectory, "ScenarioProperties.xml");
+                    }
+                    else
+                    {
+                        pathToLoad = Path.Combine(ScenarioDirectory, "ScenarioPropertiesLocoSwapOff.xml");
+                        IsArchived = true;
+                    }
+
+                    ScenarioProperties = XmlDocumentLoader.Load(pathToLoad);
+                }
+
+                // Parse XML
                 XElement displayName = ScenarioProperties.XPathSelectElement("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString");
                 Name = Utilities.DetermineDisplayName(displayName);
+
+                XElement descriptionNode = ScenarioProperties.XPathSelectElement("/cScenarioProperties/Description/Localisation-cUserLocalisedString");
+                Description = Utilities.DetermineDisplayName(descriptionNode);
+
+                Duration = uint.Parse(ScenarioProperties.XPathSelectElement("/cScenarioProperties/DurationMins").Value);
+
+                Author = ScenarioProperties.XPathSelectElement("/cScenarioProperties/Author")?.Value;
+
+                switch (ScenarioProperties.XPathSelectElement("/cScenarioProperties/Season").Value)
+                {
+                    case "SEASON_SPRING":
+                        Season = Seasons.Spring;
+                        break;
+                    case "SEASON_SUMMER":
+                        Season = Seasons.Summer;
+                        break;
+                    case "SEASON_AUTUMN":
+                        Season = Seasons.Autumn;
+                        break;
+                    case "SEASON_WINTER":
+                        Season = Seasons.Winter;
+                        break;
+                }
+
+                StartTime = TimeSpan.FromSeconds(uint.Parse(ScenarioProperties.XPathSelectElement("/cScenarioProperties/StartTime").Value.Split('.')[0]));
+
+                switch (ScenarioProperties.XPathSelectElement("/cScenarioProperties/ScenarioClass").Value)
+                {
+                    case "eFreeRoamScenarioClass":
+                        PlayerTrainName = "Free roam";
+                        break;
+                    case "eTemplateScenarioClass":
+                        PlayerTrainName = "Quick drive";
+                        break;
+                    default:
+                        PlayerTrainName = Utilities.DetermineDisplayName(ScenarioProperties.XPathSelectElement("(/cScenarioProperties/FrontEndDriverList/sDriverFrontEndDetails/LocoName[../PlayerDriver = 1])[last()]/Localisation-cUserLocalisedString"));
+                        break;
+                }
+            }
+            catch (XmlException e)
+            {
+                Log.Error("Exception caught when trying to load ScenarioProperties.xml: {0}", e);
+
+                Name = Language.Resources.error_cannot_read_scenario;
+            }
+
+            // Scenario infos extra-XML
+            try
+            {
+                string potentialSavePath = Path.Combine(ScenarioDirectory, "CurrentSave.bin");
+                if (File.Exists(potentialSavePath))
+                {
+                    LastPlayed = File.GetLastWriteTime(potentialSavePath);
+                }
+
+                CompletionFromLocalDb = route.LocalScenarioDb.ContainsKey(id) ? route.LocalScenarioDb[id] : ScenarioDb.ScenarioCompletion.NotInDB;
             }
             catch (Exception e)
             {
-                Log.Warning("Exception caught when trying to load ScenarioProperties.xml: {0}", e);
-                throw new Exception("Malformed ScenarioProperties.xml file!");
+                Log.Warning("Exception caught when trying to get extra scenario info {0}", e);
             }
         }
 
@@ -64,32 +231,31 @@ namespace LocoSwap
         {
             return Path.Combine(Route.GetRouteDirectory(routeId), "Scenarios");
         }
-
-        public static string[] ListAllScenarios(string routeId)
-        {
-            var routeDirectory = Route.GetRouteDirectory(routeId);
-            if (!Directory.Exists(routeDirectory) || !Directory.Exists(GetScenariosDirectory(routeId)))
-            {
-                return new string[] { };
-            }
-            List<string> ret = new List<string>();
-            var scenarioDirectories = Directory.GetDirectories(GetScenariosDirectory(routeId));
-            foreach (var directory in scenarioDirectories)
-            {
-                string id = new DirectoryInfo(directory).Name;
-                string xmlPath = Path.Combine(directory, "ScenarioProperties.xml");
-                string binPath = Path.Combine(directory, "Scenario.bin");
-                if (!File.Exists(xmlPath) || !File.Exists(binPath)) continue;
-                ret.Add(id);
-            }
-            return ret.ToArray();
-        }
-
         public void ReadScenario(IProgress<int> progress = null)
         {
             progress?.Report(10);
 
-            ScenarioXml = TsSerializer.Load(Path.Combine(ScenarioDirectory, "Scenario.bin"));
+            string scenarioBinDir = "";
+
+            if (ApFileName == "")
+            {
+                scenarioBinDir = ScenarioDirectory;
+            }
+            else
+            {
+                ZipFile apFile = ZipFile.Read(ApFileName);
+                apFile.FlattenFoldersOnExtract = true;
+                ZipEntry binEntry = apFile.Where(entry => entry.FileName == "Scenarios/" + Id + "/Scenario.bin").FirstOrDefault();
+                if (binEntry == null)
+                {
+                    throw new Exception("Unable to load scenario: bin file not found within .ap file " + ApFileName + " and Id " + Id);
+                }
+                binEntry.Extract(Utilities.GetTempDir(), ExtractExistingFileAction.OverwriteSilently);
+                scenarioBinDir = Utilities.GetTempDir();
+                apFile.Dispose();
+            }
+
+            ScenarioXml = TsSerializer.Load(Path.Combine(scenarioBinDir, "Scenario.bin"));
 
             progress?.Report(100);
         }
@@ -97,6 +263,12 @@ namespace LocoSwap
         public List<Consist> GetConsists(IProgress<int> progress = null)
         {
             progress?.Report(0);
+
+            ScenarioVehiclesExist = ScenarioVehicleExistance.AllFound;
+
+            // Save vehicles names which appear in couple/uncouple instructions, so we can prevent their numbers to be changed later
+            VehiclesInvolvedInConsistOperation = ScenarioXml.XPathSelectElements("//cConsistOperations/DeltaTarget/cDriverInstructionTarget/RailVehicleNumber/e").Select(x => x.Value).ToArray();
+
             List<Consist> ret = new List<Consist>();
             IEnumerable<XElement> consists = ScenarioXml.Root.Descendants("cConsist");
             foreach (var consistRow in consists.Select((value, i) => (value, i)))
@@ -131,9 +303,9 @@ namespace LocoSwap
                     // Fill in basic info
                     XElement vehicle = vehicleRow.value;
                     XElement blueprintID = vehicle.Element("BlueprintID").Element("iBlueprintLibrary-cAbsoluteBlueprintID");
-                    string provider = (string)blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").Value;
-                    string product = (string)blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").Value;
-                    string path = (string)blueprintID.Element("BlueprintID").Value;
+                    string provider = blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Provider").Value;
+                    string product = blueprintID.Element("BlueprintSetID").Element("iBlueprintLibrary-cBlueprintSetID").Element("Product").Value;
+                    string path = blueprintID.Element("BlueprintID").Value;
                     string vehicleName = vehicle.Element("Name").Value;
                     VehicleType type;
                     if (vehicle.Descendants("cEngine").Count() > 0)
@@ -153,7 +325,11 @@ namespace LocoSwap
                         flipped = flippedElement.Value == "1";
                     }
 
-                    ScenarioVehicle v = new ScenarioVehicle(vehicleIdx, provider, product, path, vehicleName, number, flipped);
+                    // Getting what is needed to determine length of vehicle
+                    IEnumerable<XElement> positions = vehicle.Descendants("Position");
+                    float length = Math.Abs(float.Parse(positions.ElementAt(0).Value, CultureInfo.InvariantCulture) - float.Parse(positions.ElementAt(1).Value, CultureInfo.InvariantCulture));
+
+                    ScenarioVehicle v = new ScenarioVehicle(vehicleIdx, provider, product, path, vehicleName, number, flipped, length, VehiclesInvolvedInConsistOperation.Contains(number));
                     v.Type = type;
 
                     // Determine if it is a reskin
@@ -197,8 +373,26 @@ namespace LocoSwap
                         vehicle.DisplayName = VehicleAvailibility.GetVehicleDisplayName(vehicle);
                         continue;
                     }
-                    vehicle.Exists = VehicleExistance.Missing;
-                    consist.IsComplete = ConsistVehicleExistance.Missing;
+
+                    SwapPresetItem foundSubst = Settings.Default.Preset.Find(vehicle.XmlPath);
+                    if (foundSubst != default)
+                    {
+                        vehicle.Exists = VehicleExistance.MissingWithRule;
+                        vehicle.PossibleSubstitutionDisplayName = Language.Resources.rule + " : " + foundSubst.NewName + (foundSubst.NewLength != 0 ? " - " + foundSubst.NewLength + "m" : "");
+                        if (ScenarioVehiclesExist != ScenarioVehicleExistance.Missing)
+                        {
+                            ScenarioVehiclesExist = ScenarioVehicleExistance.MissingWithRules;
+                        }
+                    }
+                    else
+                    {
+                        vehicle.Exists = VehicleExistance.Missing;
+                        ScenarioVehiclesExist = ScenarioVehicleExistance.Missing;
+                    }
+
+                    consist.IsComplete = (consist.IsComplete != ConsistVehicleExistance.Missing && foundSubst != default) ?
+                        ConsistVehicleExistance.MissingWithRules :
+                        ConsistVehicleExistance.Missing;
                 }
                 progress?.Report((int)Math.Ceiling((float)row.i / ret.Count * 100));
             }
@@ -365,23 +559,26 @@ namespace LocoSwap
             }
 
             // Cargo component count matching
-            XElement cCargoComponent = vehicle.Element("Component").Element("cCargoComponent").Element("InitialLevel");
-            int cargoCount = cCargoComponent.Elements().Count();
-            if (newVehicle.CargoCount > cargoCount)
+            XElement cCargoComponent = vehicle.Element("Component").Element("cCargoComponent")?.Element("InitialLevel");
+            if (cCargoComponent != null)
             {
-                Log.Debug("Need to create cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
-                for (int i = cargoCount; i < newVehicle.CargoCount; ++i)
+                int cargoCount = cCargoComponent.Elements().Count();
+                if (newVehicle.CargoCount > cargoCount)
                 {
-                    var newNode = Utilities.GenerateCargoComponentItem(
-                        newVehicle.CargoComponents[i].Item1,
-                        newVehicle.CargoComponents[i].Item2);
-                    cCargoComponent.Add(newNode);
+                    Log.Debug("Need to create cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
+                    for (int i = cargoCount; i < newVehicle.CargoCount; ++i)
+                    {
+                        var newNode = Utilities.GenerateCargoComponentItem(
+                            newVehicle.CargoComponents[i].Item1,
+                            newVehicle.CargoComponents[i].Item2);
+                        cCargoComponent.Add(newNode);
+                    }
                 }
-            }
-            else if (newVehicle.CargoCount < cargoCount)
-            {
-                Log.Debug("Need to remove cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
-                cCargoComponent.Elements().Take(cargoCount - newVehicle.CargoCount).Remove();
+                else if (newVehicle.CargoCount < cargoCount)
+                {
+                    Log.Debug("Need to remove cargo initial level holders {0} -> {1}", cargoCount, newVehicle.CargoCount);
+                    cCargoComponent.Elements().Take(cargoCount - newVehicle.CargoCount).Remove();
+                }
             }
 
             // Entity container count matching
@@ -627,13 +824,48 @@ namespace LocoSwap
 
         public void Save()
         {
+            if (ApFileName != "")
+            {
+                // If scenario is inside an AP, we extract the scenario dir
+                try
+                {
+                    ZipFile apFile = ZipFile.Read(ApFileName);
+
+                    apFile.ExtractSelectedEntries("*", "Scenarios/" + Id + "/", Route.GetRouteDirectory(RouteId), ExtractExistingFileAction.OverwriteSilently);
+
+                    apFile.Dispose();
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Unable to save scenario: something went wrong while trying to extract the scenario from its .ap file");
+                }
+
+                // Scenario is no longer in an .ap
+                ApFileName = "";
+            }
+
             string propertiesXmlPath = Path.Combine(Utilities.GetTempDir(), "ScenarioProperties.xml");
             XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
             xmlWriterSettings.Indent = true;
             xmlWriterSettings.IndentChars = "\t";
             xmlWriterSettings.Encoding = new UTF8Encoding(false);
+            xmlWriterSettings.NewLineHandling = NewLineHandling.None;
 
             FileStream stream = new FileStream(propertiesXmlPath, FileMode.Create);
+
+            // Append a suffix to scenario DisplayName
+            if (Settings.Default.ScenarioNameSuffix != "")
+            {
+                IEnumerable<XElement> displayNameLanguageNodes = ScenarioProperties.XPathSelectElements("/cScenarioProperties/DisplayName/Localisation-cUserLocalisedString/*");
+                foreach (XElement displayNameLanguageNode in displayNameLanguageNodes)
+                {
+                    if (displayNameLanguageNode.Name != "Key" && displayNameLanguageNode.Value != "" && !displayNameLanguageNode.Value.EndsWith(Settings.Default.ScenarioNameSuffix))
+                    {
+                        displayNameLanguageNode.SetValue(displayNameLanguageNode.Value + " " + Settings.Default.ScenarioNameSuffix);
+                    }
+                }
+            }
+
             using (XmlWriter writer = XmlWriter.Create(stream, xmlWriterSettings))
             {
                 ScenarioProperties.Save(writer);
@@ -655,6 +887,13 @@ namespace LocoSwap
             File.Copy(Path.Combine(Utilities.GetTempDir(), "Scenario.bin"), scenarioFileName, true);
             File.Copy(propertiesXmlPath, scenarioPropertiesFileName, true);
         }
-    }
 
+        public void Delete()
+        {
+            if (ApFileName == "")
+            {
+                Directory.Delete(ScenarioDirectory, true);
+            }
+        }
+    }
 }

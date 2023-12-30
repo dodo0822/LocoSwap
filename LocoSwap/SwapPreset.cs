@@ -11,6 +11,7 @@ namespace LocoSwap
         public string TargetXmlPath { get; set; }
         public string NewName { get; set; }
         public string NewXmlPath { get; set; }
+        public float NewLength { get; set; }
     }
 
     [SettingsSerializeAs(SettingsSerializeAs.Xml)]
@@ -20,12 +21,12 @@ namespace LocoSwap
 
         public bool Contains(string targetXmlPath)
         {
-            return List.Any((item) => item.TargetXmlPath == targetXmlPath);
+            return List.Any((item) => item.TargetXmlPath.Equals(targetXmlPath, System.StringComparison.OrdinalIgnoreCase));
         }
 
         public SwapPresetItem Find(string targetXmlPath)
         {
-            return List.Where((item) => item.TargetXmlPath == targetXmlPath).FirstOrDefault();
+            return List.Where((item) => item.TargetXmlPath.Equals(targetXmlPath, System.StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
     }
 }

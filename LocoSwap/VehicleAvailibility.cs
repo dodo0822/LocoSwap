@@ -172,7 +172,7 @@ namespace LocoSwap
             if (vehicle.IsReskin)
             {
                 // We should determine if the reskin itself exists first
-                Vehicle reskinAsVehicle = new Vehicle(vehicle.ReskinProvider, vehicle.ReskinProduct, vehicle.ReskinBlueprintId, "Reskin");
+                Vehicle reskinAsVehicle = new Vehicle(vehicle.ReskinProvider, vehicle.ReskinProduct, vehicle.ReskinBlueprintId, "Reskin", 0);
                 Log.Debug("IsVehicleAvailable: check for reskin {0}", reskinAsVehicle.XmlPath);
                 VehicleAvailibilityResult reskinAvailability = IsVehicleAvailable(reskinAsVehicle);
                 if (!reskinAvailability.Available)
@@ -206,9 +206,10 @@ namespace LocoSwap
                     try
                     {
                         var zipFile = ZipFile.Read(apPath);
-                        result = zipFile.Any(entry => entry.FileName.Equals(binName));
+
+                        result = zipFile.Any(entry => entry.FileName.Equals(binName, StringComparison.OrdinalIgnoreCase));
                     }
-                    catch(ZipException e)
+                    catch(ZipException)
                     {
                         Debug.WriteLine("Error while reading zip file: " + apPath);
                     }

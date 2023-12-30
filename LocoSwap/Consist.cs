@@ -6,6 +6,8 @@ namespace LocoSwap
     {
         Found,
         Missing,
+        MissingWithRules,
+        MissingWithRulesPartiallyReplaced,
         PartiallyReplaced,
         FullyReplaced
     }
@@ -62,6 +64,7 @@ namespace LocoSwap
 
         public void DetermineCompletenessAfterReplace()
         {
+            int countNotReplacedVehicles = 0;
             foreach (var vehicle in Vehicles)
             {
                 if (vehicle.Exists == VehicleExistance.Missing)
@@ -69,8 +72,16 @@ namespace LocoSwap
                     IsComplete = ConsistVehicleExistance.PartiallyReplaced;
                     return;
                 }
+                if (vehicle.Exists == VehicleExistance.MissingWithRule)
+                {
+                    countNotReplacedVehicles++;
+                    IsComplete = ConsistVehicleExistance.MissingWithRulesPartiallyReplaced;
+                }
             }
+            if (countNotReplacedVehicles == 0)
+            {
             IsComplete = ConsistVehicleExistance.FullyReplaced;
         }
     }
+}
 }

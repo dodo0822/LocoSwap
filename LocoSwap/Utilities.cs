@@ -76,6 +76,8 @@ namespace LocoSwap
 
         public static string DetermineDisplayName(XElement localisedString)
         {
+            if (localisedString == null) return "";
+
             var lang = Settings.Default.Language;
             if (lang == "") lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
             var langConversionTable = new Dictionary<string, string>()
@@ -180,6 +182,15 @@ namespace LocoSwap
             }
 
             public static Random Instance { get { return threadLocal.Value; } }
+        }
+
+        public static void OpenManual()
+        {
+            string manualFileName = "LocoSwap_manual.pdf";
+            if (File.Exists(manualFileName))
+            {
+                System.Diagnostics.Process.Start(manualFileName);
+            }
         }
     }
 }

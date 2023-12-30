@@ -2,10 +2,12 @@
 using Serilog;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace LocoSwap
 {
@@ -87,6 +89,14 @@ namespace LocoSwap
 
             Log.Debug("SwapPreset has {0} items", Settings.Default.Preset.List.Count);
 
+            // Set localisation properly (to display WPF dates in the local format)
+            FrameworkElement.LanguageProperty.OverrideMetadata(
+              typeof(FrameworkElement),
+              new FrameworkPropertyMetadata(
+                  XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)
+                  )
+              );
+
             new MainWindow().Show();
         }
 
@@ -113,6 +123,12 @@ namespace LocoSwap
             {
                 case "de":
                     Language.Resources.Culture = new System.Globalization.CultureInfo("de-DE");
+                    break;
+                case "fr":
+                    Language.Resources.Culture = new System.Globalization.CultureInfo("fr-FR");
+                    break;
+                case "it":
+                    Language.Resources.Culture = new System.Globalization.CultureInfo("it-IT");
                     break;
                 case "ru":
                     Language.Resources.Culture = new System.Globalization.CultureInfo("ru-RU");

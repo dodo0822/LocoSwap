@@ -20,6 +20,9 @@ namespace LocoSwap.Converters
                 case VehicleExistance.Replaced:
                     image = "Replaced.png";
                     break;
+                case VehicleExistance.MissingWithRule:
+                    image = "BulletYellow.png";
+                    break;
                 case VehicleExistance.Missing:
                 default:
                     image = "BulletRed.png";
@@ -55,7 +58,44 @@ namespace LocoSwap.Converters
                 case ConsistVehicleExistance.PartiallyReplaced:
                     image = "ReplacedRed.png";
                     break;
+                case ConsistVehicleExistance.MissingWithRulesPartiallyReplaced:
+                    image = "ReplacedYellow.png";
+                    break;
+                case ConsistVehicleExistance.MissingWithRules:
+                    image = "BulletYellow.png";
+                    break;
                 case ConsistVehicleExistance.Missing:
+                default:
+                    image = "BulletRed.png";
+                    break;
+            }
+            string uri = String.Format("/LocoSwap;component/Resources/{0}", image);
+            return uri;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    [ValueConversion(typeof(ScenarioVehicleExistance), typeof(string))]
+    public class ScenarioStatusToImageConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null) return string.Empty;
+            var status = (ScenarioVehicleExistance)value;
+            string image;
+            switch (status)
+            {
+                case ScenarioVehicleExistance.AllFound:
+                    image = "BulletGreen.png";
+                    break;
+                case ScenarioVehicleExistance.MissingWithRules:
+                    image = "BulletYellow.png";
+                    break;
+                case ScenarioVehicleExistance.Missing:
                 default:
                     image = "BulletRed.png";
                     break;

@@ -2,6 +2,7 @@
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -102,6 +103,8 @@ namespace LocoSwap
             _nameLocalisedString = document.Root.Descendants("DisplayName").Elements("Localisation-cUserLocalisedString").First();
             var preferredDisplayName = Utilities.DetermineDisplayName(displayNameNode);
             if (preferredDisplayName != "") DisplayName = preferredDisplayName;
+
+            Length = float.Parse(document.Root.Descendants("CollisionLength")?.First().Value, CultureInfo.InvariantCulture);
 
             if (blueprint.Name == "cEngineBlueprint")
                 Type = VehicleType.Engine;

@@ -123,8 +123,29 @@
   <data name="all_vehicles" xml:space="preserve">
     <value>List All Vehicles</value>
   </data>
+  <data name="and_add_as_rule" xml:space="preserve">
+    <value>and add as rule</value>
+  </data>
   <data name="apply" xml:space="preserve">
     <value>Apply</value>
+  </data>
+  <data name="apply_all_rules" xml:space="preserve">
+    <value>Apply all rules</value>
+  </data>
+  <data name="archive_rest" xml:space="preserve">
+    <value>Archive all routes but selected</value>
+  </data>
+  <data name="archive_toggle" xml:space="preserve">
+    <value>Archive/Unarchive</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_message" xml:space="preserve">
+    <value>Are you sure you want to archive routes while the scenario database is still being scanned? There is a risk of losing some scenario competion statuses. Better to click "no" and wait a few seconds before trying to archive again.</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_title" xml:space="preserve">
+    <value>Are you sure you want to archive now?</value>
+  </data>
+  <data name="author" xml:space="preserve">
+    <value>Author</value>
   </data>
   <data name="browse" xml:space="preserve">
     <value>Browse ...</value>
@@ -135,14 +156,47 @@
   <data name="change_number" xml:space="preserve">
     <value>Change number</value>
   </data>
+  <data name="check_all_scenario_consists" xml:space="preserve">
+    <value>Check all scenarios' consists when selecting route (this will be slow!)</value>
+  </data>
+  <data name="clear_vehicles" xml:space="preserve">
+    <value>Clear</value>
+  </data>
   <data name="close" xml:space="preserve">
     <value>Close</value>
+  </data>
+  <data name="completion" xml:space="preserve">
+    <value>Completion</value>
+  </data>
+  <data name="completion_completedfailed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="completion_completedsuccessfully" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="completion_notcompleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="completion_notindb" xml:space="preserve">
+    <value />
+  </data>
+  <data name="completion_unknown" xml:space="preserve">
+    <value>?</value>
   </data>
   <data name="consists_in_scenario" xml:space="preserve">
     <value>Consists in scenario</value>
   </data>
   <data name="delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="delete_scenarios" xml:space="preserve">
+    <value>Delete scenarios</value>
+  </data>
+  <data name="do_not_auto_archive_workshop_routes" xml:space="preserve">
+    <value>AutoArchive should not archive workshop routes</value>
+  </data>
+  <data name="duration" xml:space="preserve">
+    <value>Duration</value>
   </data>
   <data name="edit_scenario" xml:space="preserve">
     <value>Edit scenario</value>
@@ -153,11 +207,23 @@
   <data name="enter_number_manually" xml:space="preserve">
     <value>Or enter vehicle number manually:</value>
   </data>
+  <data name="error_cannot_read_scenario" xml:space="preserve">
+    <value>Error : scenario details cannot be read (malformed XML)</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
   <data name="flip" xml:space="preserve">
     <value>Flip vehicle</value>
   </data>
   <data name="flipped" xml:space="preserve">
     <value>Flipped?</value>
+  </data>
+  <data name="game_save_date" xml:space="preserve">
+    <value>Save date</value>
+  </data>
+  <data name="hide_played_scenarios" xml:space="preserve">
+    <value>Hide played scenarios</value>
   </data>
   <data name="id" xml:space="preserve">
     <value>ID</value>
@@ -168,8 +234,14 @@
   <data name="insert_before" xml:space="preserve">
     <value>Insert ^</value>
   </data>
+  <data name="involved_in_consist_operation" xml:space="preserve">
+    <value>This vehicle in involved in couple/uncouple instructions. LocoSwap will preserve its number.</value>
+  </data>
   <data name="language" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Loading...</value>
   </data>
   <data name="look_up_vehicles" xml:space="preserve">
     <value>Look up vehicles</value>
@@ -237,11 +309,23 @@
   <data name="ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="only_on_missing_stock" xml:space="preserve">
+    <value>only on missing stock (yellows)</value>
+  </data>
+  <data name="on_all_stock" xml:space="preserve">
+    <value>on all stock</value>
+  </data>
+  <data name="open_manual" xml:space="preserve">
+    <value>Open manual</value>
+  </data>
   <data name="open_scenario_directory" xml:space="preserve">
     <value>Open scenario directory</value>
   </data>
   <data name="path" xml:space="preserve">
     <value>Path</value>
+  </data>
+  <data name="player_train_name" xml:space="preserve">
+    <value>Player train</value>
   </data>
   <data name="reading_scenario_files" xml:space="preserve">
     <value>Reading scenario files...</value>
@@ -255,6 +339,9 @@
   <data name="replacement_rules" xml:space="preserve">
     <value>Replacement rules</value>
   </data>
+  <data name="replacement_rules_management" xml:space="preserve">
+    <value>Replacement rules management</value>
+  </data>
   <data name="replace_identical" xml:space="preserve">
     <value>Replace identical</value>
   </data>
@@ -263,6 +350,9 @@
   </data>
   <data name="route" xml:space="preserve">
     <value>Route</value>
+  </data>
+  <data name="rule" xml:space="preserve">
+    <value>Rule</value>
   </data>
   <data name="rule_find" xml:space="preserve">
     <value>Search for...</value>
@@ -285,11 +375,41 @@
   <data name="scenario" xml:space="preserve">
     <value>Scenario</value>
   </data>
+  <data name="scenario_delete_prompt_message" xml:space="preserve">
+    <value>Are you sure you want to delete the selected scenario(s) ?</value>
+  </data>
+  <data name="scenario_delete_prompt_title" xml:space="preserve">
+    <value>Scenarios deletion</value>
+  </data>
+  <data name="scenario_in_ap" xml:space="preserve">
+    <value>*** This scenario is contained in an .ap file. LocoSwap will automatically extract it on save. ***</value>
+  </data>
+  <data name="scenario_name_suffix" xml:space="preserve">
+    <value>Scenario name suffix</value>
+  </data>
+  <data name="season" xml:space="preserve">
+    <value>Season</value>
+  </data>
+  <data name="season_autumn" xml:space="preserve">
+    <value>Autumn</value>
+  </data>
+  <data name="season_spring" xml:space="preserve">
+    <value>Spring</value>
+  </data>
+  <data name="season_summer" xml:space="preserve">
+    <value>Summer</value>
+  </data>
+  <data name="season_winter" xml:space="preserve">
+    <value>Winter</value>
+  </data>
   <data name="select_ts_path" xml:space="preserve">
     <value>Select Train Simulator Path</value>
   </data>
   <data name="settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="start_time" xml:space="preserve">
+    <value>Start time</value>
   </data>
   <data name="ts_directory" xml:space="preserve">
     <value>Train Simulator directory</value>

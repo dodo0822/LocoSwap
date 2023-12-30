@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,64 +118,64 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_to_rules" xml:space="preserve">
-    <value>Добавить в правила</value>
+    <value>Aggiungi alle Regole</value>
   </data>
   <data name="all_vehicles" xml:space="preserve">
-    <value>Весь подвижной состав</value>
+    <value>Lista tutti i Rotabili</value>
   </data>
   <data name="and_add_as_rule" xml:space="preserve">
-    <value>Добавить как правило</value>
+    <value>e aggiungi alle regole</value>
   </data>
   <data name="apply" xml:space="preserve">
-    <value>Применить</value>
+    <value>Applicare</value>
   </data>
   <data name="apply_all_rules" xml:space="preserve">
-    <value>Применить все правила</value>
+    <value>Applicare tutte le regole</value>
   </data>
   <data name="archive_rest" xml:space="preserve">
-    <value>Архивируйте все маршруты, кроме выбранного</value>
+    <value>Archiviare tutti i rotti tranne quelli selezionati</value>
   </data>
   <data name="archive_toggle" xml:space="preserve">
-    <value>Архив/Неархив</value>
+    <value>Archiviare/Disarchiviare</value>
   </data>
   <data name="archive_without_db_loaded_prompt_message" xml:space="preserve">
-    <value>Вы уверены, что хотите архивировать маршруты, пока база данных сценариев еще сканируется? Есть риск потерять статусы некоторых сценарных соревнований. Лучше нажать "нет" и подождать несколько секунд, прежде чем снова пытаться архивировать.</value>
+    <value>Siete sicuri di voler archiviare i percorsi mentre il database degli scenari è ancora in fase di scansione? C'è il rischio di perdere gli stati di gara di alcuni scenari. È meglio fare clic su "no" e attendere qualche secondo prima di riprovare ad archiviare.</value>
   </data>
   <data name="archive_without_db_loaded_prompt_title" xml:space="preserve">
-    <value>Вы уверены, что хотите архивировать сейчас?</value>
+    <value>Siete sicuri di voler archiviare ora?</value>
   </data>
   <data name="author" xml:space="preserve">
-    <value>Автор</value>
+    <value>Autore</value>
   </data>
   <data name="browse" xml:space="preserve">
-    <value>Указать...</value>
+    <value>Navigare ...</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Cancel</value>
   </data>
   <data name="change_number" xml:space="preserve">
-    <value>Изменить номер</value>
+    <value>Cambia numero</value>
   </data>
   <data name="check_all_scenario_consists" xml:space="preserve">
-    <value>Проверяйте поезда во всех сценариях при выборе маршрута (это будет медленно!).</value>
+    <value>Controllare i convogli di tutti gli scenari quando si seleziona il percorso (sarà lento!)</value>
   </data>
   <data name="clear_vehicles" xml:space="preserve">
-    <value>Очистить</value>
+    <value>Pulisci</value>
   </data>
   <data name="close" xml:space="preserve">
-    <value>Закрыть</value>
+    <value>Chiudi</value>
   </data>
   <data name="completion" xml:space="preserve">
-    <value>Завершён</value>
+    <value>Completamento</value>
   </data>
   <data name="completion_completedfailed" xml:space="preserve">
-    <value>Неудачно</value>
+    <value>Fallito</value>
   </data>
   <data name="completion_completedsuccessfully" xml:space="preserve">
-    <value>Успешно</value>
+    <value>Successo</value>
   </data>
   <data name="completion_notcompleted" xml:space="preserve">
-    <value>Не завершён</value>
+    <value />
   </data>
   <data name="completion_notindb" xml:space="preserve">
     <value />
@@ -184,240 +184,237 @@
     <value>?</value>
   </data>
   <data name="consists_in_scenario" xml:space="preserve">
-    <value>Поезда в сценарии</value>
+    <value>Convoglio nello scenario</value>
   </data>
   <data name="delete" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Cancella</value>
   </data>
   <data name="delete_scenarios" xml:space="preserve">
-    <value>Удалить сценарии</value>
+    <value>Cancella scenario</value>
+  </data>
+  <data name="do_not_auto_archive_workshop_routes" xml:space="preserve">
+    <value>AutoArchive non deve archiviare i workshop rutti</value>
   </data>
   <data name="duration" xml:space="preserve">
-    <value>Продолжительность</value>
+    <value>Durata</value>
   </data>
   <data name="edit_scenario" xml:space="preserve">
-    <value>Редактировать сценарий</value>
+    <value>Modifica scenario</value>
   </data>
   <data name="edit_scenario_title" xml:space="preserve">
-    <value>Редактировать сценарий: {0}</value>
+    <value>Modifica titolo scenario: {0}</value>
   </data>
   <data name="enter_number_manually" xml:space="preserve">
-    <value>или введите номер вручную:</value>
-  </data>
-  <data name="error_cannot_read_scenario" xml:space="preserve">
-    <value>Ошибка: детали сценария не могут быть прочитаны (неправильный XML)</value>
+    <value>O inserisci numero rotabile manualmente:</value>
   </data>
   <data name="filter" xml:space="preserve">
-    <value>Фильтр</value>
+    <value>Filtra</value>
   </data>
   <data name="flip" xml:space="preserve">
-    <value>Развернуть объект</value>
+    <value>Gira rotabile</value>
   </data>
   <data name="flipped" xml:space="preserve">
-    <value>Развёрнут?</value>
+    <value>Girato?</value>
   </data>
   <data name="game_save_date" xml:space="preserve">
-    <value>Сохранить дату</value>
+    <value>Salva Dati</value>
   </data>
   <data name="hide_played_scenarios" xml:space="preserve">
-    <value>Скрыть сыгранные сценарии</value>
+    <value>Nascondi scenari giocati</value>
   </data>
   <data name="id" xml:space="preserve">
     <value>ID</value>
   </data>
   <data name="insert_after" xml:space="preserve">
-    <value>Вставить v</value>
+    <value>Inserisci v</value>
   </data>
   <data name="insert_before" xml:space="preserve">
-    <value>Вставить ^</value>
+    <value>Inserisci ^</value>
   </data>
   <data name="involved_in_consist_operation" xml:space="preserve">
-    <value>Это объект задействован в инструкциях по сцеплению/расцеплению. При замене локомотива его номер сохранится.</value>
+    <value>Questo rotabile è coinvolto nelle istruzioni di accoppiamento/disaccoppiamento. LocoSwap conserverà il suo numero.</value>
   </data>
   <data name="language" xml:space="preserve">
-    <value>Язык</value>
+    <value>Linguaggio</value>
   </data>
   <data name="loading" xml:space="preserve">
-    <value>Загрузка...</value>
+    <value>Caricamento...</value>
   </data>
   <data name="look_up_vehicles" xml:space="preserve">
-    <value>Поиск подвижного состава</value>
+    <value>Cerca Rotabile</value>
   </data>
   <data name="msg_cannot_load_vehicle" xml:space="preserve">
-    <value>Невозможно загрузить объект "{0}"!</value>
+    <value>Impossibile caricare il rotabile "{0}"!</value>
   </data>
   <data name="msg_consist_empty" xml:space="preserve">
-    <value>После удаления в составе должен быть по крайней мере один объект!</value>
+    <value>La composizione deve contenere almeno un rotabile dopo la rimozione!</value>
   </data>
   <data name="msg_error" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Errore</value>
   </data>
   <data name="msg_first_time" xml:space="preserve">
-    <value>Первый запуск: укажите папку Train Simulator.</value>
+    <value>Primo avvio: Prego seleziona cartella Train Simulator.</value>
   </data>
   <data name="msg_flip_completed" xml:space="preserve">
-    <value>Выбранные объекты были успешно развернуты</value>
+    <value>Il rotabile selezionato(i) sono girati correttamente.</value>
   </data>
   <data name="msg_message" xml:space="preserve">
-    <value>Сообщение</value>
+    <value>Messaggio</value>
   </data>
   <data name="msg_no_directory_selected" xml:space="preserve">
-    <value>Сначала выберите папку.</value>
+    <value>Prego seleziona la cartella prima.</value>
   </data>
   <data name="msg_no_vehicle_selected" xml:space="preserve">
-    <value>Сначала выберите подвижной состав.</value>
+    <value>Prego seleziona rotabile prima.</value>
   </data>
   <data name="msg_scenario_saved" xml:space="preserve">
-    <value>Сценарий успешно сохранен.</value>
+    <value>Files scenario salvati con successo.</value>
   </data>
   <data name="msg_swap_completed" xml:space="preserve">
-    <value>Замена прошла успешно.</value>
+    <value>Cambio completato con successo.</value>
   </data>
   <data name="msg_ts_path_invalid" xml:space="preserve">
-    <value>Выбранный путь неверен! (проверьте наличие RailWorks.exe в папке)</value>
+    <value>Il percorso selezionato non è valido! (Controlla se contiene RailWorks.exe)</value>
   </data>
   <data name="msg_ts_path_required" xml:space="preserve">
-    <value>Для запуска программы требуется правильный путь установки TS. Программа будет закрыта.</value>
+    <value>Un percorso di TS è richiesto per eseguire questa applicazione. L'applicazione verrà chiusa.</value>
   </data>
   <data name="msg_vehicles_added_to_rules" xml:space="preserve">
-    <value>Состав успешно добавлен в список правил для замены.</value>
+    <value>Rotabile aggiunto con successo alle regole di sostituzione.</value>
   </data>
   <data name="msg_vehicle_already_in_rules" xml:space="preserve">
-    <value>Состав "{0}" уже в списке правил замены! Заменить существующее правило?</value>
+    <value>Rotabile "{0}" è già aggiunto alle regole di sostituzione! Aggiorno questa regola?</value>
   </data>
   <data name="msg_write_access_denied" xml:space="preserve">
-    <value>Доступ для сохранения сценария запрещен. Пожалуйста, проверьте, что файлы Scenario.bin и ScenarioProperties.xml не защищены от перезаписи.</value>
+    <value>Accesso negato durante il tentativo di scrittura nei file dello scenario. Verificare che Scenario.bin e ScenarioProperties.xml non siano protetti da scrittura.</value>
   </data>
   <data name="name" xml:space="preserve">
-    <value>Название</value>
+    <value>Nome</value>
   </data>
   <data name="new_vehicle_selected" xml:space="preserve">
-    <value>Новый подвижной состав</value>
+    <value>Nuovo rotabile selezionato</value>
   </data>
   <data name="number" xml:space="preserve">
-    <value>Номер</value>
+    <value>Numero</value>
   </data>
   <data name="numbering_list" xml:space="preserve">
-    <value>Список номеров</value>
+    <value>Lista di numerazione</value>
   </data>
   <data name="numbering_list_not_found" xml:space="preserve">
-    <value>Список номеров не найден; пожалуйста, укажите номера вручную.</value>
+    <value>Lista di numerazione non trovata; si prega di inserire il numero manualmente.</value>
   </data>
   <data name="ok" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="only_on_missing_stock" xml:space="preserve">
-    <value>только в недостающем подвижном составе (желтые)</value>
+    <value>solo su magazzino mancante (Giallo)</value>
   </data>
   <data name="on_all_stock" xml:space="preserve">
-    <value>во всём подвижном составе</value>
+    <value>su tutto il magazzino</value>
   </data>
   <data name="open_scenario_directory" xml:space="preserve">
-    <value>Открыть папку сценария</value>
+    <value>Apri Cartella scenario </value>
   </data>
   <data name="path" xml:space="preserve">
-    <value>Путь</value>
+    <value>Percorso</value>
   </data>
   <data name="player_train_name" xml:space="preserve">
-    <value>Поезд игрока</value>
+    <value>Treno Giocatore</value>
   </data>
   <data name="reading_scenario_files" xml:space="preserve">
-    <value>Чтение файлов сценария...</value>
+    <value>Leggendo i files scenario...</value>
   </data>
   <data name="remove" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Rimuovi</value>
   </data>
   <data name="replace" xml:space="preserve">
-    <value>Заменить</value>
+    <value>Sostituzione</value>
   </data>
   <data name="replacement_rules" xml:space="preserve">
-    <value>Правила замены</value>
+    <value>Sostituzione regole</value>
   </data>
   <data name="replacement_rules_management" xml:space="preserve">
-    <value>Управление правилами замены</value>
+    <value>Sostituzione regole amministrazione</value>
   </data>
   <data name="replace_identical" xml:space="preserve">
-    <value>Заменить идентичные</value>
+    <value>Rimpiazza identico</value>
   </data>
   <data name="replace_with" xml:space="preserve">
-    <value>Чем заменить</value>
+    <value>Sostituisci con</value>
   </data>
   <data name="route" xml:space="preserve">
-    <value>Маршрут</value>
+    <value>Rotta</value>
   </data>
   <data name="rule" xml:space="preserve">
-    <value>Правило</value>
+    <value>Regola</value>
   </data>
   <data name="rule_find" xml:space="preserve">
-    <value>Искать...</value>
+    <value>Cercare...</value>
   </data>
   <data name="rule_replace" xml:space="preserve">
-    <value>Чем заменить...</value>
+    <value>Sostituisci regola con...</value>
   </data>
   <data name="save" xml:space="preserve">
-    <value>Сохранить</value>
+    <value>Salva</value>
   </data>
   <data name="saving_scenario" xml:space="preserve">
-    <value>Сохранение файлов сценария...</value>
+    <value>Salvataggio files scenario...</value>
   </data>
   <data name="scanning_ap_files" xml:space="preserve">
-    <value>Сканирование в .ap файлах...</value>
+    <value>Cerco negli .ap files...</value>
   </data>
   <data name="scanning_bin_files" xml:space="preserve">
-    <value>Сканирование объектов в .bin файлах...</value>
+    <value>Cercando nei rotabili files .bin ...</value>
   </data>
   <data name="scenario" xml:space="preserve">
-    <value>Сценарий</value>
+    <value>Scenario</value>
   </data>
   <data name="scenario_delete_prompt_message" xml:space="preserve">
-    <value>Вы уверены, что хотите удалить выбранные сценарии?</value>
+    <value>Sei sicuro di voler cancellare lo scenario(i) selezionato?</value>
   </data>
   <data name="scenario_delete_prompt_title" xml:space="preserve">
-    <value>Удаление сценариев</value>
-  </data>
-  <data name="scenario_in_ap" xml:space="preserve">
-    <value>*** Этот сценарий в .ap файле LocoSwap автоматически извлечёт его при сохранении. ***</value>
+    <value>Cancellazione scenario</value>
   </data>
   <data name="scenario_name_suffix" xml:space="preserve">
-    <value>Суффикс имени сценария</value>
+    <value>Suffisso nome scenario</value>
   </data>
   <data name="season" xml:space="preserve">
-    <value>Сезон</value>
+    <value>Stagione</value>
   </data>
   <data name="season_autumn" xml:space="preserve">
-    <value>Осень</value>
+    <value>Autunno</value>
   </data>
   <data name="season_spring" xml:space="preserve">
-    <value>Весна</value>
+    <value>Primavera</value>
   </data>
   <data name="season_summer" xml:space="preserve">
-    <value>Лето</value>
+    <value>Estate</value>
   </data>
   <data name="season_winter" xml:space="preserve">
-    <value>Зима</value>
+    <value>Inverno</value>
   </data>
   <data name="select_ts_path" xml:space="preserve">
-    <value>Укажите путь к Train Simulator</value>
+    <value>Seleziona percorso TS</value>
   </data>
   <data name="settings" xml:space="preserve">
-    <value>Настройки</value>
+    <value>Settaggi</value>
   </data>
   <data name="start_time" xml:space="preserve">
-    <value>Время начала</value>
+    <value>Tempo inizio</value>
   </data>
   <data name="ts_directory" xml:space="preserve">
-    <value>Папка Train Simulator</value>
+    <value>Train Simulator cartella</value>
   </data>
   <data name="use_system_language" xml:space="preserve">
-    <value>Использовать системный язык</value>
+    <value>Usa linguaggio di sistema</value>
   </data>
   <data name="vehicles_in_selected_consist" xml:space="preserve">
-    <value>Подвижной состав в выбранном поезде</value>
+    <value>Rotabile nel convoglio selezionato</value>
   </data>
   <data name="vehicle_selected" xml:space="preserve">
-    <value>Выбранный подвижной состав</value>
+    <value>Rotabile selezionato</value>
   </data>
   <data name="vehicle_to_be_replaced" xml:space="preserve">
-    <value>Заменяемый подвижной состав</value>
+    <value>Rotabile è stato sostituito</value>
   </data>
 </root>

@@ -126,6 +126,18 @@
   <data name="apply" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="archive_rest" xml:space="preserve">
+    <value>Alle Strecken außer den ausgewählten archivieren</value>
+  </data>
+  <data name="archive_toggle" xml:space="preserve">
+    <value>Archivieren/Dearchivieren</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_message" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie Routen archivieren wollen, während die Szenario-Datenbank noch gescannt wird? Es besteht die Gefahr, dass der Status einiger Szenario-Wettbewerbe verloren geht. Klicken Sie besser auf "Nein" und warten Sie ein paar Sekunden, bevor Sie erneut versuchen zu archivieren.</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_title" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie jetzt archivieren wollen?</value>
+  </data>
   <data name="browse" xml:space="preserve">
     <value>Wählen</value>
   </data>
@@ -135,6 +147,12 @@
   <data name="change_number" xml:space="preserve">
     <value>Nummer ändern</value>
   </data>
+  <data name="check_all_scenario_consists" xml:space="preserve">
+    <value>Prüfen Sie die Züge aller Szenarien bei der Auswahl der Route (dies ist langsam!)</value>
+  </data>
+  <data name="clear_vehicles" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
   <data name="close" xml:space="preserve">
     <value>Schließen</value>
   </data>
@@ -143,6 +161,9 @@
   </data>
   <data name="delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="do_not_auto_archive_workshop_routes" xml:space="preserve">
+    <value>AutoArchive sollte keine workshop Strecke archivieren</value>
   </data>
   <data name="edit_scenario" xml:space="preserve">
     <value>Szenario bearbeiten</value>
