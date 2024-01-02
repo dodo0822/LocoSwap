@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="add_to_rules" xml:space="preserve">
+    <value>Aan regels toevoegen</value>
+  </data>
+  <data name="all_vehicles" xml:space="preserve">
+    <value>Maak een lijst van alle voertuigen</value>
+  </data>
+  <data name="and_add_as_rule" xml:space="preserve">
+    <value>en als regel toevoegen</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Toepassen</value>
+  </data>
+  <data name="apply_all_rules" xml:space="preserve">
+    <value>Alle regels toepassen</value>
+  </data>
+  <data name="archive_rest" xml:space="preserve">
+    <value>Archiveer alle routes, behalve de geselecteerde</value>
+  </data>
+  <data name="archive_toggle" xml:space="preserve">
+    <value>Archiveren/Dearchiveren</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_message" xml:space="preserve">
+    <value>Weet u zeker dat u routes wilt archiveren terwijl de scenariodatabase nog wordt gescand? Het risico bestaat dat sommige concurrentiestatussen van scenario's verloren gaan. Het is beter om op "Nee" te klikken en een paar seconden te wachten voordat u opnieuw probeert te archiveren.</value>
+  </data>
+  <data name="archive_without_db_loaded_prompt_title" xml:space="preserve">
+    <value>Weet u zeker dat u nu wilt archiveren?</value>
+  </data>
+  <data name="author" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
+  <data name="browse" xml:space="preserve">
+    <value>Bladeren...</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="change_number" xml:space="preserve">
+    <value>Verander nummer</value>
+  </data>
+  <data name="check_all_scenario_consists" xml:space="preserve">
+    <value>Controleer de treinen van alle scenario's bij het kiezen van de route (dit is langzaam!)</value>
+  </data>
+  <data name="clear_vehicles" xml:space="preserve">
+    <value>Wissen</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="completion" xml:space="preserve">
+    <value>Voltooiing</value>
+  </data>
+  <data name="completion_completedfailed" xml:space="preserve">
+    <value>Mislukt</value>
+  </data>
+  <data name="completion_completedsuccessfully" xml:space="preserve">
+    <value>Succes</value>
+  </data>
+  <data name="completion_notcompleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="completion_notindb" xml:space="preserve">
+    <value />
+  </data>
+  <data name="completion_unknown" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="consists_in_scenario" xml:space="preserve">
+    <value>Treinen in scenario</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="delete_scenarios" xml:space="preserve">
+    <value>Scenario's verwijderen</value>
+  </data>
+  <data name="do_not_auto_archive_workshop_routes" xml:space="preserve">
+    <value>AutoArchive mag geen werkplaatsroutes archiveren</value>
+  </data>
+  <data name="duration" xml:space="preserve">
+    <value>Duur</value>
+  </data>
+  <data name="edit_scenario" xml:space="preserve">
+    <value>Scenario bewerken</value>
+  </data>
+  <data name="edit_scenario_title" xml:space="preserve">
+    <value>Bewerk scenario: {0}</value>
+  </data>
+  <data name="enter_number_manually" xml:space="preserve">
+    <value>Of voer hier het voertuignummer handmatig in:</value>
+  </data>
+  <data name="error_cannot_read_scenario" xml:space="preserve">
+    <value>Fout: scenariodetails kunnen niet worden gelezen (misvormde XML)</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="flip" xml:space="preserve">
+    <value>Voertuig omdraaien</value>
+  </data>
+  <data name="flipped" xml:space="preserve">
+    <value>Omgedraaid?</value>
+  </data>
+  <data name="game_save_date" xml:space="preserve">
+    <value>Bewaar datum</value>
+  </data>
+  <data name="hide_played_scenarios" xml:space="preserve">
+    <value>Verberg gespeelde scenario's</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="insert_after" xml:space="preserve">
+    <value>Invoegen v</value>
+  </data>
+  <data name="insert_before" xml:space="preserve">
+    <value>Invoegen ^</value>
+  </data>
+  <data name="involved_in_consist_operation" xml:space="preserve">
+    <value>Dit voertuig is betrokken bij instructies voor koppelen/ontkoppelen. LocoSwap behoudt zijn nummer.</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Bezig met laden...</value>
+  </data>
+  <data name="look_up_vehicles" xml:space="preserve">
+    <value>Zoek voertuigen op</value>
+  </data>
+  <data name="msg_cannot_load_vehicle" xml:space="preserve">
+    <value>Kan voertuig "{0}" niet laden!</value>
+  </data>
+  <data name="msg_consist_empty" xml:space="preserve">
+    <value>De trein moet na de verwijdering minimaal één voertuig bevatten!</value>
+  </data>
+  <data name="msg_error" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="msg_first_time" xml:space="preserve">
+    <value>Eerste run: selecteer de Train Simulator-map</value>
+  </data>
+  <data name="msg_flip_completed" xml:space="preserve">
+    <value>De geselecteerde voertuig(en) zijn succesvol omgedraaid.</value>
+  </data>
+  <data name="msg_message" xml:space="preserve">
+    <value>Bericht</value>
+  </data>
+  <data name="msg_no_directory_selected" xml:space="preserve">
+    <value>Selecteer eerst een map.</value>
+  </data>
+  <data name="msg_no_vehicle_selected" xml:space="preserve">
+    <value>Selecteer eerst voertuigen.</value>
+  </data>
+  <data name="msg_scenario_saved" xml:space="preserve">
+    <value>Scenariobestanden zijn succesvol opgeslagen.</value>
+  </data>
+  <data name="msg_swap_completed" xml:space="preserve">
+    <value>Omwisseling succesvol afgerond.</value>
+  </data>
+  <data name="msg_ts_path_invalid" xml:space="preserve">
+    <value>Geselecteerd pad is ongeldig! (Controleer of het RailWorks.exe bevat)</value>
+  </data>
+  <data name="msg_ts_path_required" xml:space="preserve">
+    <value>Er is een geldig TS-pad vereist om deze toepassing uit te voeren. De toepassing wordt nu afgesloten.</value>
+  </data>
+  <data name="msg_vehicles_added_to_rules" xml:space="preserve">
+    <value>Voertuigen succesvol toegevoegd aan vervangingsregels.</value>
+  </data>
+  <data name="msg_vehicle_already_in_rules" xml:space="preserve">
+    <value>Voertuig "{0}" is al in vervangende regels! Deze regel updaten?</value>
+  </data>
+  <data name="msg_write_access_denied" xml:space="preserve">
+    <value>Toegang geweigerd tijdens poging om naar scenariobestanden te schrijven. Controleer of Scenario.bin en ScenarioProperties.xml niet tegen schrijven zijn beveiligd.</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="new_vehicle_selected" xml:space="preserve">
+    <value>Nieuw voertuig geselecteerd</value>
+  </data>
+  <data name="number" xml:space="preserve">
+    <value>Nummer</value>
+  </data>
+  <data name="numbering_list" xml:space="preserve">
+    <value>Nummeringslijst</value>
+  </data>
+  <data name="numbering_list_not_found" xml:space="preserve">
+    <value>Nummeringslijst niet gevonden; voer het nummer handmatig in.</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="only_on_missing_stock" xml:space="preserve">
+    <value>alleen op ontbrekend materieel (geel)</value>
+  </data>
+  <data name="on_all_stock" xml:space="preserve">
+    <value>op alle materieel</value>
+  </data>
+  <data name="open_manual" xml:space="preserve">
+    <value>Handleiding openen</value>
+  </data>
+  <data name="open_scenario_directory" xml:space="preserve">
+    <value>Open scenariomap</value>
+  </data>
+  <data name="path" xml:space="preserve">
+    <value>Pad</value>
+  </data>
+  <data name="player_train_name" xml:space="preserve">
+    <value>Speler trein</value>
+  </data>
+  <data name="reading_scenario_files" xml:space="preserve">
+    <value>Scenariobestanden lezen...</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="replace" xml:space="preserve">
+    <value>Vervangen</value>
+  </data>
+  <data name="replacement_rules" xml:space="preserve">
+    <value>Vervangende regels</value>
+  </data>
+  <data name="replacement_rules_management" xml:space="preserve">
+    <value>Vervangende regels beheren</value>
+  </data>
+  <data name="replace_identical" xml:space="preserve">
+    <value>Alle identieke vervangen</value>
+  </data>
+  <data name="replace_with" xml:space="preserve">
+    <value>Door ... vervangen</value>
+  </data>
+  <data name="route" xml:space="preserve">
+    <value>Route</value>
+  </data>
+  <data name="rule" xml:space="preserve">
+    <value>Regel</value>
+  </data>
+  <data name="rule_find" xml:space="preserve">
+    <value>Naar ... zoeken</value>
+  </data>
+  <data name="rule_replace" xml:space="preserve">
+    <value>Door ... vervangen</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="saving_scenario" xml:space="preserve">
+    <value>Scenariobestanden opslaan...</value>
+  </data>
+  <data name="scanning_ap_files" xml:space="preserve">
+    <value>Scannen in .ap-bestanden...</value>
+  </data>
+  <data name="scanning_bin_files" xml:space="preserve">
+    <value>Scannen naar voertuig .bin bestanden...</value>
+  </data>
+  <data name="scenario" xml:space="preserve">
+    <value>Scenario</value>
+  </data>
+  <data name="scenario_delete_prompt_message" xml:space="preserve">
+    <value>Weet u zeker dat u de geselecteerde scenario's wilt verwijderen?</value>
+  </data>
+  <data name="scenario_delete_prompt_title" xml:space="preserve">
+    <value>Scenario's verwijderen</value>
+  </data>
+  <data name="scenario_in_ap" xml:space="preserve">
+    <value>*** Dit scenario is opgenomen in een .ap-bestand. LocoSwap zal het automatisch uitpakken bij het opslaan. ***</value>
+  </data>
+  <data name="scenario_name_suffix" xml:space="preserve">
+    <value>Suffix scenarionaam</value>
+  </data>
+  <data name="season" xml:space="preserve">
+    <value>Seizoen</value>
+  </data>
+  <data name="season_autumn" xml:space="preserve">
+    <value>Herfst</value>
+  </data>
+  <data name="season_spring" xml:space="preserve">
+    <value>Lente</value>
+  </data>
+  <data name="season_summer" xml:space="preserve">
+    <value>Zomer</value>
+  </data>
+  <data name="season_winter" xml:space="preserve">
+    <value>Winter</value>
+  </data>
+  <data name="select_ts_path" xml:space="preserve">
+    <value>Selecteer Train Simulator-pad</value>
+  </data>
+  <data name="select_vehicle_number" xml:space="preserve">
+    <value>Selectie voertuignummer</value>
+  </data>
+  <data name="settings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="start_time" xml:space="preserve">
+    <value>Starttijd</value>
+  </data>
+  <data name="ts_directory" xml:space="preserve">
+    <value>Train Simulator-map</value>
+  </data>
+  <data name="use_system_language" xml:space="preserve">
+    <value>Systeemtaal gebruiken</value>
+  </data>
+  <data name="vehicles_in_selected_consist" xml:space="preserve">
+    <value>Voertuigen in geselecteerde trein</value>
+  </data>
+  <data name="vehicle_selected" xml:space="preserve">
+    <value>Geselecteerd voertuig</value>
+  </data>
+  <data name="vehicle_to_be_replaced" xml:space="preserve">
+    <value>Dit voertuig wordt vervangen</value>
+  </data>
+</root>

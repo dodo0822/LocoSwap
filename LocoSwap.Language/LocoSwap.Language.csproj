@@ -40,6 +40,7 @@
       <CustomToolNamespace>LocoSwap.Language</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resources.fr.resx" />
+    <EmbeddedResource Include="Resources\Resources.nl.resx" />
     <EmbeddedResource Include="Resources\Resources.ru.resx">
       <CustomToolNamespace>LocoSwap.Language</CustomToolNamespace>
     </EmbeddedResource>
