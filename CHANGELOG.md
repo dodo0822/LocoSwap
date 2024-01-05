@@ -1,3 +1,9 @@
+# CHANGELOG 1.6.1.0 (05-01-2024)
+* When selecting a missing vehicle, automatically focus the closest matching asset folder
+* Add Dutch translation
+* Improve Russian translation
+* Add titles to `Change number` and `List all vehicles` windows
+
 # CHANGELOG 1.6.0.0 (30-12-2023)
 * Added ability to archive routes (AutoArchive)
 * Added option to have symbols to show if scenarios are missing any stock on scenario list page
