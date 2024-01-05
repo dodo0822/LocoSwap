@@ -399,6 +399,9 @@
   <data name="select_ts_path" xml:space="preserve">
     <value>Sélectionnez le chemin de Train Simulator</value>
   </data>
+  <data name="select_vehicle_number" xml:space="preserve">
+    <value>Sélection du numéro de véhicule</value>
+  </data>
   <data name="settings" xml:space="preserve">
     <value>Options</value>
   </data>

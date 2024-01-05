@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LocoSwap"
         xmlns:Converters="clr-namespace:LocoSwap.Converters" xmlns:Language="clr-namespace:LocoSwap.Language;assembly=LocoSwap.Language" x:Class="LocoSwap.AllVehiclesWindow"
         mc:Ignorable="d"
-        Title="AllVehiclesWindow" Height="450" Width="586.778">
+        Title="{x:Static Language:Resources.all_vehicles}" Height="450" Width="586.778">
     <Window.Resources>
         <Converters:VehicleStatusToImageConverter x:Key="VehicleStatusToImageConverter" />
         <Converters:VehicleImageSourceConverter x:Key="VehicleImageSourceConverter" />

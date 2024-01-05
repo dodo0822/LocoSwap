@@ -925,6 +925,15 @@ namespace LocoSwap.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select vehicle number.
+        /// </summary>
+        public static string select_vehicle_number {
+            get {
+                return ResourceManager.GetString("select_vehicle_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string settings {

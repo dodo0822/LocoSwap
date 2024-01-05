@@ -315,7 +315,7 @@
   <data name="on_all_stock" xml:space="preserve">
     <value>во всём подвижном составе</value>
   </data>
-    <data name="open_manual" xml:space="preserve">
+  <data name="open_manual" xml:space="preserve">
     <value>Открыть руководство</value>
   </data>
   <data name="open_scenario_directory" xml:space="preserve">
@@ -404,6 +404,9 @@
   </data>
   <data name="select_ts_path" xml:space="preserve">
     <value>Укажите путь к Train Simulator</value>
+  </data>
+  <data name="select_vehicle_number" xml:space="preserve">
+    <value>Выбор номера автомобиля</value>
   </data>
   <data name="settings" xml:space="preserve">
     <value>Настройки</value>

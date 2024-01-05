@@ -396,6 +396,9 @@
   <data name="select_ts_path" xml:space="preserve">
     <value>Seleziona percorso TS</value>
   </data>
+  <data name="select_vehicle_number" xml:space="preserve">
+    <value>Selezione del numero di veicolo</value>
+  </data>
   <data name="settings" xml:space="preserve">
     <value>Settaggi</value>
   </data>
